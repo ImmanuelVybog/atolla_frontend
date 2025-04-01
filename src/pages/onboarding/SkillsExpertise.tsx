@@ -1,28 +1,24 @@
+import { FC } from 'react';
 import {
   Box,
   TextField,
   Typography,
   Button,
+  Container,
+  Paper,
   Chip,
   Autocomplete,
-  Paper,
-  Container,
-  IconButton
 } from '@mui/material';
 import { useOnboarding } from '../../context/OnboardingContext';
 import OnboardingLayout from '../../components/OnboardingLayout';
 import { styled } from '@mui/material/styles';
-import { Add as AddIcon, KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
+import { KeyboardArrowRight } from '@mui/icons-material';
 
 const StyledTextField = styled(TextField)({
   '& .MuiOutlinedInput-root': {
     borderRadius: '30px',
-    backgroundColor: 'white',
-    '& fieldset': {
-      borderColor: '#e0e0e0',
-    },
     '&:hover fieldset': {
-      borderColor: '#d0d0d0',
+      borderColor: '#FF5733',
     },
     '&.Mui-focused fieldset': {
       borderColor: '#FF5733',
@@ -30,54 +26,42 @@ const StyledTextField = styled(TextField)({
   },
 });
 
-const SkillChip = styled(Chip)<{ selected: boolean }>(({ selected }) => ({
+const ActionButton = styled(Button)<{ $primary?: boolean }>(({ $primary }) => ({
   borderRadius: '30px',
-  margin: '0.3rem 0.3rem 0.3rem 0',
-  padding: '0.2rem 0.5rem',
-  backgroundColor: selected ? '#FF5733' : 'transparent',
-  color: selected ? 'white' : '#666',
-  border: selected ? 'none' : '1px solid #ddd',
-  '&:hover': {
-    backgroundColor: selected ? '#ff4019' : '#f5f5f5',
-  },
-}));
-
-const ActionButton = styled(Button)<{ primary?: boolean }>(({ primary }) => ({
-  borderRadius: '30px',
-  padding: primary ? '0.6rem 1.5rem' : '0.6rem 1rem',
-  backgroundColor: primary ? '#FF5733' : 'transparent',
-  color: primary ? 'white' : '#FF5733',
+  padding: $primary ? '0.6rem 1.5rem' : '0.6rem 1rem',
+  backgroundColor: $primary ? '#FF5733' : 'transparent',
+  color: $primary ? 'white' : '#FF5733',
   textTransform: 'none',
   '&:hover': {
-    backgroundColor: primary ? '#ff4019' : 'rgba(255, 87, 51, 0.08)',
+    backgroundColor: $primary ? '#ff4019' : 'rgba(255, 87, 51, 0.08)',
   },
 }));
 
 const suggestedSkills = [
-  'Full-Stack Development',
-  'Cloud Computing',
-  'Cybersecurity',
-  'Data Science',
-  'Mobile Development',
-  'DevOps',
-  'UI/UX Design',
-  'Blockchain',
-  'Database Management',
-  'Software Testing',
-  'Artificial Intelligence',
+  'JavaScript',
+  'Python',
+  'Java',
+  'C++',
+  'React',
+  'Node.js',
+  'SQL',
   'AWS',
+  'Docker',
+  'Kubernetes',
+  'Machine Learning',
+  'Data Science',
+  'UI/UX Design',
+  'Project Management',
+  'Agile',
 ];
 
-const SkillsExpertise = () => {
+const SkillsExpertise: FC = () => {
   const { onboardingData, updateOnboardingData, setCurrentStep, markStepCompleted } = useOnboarding();
-
-  // Use the proper skillsExpertise property from onboardingData
-  const { primarySkills = [], certifications = [] } = onboardingData.skillsExpertise;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     markStepCompleted(4); // Mark Skills & Expertise step as completed
-    setCurrentStep(5);
+    setCurrentStep(5); // Move to Work Samples step
   };
 
   const handleSkip = () => {
@@ -85,28 +69,10 @@ const SkillsExpertise = () => {
     setCurrentStep(5);
   };
 
-  const handleAddCertification = () => {
-    updateOnboardingData({
-      skillsExpertise: {
-        ...onboardingData.skillsExpertise,
-        certifications: [...certifications, {
-          name: '',
-          issuingOrganization: '',
-          issueDate: '',
-        }],
-      },
-    });
-  };
-
-  const handlePreviousStep = () => {
-    setCurrentStep(3);
-  };
-
   return (
     <OnboardingLayout>
       <Container maxWidth="md">
         <Paper sx={{ borderRadius: 4, overflow: 'hidden', boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.05)' }}>
-          {/* Content */}
           <Box sx={{ p: 4 }}>
             <Typography variant="h4" sx={{ mb: 4, fontWeight: 'bold' }}>
               Skills & Expertise
@@ -121,7 +87,7 @@ const SkillsExpertise = () => {
                   <Autocomplete
                     multiple
                     options={suggestedSkills}
-                    value={primarySkills}
+                    value={onboardingData.skillsExpertise.primarySkills}
                     onChange={(_, newValue) => {
                       updateOnboardingData({
                         skillsExpertise: {
@@ -137,35 +103,23 @@ const SkillsExpertise = () => {
                         variant="outlined"
                       />
                     )}
-                    renderTags={() => null} // Don't render chips inside the input
+                    renderTags={(value, getTagProps) =>
+                      value.map((option, index) => (
+                        <Chip
+                          {...getTagProps({ index })}
+                          key={option}
+                          label={option}
+                          sx={{
+                            bgcolor: '#FF5733',
+                            color: '#fff',
+                            '& .MuiChip-deleteIcon': {
+                              color: '#fff',
+                            },
+                          }}
+                        />
+                      ))
+                    }
                   />
-                  
-                  <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mt: 2 }}>
-                    {suggestedSkills.map((skill) => (
-                      <SkillChip
-                        key={skill}
-                        label={skill}
-                        selected={primarySkills.includes(skill)}
-                        onClick={() => {
-                          if (!primarySkills.includes(skill)) {
-                            updateOnboardingData({
-                              skillsExpertise: {
-                                ...onboardingData.skillsExpertise,
-                                primarySkills: [...primarySkills, skill],
-                              },
-                            });
-                          } else {
-                            updateOnboardingData({
-                              skillsExpertise: {
-                                ...onboardingData.skillsExpertise,
-                                primarySkills: primarySkills.filter((s: string) => s !== skill),
-                              },
-                            });
-                          }
-                        }}
-                      />
-                    ))}
-                  </Box>
                 </Box>
 
                 <Box>
@@ -175,12 +129,14 @@ const SkillsExpertise = () => {
                   <StyledTextField
                     fullWidth
                     placeholder="Enter Certifications & Licenses"
-                    value={certifications.map(cert => cert.name).join('\n')}
+                    multiline
+                    rows={2}
+                    value={onboardingData.skillsExpertise.certifications.map(cert => cert.name).join('\n')}
                     onChange={(e) => {
                       const certNames = e.target.value.split('\n').filter(Boolean);
                       const updatedCerts = certNames.map((name, i) => {
-                        return certifications[i] ? 
-                          { ...certifications[i], name } : 
+                        return onboardingData.skillsExpertise.certifications[i] ? 
+                          { ...onboardingData.skillsExpertise.certifications[i], name } : 
                           { name, issuingOrganization: '', issueDate: '' };
                       });
                       
@@ -191,16 +147,7 @@ const SkillsExpertise = () => {
                         },
                       });
                     }}
-                    multiline
-                    rows={2}
                   />
-                  <Button
-                    startIcon={<AddIcon />}
-                    sx={{ mt: 2, color: '#FF5733', fontWeight: 'normal', textTransform: 'none' }}
-                    onClick={handleAddCertification}
-                  >
-                    Add Certification
-                  </Button>
                 </Box>
               </Box>
 
@@ -208,7 +155,7 @@ const SkillsExpertise = () => {
                 <ActionButton onClick={handleSkip}>
                   Skip this Step
                 </ActionButton>
-                <ActionButton type="submit" primary endIcon={<KeyboardArrowRight />}>
+                <ActionButton $primary endIcon={<KeyboardArrowRight />} type="submit">
                   Save and Continue
                 </ActionButton>
               </Box>
