@@ -50,44 +50,46 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: 'white', boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.1)' }}>
-      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+    <AppBar position="static" sx={{ backgroundColor: '#222222', boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.1)' }}>
+      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', py: 1.25 }}>
+        {/* Left section - Logo */}
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Link to="/home" style={{ textDecoration: 'none', marginRight: '32px' }}>
-            <img src={atollaLogo} alt="Atolla Logo" style={{ height: 40 }} />
+          <Link to="/home" style={{ textDecoration: 'none' }}>
+            <img src={atollaLogo} alt="Atolla Logo" style={{ height: 60 }} />
           </Link>
-          
-          <Box sx={{ display: 'flex' }}>
-            {navItems.map((item) => (
-              <Button
-                key={item.name}
-                component={Link}
-                to={item.path}
-                sx={{
-                  color: isActive(item.path) ? '#FF6B00' : '#333',
-                  fontWeight: isActive(item.path) ? 600 : 500,
-                  mx: 1,
-                  textTransform: 'none',
-                  fontSize: '1rem',
-                  borderBottom: isActive(item.path) ? '2px solid #FF6B00' : 'none',
-                  borderRadius: 0,
-                  '&:hover': {
-                    backgroundColor: 'transparent',
-                    color: '#FF6B00'
-                  }
-                }}
-              >
-                {item.name}
-              </Button>
-            ))}
-          </Box>
+        </Box>
+        
+        {/* Middle section - Navigation */}
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          {navItems.map((item) => (
+            <Button
+              key={item.name}
+              component={Link}
+              to={item.path}
+              sx={{
+                color: isActive(item.path) ? '#FFCABE' : '#FE6A0E',
+                fontWeight: isActive(item.path) ? 600 : 500,
+                mx: 1,
+                textTransform: 'none',
+                fontSize: '1rem',
+                borderRadius: 0,
+                lineHeight: '2.5rem',
+                '&:hover': {
+                  backgroundColor: 'transparent',
+                  color: '#FF6B00'
+                }
+              }}
+            >
+              {item.name}
+            </Button>
+          ))}
         </Box>
 
+        {/* Right section - Account */}
         <Box>
           <IconButton
             onClick={handleClick}
             size="small"
-            sx={{ ml: 2 }}
             aria-controls={open ? 'account-menu' : undefined}
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}

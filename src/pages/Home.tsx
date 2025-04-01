@@ -98,7 +98,8 @@ const Home = () => {
                 title: 'Full-stack Developer',
                 location: 'Toronto, Canada',
                 type: 'Full-time',
-                salary: '$120K - 150K/yr',
+                salary: '$120K - 150K',
+                timeperiod: '/yr',
                 tags: ['JavaScript', 'Node.js', 'React', 'AWS']
               },
               {
@@ -107,7 +108,8 @@ const Home = () => {
                 title: 'Senior UI/UX Designer',
                 location: 'Toronto, Canada',
                 type: 'Full-time',
-                salary: '$120K - 150K/yr',
+                salary: '$120K - 150K',
+                timeperiod: '/yr',
                 tags: ['UI', 'UX', 'Figma', 'Design Systems']
               },
               {
@@ -116,7 +118,8 @@ const Home = () => {
                 title: 'Data Analyst',
                 location: 'Austin, USA',
                 type: 'Full-time',
-                salary: '$130K - 160K/yr',
+                salary: '$130K - 160K',
+                timeperiod: '/yr',
                 tags: ['SQL', 'Python', 'Data Visualization', 'Excel']
               }
             ].map((job, index) => (
@@ -159,19 +162,25 @@ const Home = () => {
                     </Box>
                   </Box>
                   <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 1 }}>
-                    <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-                      {job.salary}
-                    </Typography>
-                    <Box sx={{ display: 'flex', gap: 1 }}>
-                      <Button variant="outlined" size="small">View Details</Button>
-                      <Button
-                        variant="contained"
-                        size="small"
-                        sx={{ bgcolor: '#FF6B00', '&:hover': { bgcolor: '#e65c00' } }}
-                      >
-                        Apply Now
-                      </Button>
+                    <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 0.5 }}>
+                      <Typography variant="subtitle1" sx={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
+                        {job.salary}
+                      </Typography>
+                      <Typography variant="subtitle2" sx={{ fontWeight: 'medium' }}>
+                        {job.timeperiod}
+                      </Typography>
+                    
                     </Box>
+                    <Box sx={{ display: 'flex', gap: 1 }}>
+                        <Button variant="outlined" size="small">View Details</Button>
+                        <Button
+                          variant="contained"
+                          size="small"
+                          sx={{ bgcolor: '#FF6B00', '&:hover': { bgcolor: '#e65c00' } }}
+                        >
+                          Apply Now
+                        </Button>
+                      </Box>
                   </Box>
                 </Box>
               </Paper>
