@@ -8,10 +8,14 @@ import Experience from './pages/onboarding/Experience';
 import SkillsExpertise from './pages/onboarding/SkillsExpertise';
 import WorkSamples from './pages/onboarding/WorkSamples';
 import JobPreferences from './pages/onboarding/JobPreferences';
-import Dashboard from './pages/dashboard/Dashboard';
+import Home from './pages/Home';
+import Jobs from './pages/Jobs';
+import JobTracker from './pages/JobTracker';
+import JobAlerts from './pages/JobAlerts';
 import Users from './pages/Users';
 import Reports from './pages/Reports';
 import Settings from './pages/Settings';
+import Navbar from './components/Navbar';
 import { OnboardingProvider } from './context/OnboardingContext';
 
 const theme = createTheme({
@@ -130,6 +134,7 @@ const AppContent = () => {
   const location = useLocation();
   const isAuthPage = location.pathname === '/login' || location.pathname === '/signup';
   const isOnboardingPage = location.pathname.startsWith('/onboarding');
+  const shouldShowNavbar = !isAuthPage && !isOnboardingPage;
 
   return (
     <Box
@@ -146,6 +151,8 @@ const AppContent = () => {
         }),
       }}
     >
+      {shouldShowNavbar && <Navbar />}
+      
       <Routes>
         {/* Auth Routes */}
         <Route path="/login" element={<Login />} />
@@ -160,29 +167,16 @@ const AppContent = () => {
         <Route path="/onboarding/job-preferences" element={<JobPreferences />} />
 
         {/* Main App Routes */}
-        <Route path="/dashboard" element={
-          <Box sx={{ display: 'flex', width: '100%' }}>
-            <Dashboard />
-          </Box>
-        } />
-        <Route path="/users" element={
-          <Box sx={{ display: 'flex', width: '100%' }}>
-            <Users />
-          </Box>
-        } />
-        <Route path="/reports" element={
-          <Box sx={{ display: 'flex', width: '100%' }}>
-            <Reports />
-          </Box>
-        } />
-        <Route path="/settings" element={
-          <Box sx={{ display: 'flex', width: '100%' }}>
-            <Settings />
-          </Box>
-        } />
+        <Route path="/home" element={<Home />} />
+        <Route path="/jobs" element={<Jobs />} />
+        <Route path="/job-tracker" element={<JobTracker />} />
+        <Route path="/job-alerts" element={<JobAlerts />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/reports" element={<Reports />} />
+        <Route path="/settings" element={<Settings />} />
         
-        {/* Redirect root to login */}
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        {/* Redirect root to home */}
+        <Route path="/" element={<Navigate to="/home" replace />} />
       </Routes>
     </Box>
   );

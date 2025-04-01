@@ -404,8 +404,8 @@ const Login = () => {
     
     // Check hardcoded credentials
     if (formData.email === 'atolla@vylabs.ai' && formData.password === 'Atolla@2025') {
-      // Successful login, redirect to dashboard
-      navigate('/dashboard');
+      // Successful login, redirect to home
+      navigate('/home');
     } else {
       // Failed login
       setFormData({
