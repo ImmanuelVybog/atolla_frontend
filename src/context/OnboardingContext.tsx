@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, ReactNode, FC } from 'react';
 
 interface PersonalDetails {
   firstName: string;
@@ -30,20 +30,15 @@ interface Education {
 }
 
 interface Experience {
-  companyName: string;
+  company: string;
   location: string;
-  position: string;
-  type: string;
-  startDate: {
-    month: string;
-    year: string;
-  };
-  endDate: {
-    month: string;
-    year: string;
-  };
+  positionTitle: string;
+  experienceType: string;
+  startMonth: string;
+  startYear: string;
+  endMonth: string;
+  endYear: string;
   currentlyWorking: boolean;
-  description: string;
 }
 
 interface SkillsExpertise {
@@ -84,10 +79,12 @@ interface OnboardingData {
 }
 
 interface OnboardingContextType {
+  onboardingData: OnboardingData;
+  updateOnboardingData: (updates: Partial<OnboardingData>) => void;
   currentStep: number;
   setCurrentStep: (step: number) => void;
-  onboardingData: OnboardingData;
-  updateOnboardingData: (data: Partial<OnboardingData>) => void;
+  completedSteps: number[];
+  markStepCompleted: (step: number) => void;
 }
 
 const defaultOnboardingData: OnboardingData = {
@@ -129,24 +126,40 @@ const defaultOnboardingData: OnboardingData = {
 
 const OnboardingContext = createContext<OnboardingContextType | undefined>(undefined);
 
-export const OnboardingProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [currentStep, setCurrentStep] = useState(1);
+export const OnboardingProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [onboardingData, setOnboardingData] = useState<OnboardingData>(defaultOnboardingData);
+  const [currentStep, setCurrentStep] = useState<number>(1);
+  const [completedSteps, setCompletedSteps] = useState<number[]>([]);
 
-  const updateOnboardingData = (data: Partial<OnboardingData>) => {
+  const updateOnboardingData = (updates: Partial<OnboardingData>) => {
     setOnboardingData((prev) => ({
       ...prev,
-      ...data,
+      ...updates,
     }));
+  };
+
+  const markStepCompleted = (step: number) => {
+    setCompletedSteps((prev) => [...prev, step]);
+  };
+
+  const handleStepChange = (step: number) => {
+    // If moving to step 7 (after Job Preferences), redirect to home page
+    if (step === 7) {
+      window.location.href = '/';
+      return;
+    }
+    setCurrentStep(step);
   };
 
   return (
     <OnboardingContext.Provider
       value={{
-        currentStep,
-        setCurrentStep,
         onboardingData,
         updateOnboardingData,
+        currentStep,
+        setCurrentStep: handleStepChange,
+        completedSteps,
+        markStepCompleted,
       }}
     >
       {children}

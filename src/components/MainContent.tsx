@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { Routes, Route } from 'react-router-dom';
-import Dashboard from '../pages/Dashboard';
+import Home from '../pages/Home';
 import Users from '../pages/Users';
 import Reports from '../pages/Reports';
 import Settings from '../pages/Settings';
@@ -19,7 +19,7 @@ const MainContent = () => {
       }}
     >
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={<Home />} />
         <Route path="/users" element={<Users />} />
         <Route path="/reports" element={<Reports />} />
         <Route path="/settings" element={<Settings />} />

@@ -1,11 +1,11 @@
 import { Box, Drawer, List, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
-import { Dashboard, People, Assessment, Settings } from '@mui/icons-material';
+import { Home, People, Assessment, Settings } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
 
 const menuItems = [
-  { text: 'Dashboard', icon: <Dashboard />, path: '/' },
+  { text: 'Home', icon: <Home />, path: '/' },
   { text: 'Users', icon: <People />, path: '/users' },
   { text: 'Reports', icon: <Assessment />, path: '/reports' },
   { text: 'Settings', icon: <Settings />, path: '/settings' },

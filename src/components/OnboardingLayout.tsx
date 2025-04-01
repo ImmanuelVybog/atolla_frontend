@@ -1,6 +1,5 @@
-import { Box, Container, Typography, Tabs, Tab, styled } from '@mui/material';
-import { useOnboarding } from '../context/OnboardingContext';
-import { useNavigate } from 'react-router-dom';
+import { Box, Container, Typography, styled } from '@mui/material';
+import OnboardingProgress from './OnboardingProgress';
 
 // Import images
 import atollaLogo from '../assets/Images/Atolla Logo.png';
@@ -15,45 +14,12 @@ interface OnboardingLayoutProps {
   children: React.ReactNode;
 }
 
-const steps = [
-  { label: 'Personal Details', path: '/onboarding/personal-details' },
-  { label: 'Education', path: '/onboarding/education' },
-  { label: 'Experience', path: '/onboarding/experience' },
-  { label: 'Skills & Expertise', path: '/onboarding/skills-expertise' },
-  { label: 'Resume & Work Samples', path: '/onboarding/work-samples' },
-  { label: 'Job Preferences', path: '/onboarding/job-preferences' },
-];
-
-const StyledTab = styled(Tab)(({ theme }) => ({
-  textTransform: 'none',
-  minWidth: 'auto',
-  padding: '12px 16px',
-  fontWeight: 500,
-  fontSize: '16px',
-  color: '#64748B',
-  '&.Mui-selected': {
-    color: '#FF5733',
-    fontWeight: 600,
-  },
-  '&:hover': {
-    color: '#FF5733',
-    opacity: 0.8,
-  },
-}));
-
 const CompanyLogo = styled('img')({
   width: 'auto',
   height: '45px',
 });
 
 const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({ children }) => {
-  const { currentStep } = useOnboarding();
-  const navigate = useNavigate();
-
-  const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
-    navigate(steps[newValue].path);
-  };
-
   return (
     <Box
       sx={{
@@ -145,33 +111,8 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({ children }) => {
           </Box>
         </Box>
 
-        {/* Navigation Tabs */}
-        <Box
-          sx={{ 
-            mb: 4,
-            '& .MuiTabs-flexContainer': {
-              justifyContent: 'center',
-            }
-          }}
-        >
-          <Tabs 
-            value={currentStep - 1} 
-            onChange={handleTabChange}
-            variant="scrollable"
-            scrollButtons="auto"
-            sx={{ 
-              borderBottom: 1, 
-              borderColor: 'divider',
-              '& .MuiTabs-indicator': {
-                backgroundColor: '#FF5733',
-              },
-            }}
-          >
-            {steps.map((step, index) => (
-              <StyledTab key={index} label={step.label} />
-            ))}
-          </Tabs>
-        </Box>
+        {/* Progress Navigation */}
+        <OnboardingProgress />
 
         {/* Main Form Content */}
         <Box
