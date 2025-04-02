@@ -1,4 +1,4 @@
-import { Box, Typography, styled } from '@mui/material';
+import { Box, styled } from '@mui/material';
 import { useOnboarding } from '../context/OnboardingContext';
 import { useNavigate } from 'react-router-dom';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';

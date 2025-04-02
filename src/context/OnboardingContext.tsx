@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode, FC } from 'react';
+import { createContext, useContext, useState, ReactNode, FC } from 'react';
 
 interface PersonalDetails {
   firstName: string;
