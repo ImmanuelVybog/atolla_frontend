@@ -3,12 +3,12 @@ import OnboardingProgress from './OnboardingProgress';
 
 // Import images
 import atollaLogo from '../assets/Images/Atolla Logo.png';
-import googleLogo from '../assets/Images/Google Icon.png';
-import appleLogo from '../assets/Images/Apple Icon.png';
-import microsoftLogo from '../assets/Images/Microsoft Icon.png';
-import amazonLogo from '../assets/Images/Amazon Icon.png';
-import netflixLogo from '../assets/Images/Netflix Icon.png';
-import metaLogo from '../assets/Images/Meta Icon.png';
+import obGoogleLogo from '../assets/Images/OB Google Icon.png';
+import obAppleLogo from '../assets/Images/OB Apple Icon.png';
+import obMicrosoftLogo from '../assets/Images/OB Microsoft Icon.png';
+import obAmazonLogo from '../assets/Images/OB Amazon Icon.png';
+import obNetflixLogo from '../assets/Images/OB Netflix Icon.png';
+import obMetaLogo from '../assets/Images/OB Meta Icon.png';
 import textBG from '../assets/Images/Text BG.png';
 interface OnboardingLayoutProps {
   children: React.ReactNode;
@@ -32,6 +32,12 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({ children }) => {
         overflow: 'hidden',
       }}
     >
+      {/* Logo */}
+      <Box sx={{ mb: 1, p: 3, display: 'flex', justifyContent: 'flex-start' }}>
+            <img src={atollaLogo} alt="VY LABS ATOLLA" style={{ height: '60px' }} />
+          </Box>
+
+
       {/* Main content container */}
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
         <Box
@@ -39,89 +45,89 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({ children }) => {
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
+            justifyContent: 'center',
             width: '100%',
             pt: 4,
             pb: 2,
+            mt: -8,
+            zIndex: 1,
+            position: 'relative',
           }}
         >
-          {/* Logo */}
-          <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center' }}>
-            <img src={atollaLogo} alt="VY LABS ATOLLA" style={{ height: '45px' }} />
-          </Box>
+          
 
-          {/* Company logos in a row */}
-          <Box 
-            sx={{ 
-              display: 'flex', 
-              justifyContent: 'center', 
-              flexWrap: 'wrap',
-              gap: { xs: 2, md: 4 },
-              mb: 5,
-            }}
-          >
-            <CompanyLogo sx={{ width: '60px', height: '60px', position: 'relative', top: '10px', left: '10px' }} src={amazonLogo} alt="Amazon" />
-            <CompanyLogo sx={{ width: '60px', height: '60px', position: 'relative', top: '60px', left: '20px' }} src={metaLogo} alt="Meta" />
-            <CompanyLogo sx={{ width: '60px', height: '60px', position: 'relative', bottom: '40px', left: '40px' }} src={googleLogo} alt="Google" />
-          </Box>
-
-          {/* Welcome Heading */}
-          <Box sx={{ mb: 5, textAlign: 'center' }}>
-            <Typography 
-              variant="h3" 
-              component="h1" 
-              sx={{ 
-                fontWeight: 'bold',
-                fontSize: { xs: '28px', md: '36px' },
-                mb: 1,
+          <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+            {/* Company logos in a row */}
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                flexWrap: 'wrap',
+                mb: 5,
               }}
             >
-              Welcome Aboard!
-            </Typography>
-            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <Typography 
-                variant="h2" 
-                component="span" 
-                sx={{ 
+              <CompanyLogo sx={{ width: '80px', height: '80px', position: 'relative', top: '10px', left: '10px' }} src={obAmazonLogo} alt="Amazon" />
+              <CompanyLogo sx={{ width: '80px', height: '80px', position: 'relative', top: '60px', left: '20px' }} src={obMetaLogo} alt="Meta" />
+              <CompanyLogo sx={{ width: '80px', height: '80px', position: 'relative', bottom: '40px', left: '40px' }} src={obGoogleLogo} alt="Google" />
+            </Box>
+            {/* Welcome Heading */}
+            <Box sx={{ mb: 5, textAlign: 'center', }}>
+              <Typography
+                variant="h3"
+                component="h1"
+                sx={{
                   fontWeight: 'bold',
-                  fontSize: { xs: '32px', md: '42px' },
+                  fontSize: { xs: '28px', md: '36px' },
+                  mb: 1,
                 }}
               >
-                Let's Build 
+                Welcome Aboard!
               </Typography>
-              <Box 
-                component="span" 
-                sx={{ 
-                  backgroundImage: `url(${textBG})`,
-                  backgroundSize: 'contain',
-                  backgroundRepeat: 'no-repeat',
-                  color: 'white', 
-                  px: 2, 
-                  py: 1, 
-                  borderRadius: 1,
-                  ml: 1,
-                  fontWeight: 'bold',
-                  fontSize: { xs: '32px', md: '42px' },
-                  display: 'inline-block',
-                }}
-              >
-                Your Future
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Typography
+                  variant="h2"
+                  component="span"
+                  sx={{
+                    fontWeight: 'bold',
+                    fontSize: { xs: '32px', md: '42px' },
+                  }}
+                >
+                  Let's Build
+                </Typography>
+                <Box
+                  component="span"
+                  sx={{
+                    backgroundImage: `url(${textBG})`,
+                    backgroundSize: 'contain',
+                    backgroundRepeat: 'no-repeat',
+                    color: 'white',
+                    px: 2,
+                    py: 1,
+                    borderRadius: 1,
+                    ml: 1,
+                    fontWeight: 'bold',
+                    fontSize: { xs: '32px', md: '42px' },
+                    display: 'inline-block',
+                  }}
+                >
+                  Your Future
+                </Box>
               </Box>
             </Box>
-          </Box>
-
-          {/* Company logos in a row */}
-          <Box 
-            sx={{ 
-              display: 'flex', 
-              justifyContent: 'center', 
-              flexWrap: 'wrap',
-              gap: { xs: 2, md: 4 },
-              mb: 5,
-            }}
-          >
-            <CompanyLogo sx={{ width: '60px', height: '60px', position: 'relative', top: '60px', left: '20px' }} src={netflixLogo} alt="Netflix" />
-            <CompanyLogo sx={{ width: '60px', height: '60px', position: 'relative', bottom: '40px', left: '20px' }} src={appleLogo} alt="Apple" />
-            <CompanyLogo sx={{ width: '60px', height: '60px', position: 'relative', top: '20px', left: '30px' }} src={microsoftLogo} alt="Microsoft" />
+            {/* Company logos in a row */}
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                flexWrap: 'wrap',
+                gap: { xs: 2, md: 4 },
+                mb: 5,
+              }}
+            >
+              <CompanyLogo sx={{ width: '80px', height: '80px', position: 'relative', top: '60px', left: '20px' }} src={obNetflixLogo} alt="Netflix" />
+              <CompanyLogo sx={{ width: '80px', height: '80px', position: 'relative', bottom: '40px', left: '20px' }} src={obAppleLogo} alt="Apple" />
+              <CompanyLogo sx={{ width: '80px', height: '80px', position: 'relative', top: '20px', left: '30px' }} src={obMicrosoftLogo} alt="Microsoft" />
+            </Box>
           </Box>
         </Box>
 
@@ -131,9 +137,11 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({ children }) => {
             flex: 1, 
             backgroundColor: 'white',
             borderRadius: 2,
-            boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.05)',
+            border: '1px solid #eeeeee',
             mb: 5,
             overflow: 'hidden',
+            zIndex: 1,
+            position: 'relative',
           }}
         >
           {/* Progress Navigation now inside the card */}
@@ -149,6 +157,21 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({ children }) => {
           >
             {children}
           </Box>
+        </Box>
+
+        <Box sx={{ 
+          position: 'absolute',
+          top: 0,
+          left: 50,
+          right: 0,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          background: 'radial-gradient(ellipse at bottom, #feeeea, transparent)',
+          width: '90%',
+          height: '50vh',
+          zIndex: 0,
+          }}>
         </Box>
       </Container>
     </Box>

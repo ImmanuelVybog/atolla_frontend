@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 
 const StyledTextField = styled(TextField)({
   '& .MuiOutlinedInput-root': {
-    borderRadius: '8px',
+    borderRadius: '16px',
   },
 });
 

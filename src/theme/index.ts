@@ -122,7 +122,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           '& .MuiOutlinedInput-root': {
-            borderRadius: 8,
+            borderRadius: 50,
             fontFamily: '"DM Sans", sans-serif',
           },
           '& .MuiInputLabel-root': {

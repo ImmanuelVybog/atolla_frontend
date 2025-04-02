@@ -12,9 +12,12 @@ import SearchIcon from '@mui/icons-material/Search';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import { useState } from 'react';
+import { FilterSegmentContainer, FilterSegment } from '../components/styled/FormComponents';
 
 const Home = () => {
   const userName = "Vish Ramesh"; // This should come from your auth context
+  const [selectedFilter, setSelectedFilter] = useState('all');
 
   return (
     <Box sx={{ p: 3 }}>
@@ -30,65 +33,91 @@ const Home = () => {
         {/* Left Column */}
         <Grid item xs={12} md={8}>
           {/* Quick Search Section */}
-          <Paper sx={{ p: 3, mb: 3, borderRadius: 2 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-              <SearchIcon sx={{ mr: 1, color: '#FF6B00' }} />
-              <Typography variant="h6">Quick Search</Typography>
-            </Box>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-              Find jobs matching your skills and preferences
-            </Typography>
-            
-            <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
-              <TextField
-                placeholder="e.g. Software Engineer"
-                label="Job Title or Keywords"
-                fullWidth
-                variant="outlined"
-              />
-              <TextField
-                placeholder="e.g. San Francisco or Remote"
-                label="Location"
-                fullWidth
-                variant="outlined"
-              />
-              <Button
-                variant="contained"
-                sx={{
-                  bgcolor: '#FF6B00',
-                  '&:hover': { bgcolor: '#e65c00' },
-                  minWidth: '120px'
-                }}
-              >
-                Search
-              </Button>
-            </Box>
+          <Paper sx={{ borderRadius: 2, mb: 3, boxShadow: 'none', border: '1px solid #eee' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', p: 3, background: 'linear-gradient(to right, #FFF7ED, #FFEDD5)', borderRadius: '16px 16px 0 0' }}>
+            <SearchIcon sx={{ mr: 1, color: '#FF6B00', backgroundColor: '#feead7', borderRadius: '50%', p: 1, width: '40px', height: '40px' }} />
+              <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column', }}>
+                <Typography variant="h6">Quick Search</Typography>
+                <Typography variant="body2" color="text.secondary">
+                Find jobs matching your skills and preferences
+              </Typography>
+              </Box>
+          </Box>
 
-            <Box sx={{ mt: 2 }}>
-              <Typography variant="body2" sx={{ mb: 1 }}>Recent Searches:</Typography>
-              <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-                <Chip label="Frontend Developer" variant="outlined" />
-                <Chip label="Remote" variant="outlined" />
-                <Chip label="UX Designer" variant="outlined" />
-                <Chip label="Full Stack" variant="outlined" />
-                <Chip label="Product Manager" variant="outlined" />
+          
+            <Box sx={{ p: 3 }}>
+              <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+                <TextField
+                  placeholder="e.g. Software Engineer"
+                  label="Job Title or Keywords"
+                  fullWidth
+                  variant="outlined"
+                />
+                <TextField
+                  placeholder="e.g. San Francisco or Remote"
+                  label="Location"
+                  fullWidth
+                  variant="outlined"
+                />
+                <Button
+                  variant="contained"
+                  sx={{
+                    bgcolor: '#FF6B00',
+                    '&:hover': { bgcolor: '#e65c00' },
+                    minWidth: '120px'
+                  }}
+                >
+                  Search
+                </Button>
+              </Box>
+              <Box sx={{ mt: 2 }}>
+                <Typography variant="body2" sx={{ mb: 1 }}>Recent Searches:</Typography>
+                <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                  <Chip sx={{ backgroundColor: '#F1F5F9', color: '#000000', border: 'none' }} label="Frontend Developer" variant="outlined" />
+                  <Chip sx={{ backgroundColor: '#F1F5F9', color: '#000000', border: 'none' }} label="Remote" variant="outlined" />
+                  <Chip sx={{ backgroundColor: '#F1F5F9', color: '#000000', border: 'none' }} label="UX Designer" variant="outlined" />
+                  <Chip sx={{ backgroundColor: '#F1F5F9', color: '#000000', border: 'none' }} label="Full Stack" variant="outlined" />
+                  <Chip sx={{ backgroundColor: '#F1F5F9', color: '#000000', border: 'none' }} label="Product Manager" variant="outlined" />
+                </Box>
               </Box>
             </Box>
           </Paper>
 
           {/* Recommended Jobs Section */}
-          <Paper sx={{ p: 3, mb: 3, borderRadius: 2 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 3 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Box sx={{ mr: 1, color: '#FF6B00' }}>📋</Box>
-                <Typography variant="h6">Recommended Jobs</Typography>
-              </Box>
-              <Box sx={{ display: 'flex', gap: 1 }}>
-                <Chip label="All" variant="filled" sx={{ bgcolor: '#FF6B00', color: 'white' }} />
-                <Chip label="Recent" variant="outlined" />
-                <Chip label="Remote" variant="outlined" />
-              </Box>
+          <Paper sx={{ borderRadius: 2, mb: 3, boxShadow: 'none', border: '1px solid #eee' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 3, background: 'linear-gradient(to right, #FFF7ED, #FFEDD5)', borderRadius: '16px 16px 0 0' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexDirection: 'row' }}>
+              <SearchIcon sx={{ mr: 1, color: '#FF6B00', backgroundColor: '#feead7', borderRadius: '50%', p: 1, width: '40px', height: '40px' }} />
+                <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column', }}>
+                  <Typography variant="h6">Recommended Jobs</Typography>
+                  <Typography variant="body2" color="text.secondary">
+                  Find jobs matching your skills and preferences
+                </Typography>
+                </Box>
             </Box>
+              <FilterSegmentContainer>
+                <FilterSegment
+                  selected={selectedFilter === 'all'}
+                  onClick={() => setSelectedFilter('all')}
+                >
+                  All
+                </FilterSegment>
+                <FilterSegment
+                  selected={selectedFilter === 'recent'}
+                  onClick={() => setSelectedFilter('recent')}
+                >
+                  Recent
+                </FilterSegment>
+                <FilterSegment
+                  selected={selectedFilter === 'remote'}
+                  onClick={() => setSelectedFilter('remote')}
+                >
+                  Remote
+                </FilterSegment>
+              </FilterSegmentContainer>
+          </Box>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3, mb: 3, borderRadius: 2 }}>
+          
 
             {/* Job Cards */}
             {[
@@ -134,64 +163,71 @@ const Home = () => {
                   '&:hover': { boxShadow: 1 }
                 }}
               >
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                  <Box sx={{ display: 'flex', gap: 2 }}>
-                    <Box
-                      sx={{
-                        width: 40,
-                        height: 40,
-                        bgcolor: '#eee',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        borderRadius: 1
-                      }}
-                    >
-                      {job.logo}
-                    </Box>
-                    <Box>
-                      <Typography variant="h6">{job.title}</Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        {job.company} • {job.location} • {job.type}
-                      </Typography>
-                      <Box sx={{ display: 'flex', gap: 1, mt: 1 }}>
-                        {job.tags.map((tag, i) => (
-                          <Chip key={i} label={tag} size="small" variant="outlined" />
-                        ))}
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexDirection: 'column', gap: 2 }}>
+                  <Box sx={{ display: 'flex', gap: 2, width: '100%', justifyContent: 'space-between' }}>
+                    <Box sx={{ display: 'flex', gap: 2 }}>
+                      <Box
+                        sx={{
+                          width: 40,
+                          height: 40,
+                          bgcolor: '#eee',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          borderRadius: 1
+                        }}
+                      >
+                        {job.logo}
                       </Box>
+                      <Box>
+                        <Typography variant="h6">{job.title}</Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          {job.company} • {job.location} • {job.type}
+                        </Typography>
+                      </Box>
+                      
                     </Box>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 3 }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 0.5 }}>
+                          <Typography variant="subtitle1" sx={{ fontSize: '1.4rem', fontWeight: 'bold' }}>
+                            {job.salary}
+                          </Typography>
+                          <Typography variant="subtitle2" sx={{ fontWeight: 'medium' }}>
+                            {job.timeperiod}
+                          </Typography>
+                        </Box>
+                      </Box>
                   </Box>
-                  <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 1 }}>
-                    <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 0.5 }}>
-                      <Typography variant="subtitle1" sx={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
-                        {job.salary}
-                      </Typography>
-                      <Typography variant="subtitle2" sx={{ fontWeight: 'medium' }}>
-                        {job.timeperiod}
-                      </Typography>
-                    
-                    </Box>
-                    <Box sx={{ display: 'flex', gap: 1 }}>
-                        <Button variant="outlined" size="small">View Details</Button>
-                        <Button
+
+                  <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1, mt: 1, justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                        <Box sx={{ display: 'flex', gap: 1 }}>
+                        {job.tags.map((tag, i) => (
+                          <Chip sx={{ backgroundColor: '#FFE2DB', color: '#FE6A0E', border: '1px solid #fd9881' }} key={i} label={tag} size="small" variant="outlined" />
+                        ))}
+                        </Box>
+                        <Box sx={{ display: 'flex', gap: 1 }}>
+                          <Button sx={{ pt: 0.5, pb: 0.5, pl: 2, pr: 2 }} variant="outlined" size="small">View Details</Button>
+                          <Button
                           variant="contained"
                           size="small"
-                          sx={{ bgcolor: '#FF6B00', '&:hover': { bgcolor: '#e65c00' } }}
-                        >
-                          Apply Now
-                        </Button>
+                          sx={{ pt: 0.5, pb: 0.5, pl: 2, pr: 2, bgcolor: '#FF6B00', '&:hover': { bgcolor: '#e65c00' } }}
+                          >
+                            Apply Now
+                          </Button>
+                        </Box>
                       </Box>
-                  </Box>
+                  
                 </Box>
               </Paper>
             ))}
 
             <Button
               endIcon={<ArrowForwardIcon />}
-              sx={{ mt: 2 }}
+              sx={{ bgcolor: '#F8FAFC', color: '#020817', border: '1px solid #E2E8F0', pl: 8, pr: 8, mt: 2, width: '30%' }}
             >
               View More Jobs
             </Button>
+          </Box>
           </Paper>
 
           {/* Application Tracker */}
@@ -332,7 +368,7 @@ const Home = () => {
           <Paper sx={{ p: 3, mb: 3, borderRadius: 2 }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <CalendarTodayIcon sx={{ mr: 1, color: '#FF6B00' }} />
+                <CalendarTodayIcon sx={{ mr: 1, color: '#FF6B00', fill: '#4285F4' }} />
                 <Typography variant="h6">Upcoming Interviews</Typography>
               </Box>
               <Chip label="2 This Week" size="small" sx={{ bgcolor: '#4285F4', color: 'white' }} />
@@ -377,12 +413,12 @@ const Home = () => {
                 <Typography variant="body2" color="text.secondary">
                   {interview.date} • {interview.time}
                 </Typography>
-                <Box sx={{ display: 'flex', gap: 1, mt: 2 }}>
-                  <Button size="small" variant="outlined">View Details</Button>
+                <Box sx={{ display: 'flex', gap: 1, mt: 2, justifyContent: 'space-between', width: '100%' }}>
+                  <Button size="small" variant="outlined" sx={{ bgcolor: '#F8FAFC', color: '#020817', border: '1px solid #E2E8F0', pl: 8, pr: 8 }}>View Details</Button>
                   <Button
                     size="small"
                     variant="contained"
-                    sx={{ bgcolor: '#4285F4', '&:hover': { bgcolor: '#3367D6' } }}
+                    sx={{ bgcolor: '#4285F4', '&:hover': { bgcolor: '#3367D6' }, pl: 8, pr: 8 }}
                   >
                     Prepare
                   </Button>
@@ -393,7 +429,7 @@ const Home = () => {
             <Button
               endIcon={<ArrowForwardIcon />}
               fullWidth
-              sx={{ mt: 2 }}
+              sx={{ bgcolor: '#4285F4', '&:hover': { bgcolor: '#3367D6' }, color: '#FFFFFF', mt: 2 }}
             >
               View All Interviews
             </Button>

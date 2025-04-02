@@ -43,7 +43,7 @@ export const styles = {
   uploadBox: {
     border: '2px dashed #ddd',
     borderRadius: 2,
-    p: 3,
+    p: 5,
     textAlign: 'center',
     cursor: 'pointer',
     '&:hover': {

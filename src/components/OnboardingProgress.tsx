@@ -70,18 +70,20 @@ const OnboardingProgress: React.FC<OnboardingProgressProps> = () => {
           display: 'flex', 
           alignItems: 'center', 
           position: 'relative', 
-          px: 2,
-          borderBottom: '1px solid #eeeeee'
+          p: 2,
         }}
       >
-        {/* Left Arrow */}
-        <IconButton
-          onClick={handlePrevious}
-          disabled={currentStep === 1}
-          sx={{ color: currentStep === 1 ? '#ccc' : colors.text.primary }}
-        >
-          <KeyboardArrowLeftIcon />
-        </IconButton>
+        {/* Left Arrow - Hide on first page */}
+        {currentStep > 1 && (
+          <IconButton
+            onClick={handlePrevious}
+            sx={{ color: colors.text.primary }}
+          >
+            <KeyboardArrowLeftIcon />
+          </IconButton>
+        )}
+        {/* Placeholder for spacing when left arrow is hidden */}
+        {currentStep === 1 && <Box sx={{ width: 48, height: 48 }} />}
 
         {/* Step Tabs */}
         <Box sx={{ display: 'flex', flex: 1, justifyContent: 'space-between', mx: 1, overflowX: 'auto' }}>
@@ -102,19 +104,22 @@ const OnboardingProgress: React.FC<OnboardingProgressProps> = () => {
           ))}
         </Box>
 
-        {/* Right Arrow */}
-        <IconButton
-          onClick={handleNext}
-          disabled={currentStep === steps.length}
-          sx={{ color: currentStep === steps.length ? '#ccc' : colors.text.primary }}
-        >
-          <KeyboardArrowRightIcon />
-        </IconButton>
+        {/* Right Arrow - Hide on last page */}
+        {currentStep < steps.length && (
+          <IconButton
+            onClick={handleNext}
+            sx={{ color: colors.text.primary }}
+          >
+            <KeyboardArrowRightIcon />
+          </IconButton>
+        )}
+        {/* Placeholder for spacing when right arrow is hidden */}
+        {currentStep === steps.length && <Box sx={{ width: 48, height: 48 }} />}
       </Box>
 
       {/* Progress Bar */}
-      <Box sx={{ position: 'relative', height: '4px', width: '90%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Box sx={{ position: 'absolute', top: 0, width: '90%', height: '100%', bgcolor: '#E0E0E0' }} />
+      <Box sx={{ position: 'relative', height: '4px', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Box sx={{ position: 'absolute', top: 0, width: '100%', height: '100%', bgcolor: '#E0E0E0' }} />
         <Box
           sx={{
             position: 'absolute',

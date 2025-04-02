@@ -157,12 +157,14 @@ const PersonalDetails: FC = () => {
                     accept=".doc,.docx,.pdf"
                   />
                 </Button>
+              </Box>
+              <Box sx={{ display: 'flex', gap: 2, justifyContent: 'space-between' }}>
                 <Typography variant="body2" sx={styles.fileInfoText}>
-                  Supported Format: DOC, DOCX, PDF
-                </Typography>
-                <Typography variant="body2" sx={styles.fileInfoText}>
-                  Max file size: 5 mb
-                </Typography>
+                    Supported Format: DOC, DOCX, PDF
+                  </Typography>
+                  <Typography variant="body2" sx={styles.fileInfoText}>
+                    Max file size: 5 mb
+                  </Typography>
               </Box>
             </Grid>
           </Grid>

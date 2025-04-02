@@ -1,6 +1,5 @@
 import {
   Box,
-  TextField,
   Typography,
   Button,
   MenuItem,
@@ -9,7 +8,6 @@ import {
 } from '@mui/material';
 import { useOnboarding } from '../../context/OnboardingContext';
 import OnboardingLayout from '../../components/OnboardingLayout';
-import { styled } from '@mui/material/styles';
 import { Add as AddIcon, KeyboardArrowRight } from '@mui/icons-material';
 import { StyledTextField, ActionButton } from '../../components/styled/FormComponents';
 import { FormBox, FormFooter, SectionBox } from '../../components/styled/LayoutComponents';
@@ -102,10 +100,7 @@ const Experience = () => {
                 }}
                 required
               />
-            </Box>
-
-            <Box sx={{ display: 'grid', gap: 3, gridTemplateColumns: 'repeat(2, 1fr)' }}>
-              <StyledTextField
+                            <StyledTextField
                 label="Position Title"
                 fullWidth
                 placeholder="Enter Position"
@@ -142,6 +137,7 @@ const Experience = () => {
                 ))}
               </StyledTextField>
             </Box>
+
 
             <Typography variant="subtitle1" sx={{ mt: 2, mb: 1 }}>
               Start Date

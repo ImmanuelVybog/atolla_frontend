@@ -17,7 +17,7 @@ import { KeyboardArrowRight } from '@mui/icons-material';
 
 const StyledTextField = styled(TextField)({
   '& .MuiOutlinedInput-root': {
-    borderRadius: '8px',
+    borderRadius: '16px',
   },
 });
 
@@ -85,9 +85,9 @@ const Education = () => {
 
   return (
     <OnboardingLayout>
-      <Container maxWidth="md">
-        <Paper sx={{ borderRadius: 4, overflow: 'hidden', boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.05)' }}>
-          <Box sx={{ p: 4 }}>
+      <Container>
+        <Paper sx={{ border: 'none', boxShadow: 'none' }}>
+          <Box>
             <Typography variant="h4" sx={{ mb: 4, fontWeight: 'bold' }}>
               Education
             </Typography>
