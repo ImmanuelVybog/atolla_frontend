@@ -9,7 +9,7 @@ import microsoftLogo from '../assets/Images/Microsoft Icon.png';
 import amazonLogo from '../assets/Images/Amazon Icon.png';
 import netflixLogo from '../assets/Images/Netflix Icon.png';
 import metaLogo from '../assets/Images/Meta Icon.png';
-
+import textBG from '../assets/Images/Text BG.png';
 interface OnboardingLayoutProps {
   children: React.ReactNode;
 }
@@ -37,7 +37,7 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({ children }) => {
         <Box
           sx={{
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: 'row',
             alignItems: 'center',
             width: '100%',
             pt: 4,
@@ -47,6 +47,21 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({ children }) => {
           {/* Logo */}
           <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center' }}>
             <img src={atollaLogo} alt="VY LABS ATOLLA" style={{ height: '45px' }} />
+          </Box>
+
+          {/* Company logos in a row */}
+          <Box 
+            sx={{ 
+              display: 'flex', 
+              justifyContent: 'center', 
+              flexWrap: 'wrap',
+              gap: { xs: 2, md: 4 },
+              mb: 5,
+            }}
+          >
+            <CompanyLogo sx={{ width: '60px', height: '60px', position: 'relative', top: '10px', left: '10px' }} src={amazonLogo} alt="Amazon" />
+            <CompanyLogo sx={{ width: '60px', height: '60px', position: 'relative', top: '60px', left: '20px' }} src={metaLogo} alt="Meta" />
+            <CompanyLogo sx={{ width: '60px', height: '60px', position: 'relative', bottom: '40px', left: '40px' }} src={googleLogo} alt="Google" />
           </Box>
 
           {/* Welcome Heading */}
@@ -76,7 +91,9 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({ children }) => {
               <Box 
                 component="span" 
                 sx={{ 
-                  bgcolor: '#FF5733', 
+                  backgroundImage: `url(${textBG})`,
+                  backgroundSize: 'contain',
+                  backgroundRepeat: 'no-repeat',
                   color: 'white', 
                   px: 2, 
                   py: 1, 
@@ -102,33 +119,32 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({ children }) => {
               mb: 5,
             }}
           >
-            <CompanyLogo src={googleLogo} alt="Google" />
-            <CompanyLogo src={appleLogo} alt="Apple" />
-            <CompanyLogo src={metaLogo} alt="Meta" />
-            <CompanyLogo src={amazonLogo} alt="Amazon" />
-            <CompanyLogo src={microsoftLogo} alt="Microsoft" />
-            <CompanyLogo src={netflixLogo} alt="Netflix" />
+            <CompanyLogo sx={{ width: '60px', height: '60px', position: 'relative', top: '60px', left: '20px' }} src={netflixLogo} alt="Netflix" />
+            <CompanyLogo sx={{ width: '60px', height: '60px', position: 'relative', bottom: '40px', left: '20px' }} src={appleLogo} alt="Apple" />
+            <CompanyLogo sx={{ width: '60px', height: '60px', position: 'relative', top: '20px', left: '30px' }} src={microsoftLogo} alt="Microsoft" />
           </Box>
         </Box>
 
-        {/* Progress Navigation */}
-        <OnboardingProgress />
-
-        {/* Main Form Content */}
+        {/* Main Form Content with Progress Navigation inside */}
         <Box
           sx={{ 
             flex: 1, 
-            py: 2, 
-            px: { xs: 2, sm: 3 },
             backgroundColor: 'white',
             borderRadius: 2,
             boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.05)',
             mb: 5,
+            overflow: 'hidden',
           }}
         >
+          {/* Progress Navigation now inside the card */}
+          <OnboardingProgress />
+          
+          {/* Form Content */}
           <Box
             sx={{
               width: '100%',
+              py: 2, 
+              px: { xs: 2, sm: 3 },
             }}
           >
             {children}

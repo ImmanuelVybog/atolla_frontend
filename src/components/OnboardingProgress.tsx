@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import IconButton from '@mui/material/IconButton';
+import { colors } from '../theme';
 
 const steps = [
   { label: 'Personal Details', path: '/onboarding/personal-details' },
@@ -18,6 +19,18 @@ interface OnboardingProgressProps {
   onPrevious?: () => void;
   onNext?: () => void;
 }
+
+const StepTab = styled(Box)<{ active: boolean; completed: boolean }>(({ active, completed }) => ({
+  padding: '12px 0',
+  color: active ? colors.primary.main : completed ? colors.text.primary : colors.text.secondary,
+  fontWeight: active ? 'bold' : 'normal',
+  cursor: completed || active ? 'pointer' : 'default',
+  textAlign: 'center',
+  transition: 'all 0.2s ease',
+  '&:hover': {
+    color: completed || active ? colors.primary.main : colors.text.secondary,
+  }
+}));
 
 const OnboardingProgress: React.FC<OnboardingProgressProps> = () => {
   const { currentStep, setCurrentStep, completedSteps } = useOnboarding();
@@ -50,53 +63,58 @@ const OnboardingProgress: React.FC<OnboardingProgressProps> = () => {
   };
 
   return (
-    <Box sx={{ width: '100%', mb: 3 }}>
-      {/* Progress Navigation */}
-      <Box sx={{ display: 'flex', justifyContent: 'center', p: 3, borderBottom: '1px solid #eee' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', position: 'relative' }}>
-          <IconButton
-            sx={{ position: 'absolute', left: 0 }}
-            onClick={handlePrevious}
-            disabled={currentStep === 1}
-          >
-            <KeyboardArrowLeftIcon />
-          </IconButton>
+    <Box sx={{ width: '100%' }}>
+      {/* Navigation and Tabs */}
+      <Box 
+        sx={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          position: 'relative', 
+          px: 2,
+          borderBottom: '1px solid #eeeeee'
+        }}
+      >
+        {/* Left Arrow */}
+        <IconButton
+          onClick={handlePrevious}
+          disabled={currentStep === 1}
+          sx={{ color: currentStep === 1 ? '#ccc' : colors.text.primary }}
+        >
+          <KeyboardArrowLeftIcon />
+        </IconButton>
 
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', px: 5 }}>
-            {steps.map((step, index) => (
-              <Typography
-                key={index}
-                variant="body2"
-                sx={{
-                  color: index + 1 === currentStep ? '#FF5733' : 
-                         completedSteps.includes(index + 1) ? '#666' : '#999',
-                  fontWeight: index + 1 === currentStep ? 'bold' : 'normal',
-                  whiteSpace: 'nowrap',
-                  cursor: completedSteps.includes(index + 1) || index + 1 === currentStep ? 'pointer' : 'default',
-                  '&:hover': {
-                    color: completedSteps.includes(index + 1) || index + 1 === currentStep ? '#FF5733' : '#999',
-                  }
-                }}
-                onClick={() => handleStepClick(index)}
-              >
-                {step.label}
-              </Typography>
-            ))}
-          </Box>
-
-          <IconButton
-            sx={{ position: 'absolute', right: 0 }}
-            onClick={handleNext}
-            disabled={currentStep === steps.length}
-          >
-            <KeyboardArrowRightIcon />
-          </IconButton>
+        {/* Step Tabs */}
+        <Box sx={{ display: 'flex', flex: 1, justifyContent: 'space-between', mx: 1, overflowX: 'auto' }}>
+          {steps.map((step, index) => (
+            <StepTab
+              key={index}
+              active={index + 1 === currentStep}
+              completed={completedSteps.includes(index + 1)}
+              onClick={() => handleStepClick(index)}
+              sx={{ 
+                minWidth: '100px',
+                px: 1,
+                fontSize: { xs: '12px', sm: '14px' }
+              }}
+            >
+              {step.label}
+            </StepTab>
+          ))}
         </Box>
+
+        {/* Right Arrow */}
+        <IconButton
+          onClick={handleNext}
+          disabled={currentStep === steps.length}
+          sx={{ color: currentStep === steps.length ? '#ccc' : colors.text.primary }}
+        >
+          <KeyboardArrowRightIcon />
+        </IconButton>
       </Box>
 
       {/* Progress Bar */}
-      <Box sx={{ position: 'relative', height: '4px', width: '100%' }}>
-        <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', bgcolor: '#E0E0E0' }} />
+      <Box sx={{ position: 'relative', height: '4px', width: '90%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Box sx={{ position: 'absolute', top: 0, width: '90%', height: '100%', bgcolor: '#E0E0E0' }} />
         <Box
           sx={{
             position: 'absolute',
@@ -104,7 +122,7 @@ const OnboardingProgress: React.FC<OnboardingProgressProps> = () => {
             left: 0,
             width: `${progressPercentage}%`,
             height: '100%',
-            bgcolor: '#FF5733',
+            bgcolor: colors.primary.main,
             transition: 'width 0.3s ease-in-out',
           }}
         />

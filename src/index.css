@@ -27,7 +27,6 @@ a:hover {
 
 body {
   margin: 0;
-  /* Removed display: flex and place-items: center for full-width centered layout */
   min-width: 320px;
   min-height: 100vh;
   font-family: 'DM Sans', sans-serif;

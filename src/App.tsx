@@ -1,4 +1,4 @@
-import { CssBaseline, ThemeProvider, createTheme, Box } from '@mui/material';
+import { CssBaseline, ThemeProvider, Box } from '@mui/material';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
@@ -17,118 +17,7 @@ import Reports from './pages/Reports';
 import Settings from './pages/Settings';
 import Navbar from './components/Navbar';
 import { OnboardingProvider } from './context/OnboardingContext';
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#FF5733',
-      light: '#FFE5E0',
-    },
-    background: {
-      default: '#f5f5f5',
-      paper: '#ffffff',
-    },
-    text: {
-      primary: '#2D3748',
-      secondary: '#718096',
-    },
-  },
-  typography: {
-    fontFamily: '"DM Sans", "Inter", "Roboto", "Helvetica", "Arial", sans-serif',
-    h1: {
-      fontSize: '2.5rem',
-      fontWeight: 700,
-      fontFamily: '"DM Sans", sans-serif',
-    },
-    h2: {
-      fontSize: '2rem',
-      fontWeight: 600,
-      fontFamily: '"DM Sans", sans-serif',
-    },
-    h3: {
-      fontSize: '1.75rem',
-      fontWeight: 600,
-      fontFamily: '"DM Sans", sans-serif',
-    },
-    h4: {
-      fontSize: '1.5rem',
-      fontWeight: 600,
-      fontFamily: '"DM Sans", sans-serif',
-    },
-    body1: {
-      fontSize: '1rem',
-      lineHeight: 1.5,
-      fontFamily: '"DM Sans", sans-serif',
-    },
-    body2: {
-      fontFamily: '"DM Sans", sans-serif',
-    },
-    button: {
-      textTransform: 'none',
-      fontWeight: 600,
-      fontFamily: '"DM Sans", sans-serif',
-    },
-    subtitle1: {
-      fontFamily: '"DM Sans", sans-serif',
-    },
-    subtitle2: {
-      fontFamily: '"DM Sans", sans-serif',
-    },
-    caption: {
-      fontFamily: '"DM Sans", sans-serif',
-    },
-    overline: {
-      fontFamily: '"DM Sans", sans-serif',
-    },
-  },
-  shape: {
-    borderRadius: 8,
-  },
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          borderRadius: 30,
-          padding: '10px 24px',
-          fontFamily: '"DM Sans", sans-serif',
-        },
-        contained: {
-          boxShadow: 'none',
-          '&:hover': {
-            boxShadow: 'none',
-          },
-        },
-      },
-    },
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          '& .MuiOutlinedInput-root': {
-            borderRadius: 8,
-            fontFamily: '"DM Sans", sans-serif',
-          },
-          '& .MuiInputLabel-root': {
-            fontFamily: '"DM Sans", sans-serif',
-          },
-        },
-      },
-    },
-    MuiTypography: {
-      styleOverrides: {
-        root: {
-          fontFamily: '"DM Sans", sans-serif',
-        },
-      },
-    },
-    MuiCssBaseline: {
-      styleOverrides: {
-        body: {
-          fontFamily: '"DM Sans", sans-serif',
-        },
-      },
-    },
-  },
-});
+import theme, { colors } from './theme';
 
 const AppContent = () => {
   const location = useLocation();
@@ -144,10 +33,10 @@ const AppContent = () => {
         display: 'flex',
         flexDirection: 'column',
         ...(isAuthPage && {
-          background: 'linear-gradient(135deg, #fff5f2 0%, #fff 100%)',
+          background: colors.background.gradient,
         }),
         ...(isOnboardingPage && {
-          background: 'linear-gradient(135deg, #fff5f2 0%, #fff 100%)',
+          background: colors.background.gradient,
         }),
       }}
     >
