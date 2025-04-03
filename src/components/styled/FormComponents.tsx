@@ -8,11 +8,37 @@ import { colors } from '../../theme';
 export const StyledTextField = styled(TextField)({
   '& .MuiOutlinedInput-root': {
     borderRadius: '16px',
+    backgroundColor: 'transparent !important',
     '&:hover fieldset': {
       borderColor: colors.primary.main,
     },
     '&.Mui-focused fieldset': {
       borderColor: colors.primary.main,
+    },
+    '&.Mui-focused': {
+      backgroundColor: 'transparent !important',
+    },
+    '&.Mui-disabled': {
+      backgroundColor: '#F3F4F6',
+      '& fieldset': {
+        borderColor: 'transparent',
+      },
+    },
+  },
+  '& .MuiOutlinedInput-input': {
+    backgroundColor: 'transparent !important',
+    '&:-webkit-autofill, &:-webkit-autofill:hover, &:-webkit-autofill:focus': {
+      transition: 'background-color 5000s ease-in-out 0s',
+      '-webkit-text-fill-color': colors.text.primary,
+      '-webkit-box-shadow': '0 0 0px 1000px white inset !important',
+      boxShadow: '0 0 0px 1000px white inset !important',
+    },
+  },
+  '& .MuiInputBase-input': {
+    backgroundColor: 'transparent !important',
+    '&::placeholder': {
+      color: colors.text.secondary,
+      opacity: 1,
     },
   },
 });
