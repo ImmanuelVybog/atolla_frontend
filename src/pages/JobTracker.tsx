@@ -160,7 +160,7 @@ const JobTracker = () => {
   };
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box sx={{ p: 3, bgcolor: '#fff', minHeight: '100vh' }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
         <Box component="span" sx={{ display: 'flex', alignItems: 'center' }}>📋</Box>
         <Typography variant="h5" component="h1">Job Tracker</Typography>
@@ -199,66 +199,93 @@ const JobTracker = () => {
       </Box>
 
       <DragDropContext onDragEnd={onDragEnd}>
-        <Grid container spacing={3}>
+        <Box 
+          sx={{ 
+            display: 'flex',
+            gap: 3,
+            overflowX: 'auto',
+            pb: 2,
+            '&::-webkit-scrollbar': {
+              height: '8px',
+            },
+            '&::-webkit-scrollbar-track': {
+              backgroundColor: '#f1f1f1',
+              borderRadius: '4px',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: '#888',
+              borderRadius: '4px',
+              '&:hover': {
+                backgroundColor: '#666',
+              },
+            },
+          }}
+        >
           {(Object.entries(statusConfig) as [ApplicationStatus, typeof statusConfig[ApplicationStatus]][]).map(([status, config]) => (
-            <Grid item xs={12} md={6} lg={3} key={status}>
-              <Box sx={{ mb: 3 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
-                  <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: config.color }} />
-                  <Typography variant="subtitle1">{config.title}</Typography>
-                  <Typography 
-                    variant="body2" 
-                    sx={{ 
-                      bgcolor: config.bgColor,
-                      color: config.color,
-                      px: 1.5,
-                      py: 0.5,
-                      borderRadius: '100px',
-                      ml: 1
+            <Box 
+              key={status}
+              sx={{ 
+                flex: '0 0 350px',
+                p: 2.5,
+                bgcolor: '#f5f5f5',
+                borderRadius: 3,
+              }}
+            >
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2, pl: 2.5 }}>
+                <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: config.color }} />
+                <Typography variant="subtitle1">{config.title}</Typography>
+                <Typography 
+                  variant="body2" 
+                  sx={{ 
+                    bgcolor: config.bgColor,
+                    color: config.color,
+                    px: 1.5,
+                    py: 0.5,
+                    borderRadius: '100px',
+                    ml: 1
+                  }}
+                >
+                  {applications[status].length}
+                </Typography>
+              </Box>
+              <Droppable droppableId={status}>
+                {(provided, snapshot) => (
+                  <Box
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                    sx={{
+                      minHeight: 200,
+                      backgroundColor: snapshot.isDraggingOver ? 'rgba(0, 0, 0, 0.02)' : 'transparent',
+                      borderRadius: 3,
+                      transition: 'background-color 0.2s ease'
                     }}
                   >
-                    {applications[status].length}
-                  </Typography>
-                </Box>
-                <Droppable droppableId={status}>
-                  {(provided, snapshot) => (
-                    <Box
-                      ref={provided.innerRef}
-                      {...provided.droppableProps}
-                      sx={{
-                        minHeight: 200,
-                        backgroundColor: snapshot.isDraggingOver ? 'rgba(0, 0, 0, 0.02)' : 'transparent',
-                        padding: 1,
-                        borderRadius: 3,
-                        transition: 'background-color 0.2s ease'
-                      }}
-                    >
-                      {applications[status].map((application, index) => (
-                        <Draggable
-                          key={application.id}
-                          draggableId={application.id.toString()}
-                          index={index}
-                        >
-                          {(provided, snapshot) => (
-                            <Paper
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                              elevation={snapshot.isDragging ? 4 : 0}
-                              sx={{
-                                p: 2.5,
-                                mb: 2,
-                                borderRadius: 3,
-                                border: '1px solid #eee',
-                                backgroundColor: '#fff',
-                                '&:hover': {
-                                  boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.08)'
-                                },
-                                ...(snapshot.isDragging && {
-                                  boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.15)'
-                                })
-                              }}
-                            >
+                    {applications[status].map((application, index) => (
+                      <Draggable
+                        key={application.id}
+                        draggableId={application.id.toString()}
+                        index={index}
+                      >
+                        {(provided, snapshot) => (
+                          <Paper
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            elevation={snapshot.isDragging ? 4 : 0}
+                            sx={{
+                              mb: 2,
+                              borderRadius: 3,
+                              border: '1px solid #eee',
+                              backgroundColor: '#fff',
+                              '&:hover': {
+                                boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.08)'
+                              },
+                              ...(snapshot.isDragging && {
+                                boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.15)'
+                              })
+                            }}
+                          >
+                            <Box sx={{ p: 2.5 }}>
                               <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
                                 <Box
                                   component="img"
@@ -296,7 +323,7 @@ const JobTracker = () => {
                                 </Box>
                               </Box>
 
-                              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'flex-start' }}>
                                 <Typography variant="body2" color="text.secondary">
                                   Applied on {application.appliedDate}
                                 </Typography>
@@ -314,18 +341,18 @@ const JobTracker = () => {
                                   View Job
                                 </Button>
                               </Box>
-                            </Paper>
-                          )}
-                        </Draggable>
-                      ))}
-                      {provided.placeholder}
-                    </Box>
-                  )}
-                </Droppable>
-              </Box>
-            </Grid>
+                            </Box>
+                          </Paper>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </Box>
+                )}
+              </Droppable>
+            </Box>
           ))}
-        </Grid>
+        </Box>
       </DragDropContext>
     </Box>
   );
