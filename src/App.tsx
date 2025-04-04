@@ -15,15 +15,19 @@ import JobAlerts from './pages/JobAlerts';
 import Users from './pages/Users';
 import Reports from './pages/Reports';
 import Settings from './pages/Settings';
+import CheckResume from './pages/CheckResume';
 import Navbar from './components/Navbar';
 import { OnboardingProvider } from './context/OnboardingContext';
 import theme, { colors } from './theme';
+import GlobalSearch from './components/GlobalSearch';
 
 const AppContent = () => {
   const location = useLocation();
   const isAuthPage = location.pathname === '/login' || location.pathname === '/signup';
   const isOnboardingPage = location.pathname.startsWith('/onboarding');
+  const isHomePage = location.pathname === '/home';
   const shouldShowNavbar = !isAuthPage && !isOnboardingPage;
+  const shouldShowSearch = !isAuthPage && !isOnboardingPage && !isHomePage;
 
   return (
     <Box
@@ -41,6 +45,7 @@ const AppContent = () => {
       }}
     >
       {shouldShowNavbar && <Navbar />}
+      {shouldShowSearch && <GlobalSearch />}
       
       <Routes>
         {/* Auth Routes */}
@@ -60,6 +65,7 @@ const AppContent = () => {
         <Route path="/jobs" element={<Jobs />} />
         <Route path="/job-tracker" element={<JobTracker />} />
         <Route path="/job-alerts" element={<JobAlerts />} />
+        <Route path="/check-resume" element={<CheckResume />} />
         <Route path="/users" element={<Users />} />
         <Route path="/reports" element={<Reports />} />
         <Route path="/settings" element={<Settings />} />

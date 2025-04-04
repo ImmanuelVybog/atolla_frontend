@@ -42,7 +42,8 @@ const Navbar = () => {
     { name: 'Home', path: '/home' },
     { name: 'Jobs', path: '/jobs' },
     { name: 'Job Tracker', path: '/job-tracker' },
-    { name: 'Job Alerts', path: '/job-alerts' }
+    { name: 'Job Alerts', path: '/job-alerts' },
+    { name: 'Check Resume', path: '/check-resume' }
   ];
 
   const isActive = (path: string) => {

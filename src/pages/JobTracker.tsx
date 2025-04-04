@@ -1,4 +1,4 @@
-import { Box, Typography, Paper, Grid, Button } from '@mui/material';
+import { Box, Typography, Paper, Button } from '@mui/material';
 import { useState } from 'react';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import SearchIcon from '@mui/icons-material/Search';
