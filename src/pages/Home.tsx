@@ -260,13 +260,15 @@ const Home = () => {
           </Paper>
 
           {/* Application Tracker */}
-          <Paper sx={{ p: 3, borderRadius: 2 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-              <Box sx={{ mr: 1, color: '#FF6B00' }}>
+          <Paper sx={{ borderRadius: 2, mb: 3, boxShadow: 'none', border: '1px solid #eee' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', p: 3, background: 'linear-gradient(to right, #FFF7ED, #FFEDD5)', borderRadius: '16px 16px 0 0' }}>
+              <Box sx={{ mr: 1, color: '#FF6B00', backgroundColor: '#feead7', borderRadius: '50%', p: 1, width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <img src={Images.icons.applicationTracker} alt="Application Tracker Icon" />
               </Box>
               <Typography variant="h6">Application Tracker</Typography>
             </Box>
+            
+            <Box sx={{ p: 3 }}>
             
             {/* Application Items */}
             {[
@@ -357,20 +359,23 @@ const Home = () => {
             >
               View All Applications
             </Button>
+          </Box>
           </Paper>
         </Grid>
 
         {/* Right Column */}
         <Grid item xs={12} md={4}>
           {/* Job Alerts */}
-          <Paper sx={{ p: 3, mb: 3, borderRadius: 2 }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+          <Paper sx={{ borderRadius: 2, mb: 3, boxShadow: 'none', border: '1px solid #eee' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 3, background: 'linear-gradient(to right, #FFF7ED, #FFEDD5)', borderRadius: '16px 16px 0 0' }}>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <NotificationsIcon sx={{ mr: 1, color: '#FF6B00' }} />
+                <NotificationsIcon sx={{ mr: 1, color: '#FF6B00', backgroundColor: '#feead7', borderRadius: '50%', p: 1, width: '40px', height: '40px' }} />
                 <Typography variant="h6">Job Alerts</Typography>
               </Box>
               <Chip label="21 Jobs" size="small" sx={{ bgcolor: '#FF6B00', color: 'white' }} />
             </Box>
+
+            <Box sx={{ p: 3 }}>
 
             {[
               { title: 'Frontend Developer', count: 7 },
@@ -407,17 +412,20 @@ const Home = () => {
             >
               Create New Alert
             </Button>
+            </Box>
           </Paper>
 
           {/* Upcoming Interviews */}
-          <Paper sx={{ p: 3, mb: 3, borderRadius: 2 }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+          <Paper sx={{ borderRadius: 2, mb: 3, boxShadow: 'none', border: '1px solid #eee' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 3, background: 'linear-gradient(to right, #F3F6FF, #E7EDFF)', borderRadius: '16px 16px 0 0' }}>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <CalendarTodayIcon sx={{ mr: 1, color: '#FF6B00', fill: '#4285F4' }} />
+                <CalendarTodayIcon sx={{ mr: 1, color: '#3361EA', backgroundColor: '#dee6fd', borderRadius: '50%', p: 1, width: '40px', height: '40px' }} />
                 <Typography variant="h6">Upcoming Interviews</Typography>
               </Box>
-              <Chip label="2 This Week" size="small" sx={{ bgcolor: '#4285F4', color: 'white' }} />
+              <Chip label="2 This Week" size="small" sx={{ bgcolor: '#3361EA', color: 'white' }} />
             </Box>
+
+            <Box sx={{ p: 3 }}>
 
             {[
               {
@@ -459,11 +467,11 @@ const Home = () => {
                   {interview.date} • {interview.time}
                 </Typography>
                 <Box sx={{ display: 'flex', gap: 1, mt: 2, justifyContent: 'space-between', width: '100%' }}>
-                  <Button size="small" variant="outlined" sx={{ bgcolor: '#F8FAFC', color: '#020817', border: '1px solid #E2E8F0', pl: 8, pr: 8 }}>View Details</Button>
+                  <Button size="small" variant="outlined" sx={{ bgcolor: '#F8FAFC', color: '#020817', border: '1px solid #E2E8F0', width: '100%' }}>View Details</Button>
                   <Button
                     size="small"
                     variant="contained"
-                    sx={{ bgcolor: '#4285F4', '&:hover': { bgcolor: '#3367D6' }, pl: 8, pr: 8 }}
+                    sx={{ width: '100%', bgcolor: '#3361ea', '&:hover': { bgcolor: '#3367D6' } }}
                   >
                     Prepare
                   </Button>
@@ -474,15 +482,19 @@ const Home = () => {
             <Button
               endIcon={<ArrowForwardIcon />}
               fullWidth
-              sx={{ bgcolor: '#4285F4', '&:hover': { bgcolor: '#3367D6' }, color: '#FFFFFF', mt: 2 }}
+              sx={{ bgcolor: '#3361EA', '&:hover': { bgcolor: '#3367D6' }, color: '#FFFFFF', mt: 2 }}
             >
               View All Interviews
             </Button>
+            </Box>
           </Paper>
 
           {/* Profile Completion */}
-          <Paper sx={{ p: 3, borderRadius: 2 }}>
-            <Typography variant="h6" sx={{ mb: 2 }}>Profile Completion</Typography>
+          <Paper sx={{ borderRadius: 2, boxShadow: 'none', border: '1px solid #eee' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', p: 3, background: 'linear-gradient(to right, #ECFDF5, #D1FAE5)', borderRadius: '16px 16px 0 0' }}>
+              <Typography variant="h6">Profile Completion</Typography>
+            </Box>
+            <Box sx={{ p: 3 }}>
             <Box sx={{ mb: 3 }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
                 <Typography variant="body2">85% Complete</Typography>
@@ -537,6 +549,7 @@ const Home = () => {
             >
               Complete Profile
             </Button>
+            </Box>
           </Paper>
         </Grid>
       </Grid>

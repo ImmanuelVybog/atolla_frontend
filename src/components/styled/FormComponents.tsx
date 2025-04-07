@@ -88,10 +88,6 @@ export const StyledChip = styled(Chip)<{ selected?: boolean }>(({ selected }) =>
   '&:first-of-type': {
     borderRadius: '30px',
   },
-  '&:last-of-type': {
-    borderRadius: '30px',
-    borderRight: `1px solid #ddd`,
-  },
   '& .MuiChip-deleteIcon': {
     color: selected ? colors.common.white : 'rgba(45, 55, 72, 0.26)',
   },

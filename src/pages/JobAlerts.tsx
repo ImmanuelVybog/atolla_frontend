@@ -31,7 +31,7 @@ const JobAlerts = () => {
               alignItems: 'center'
             }}
           />
-          <Typography variant="h5" component="h1">Job Alerts</Typography>
+          <Typography variant="h5" component="h1">Alerts</Typography>
         </Box>
         <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
           Job alerts based on your preferences. You can also set a custom job alert!

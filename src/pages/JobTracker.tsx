@@ -174,7 +174,7 @@ const JobTracker = () => {
             alignItems: 'center'
           }}
         />
-        <Typography variant="h5" component="h1">Job Tracker</Typography>
+        <Typography variant="h5" component="h1">Tracker</Typography>
       </Box>
       <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
         Job alerts based on your preferences. You can also set a custom job alert!

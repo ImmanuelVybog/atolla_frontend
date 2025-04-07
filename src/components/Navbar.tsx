@@ -10,8 +10,12 @@ import {
   IconButton,
   Avatar,
   Divider,
-  ListItemIcon 
+  ListItemIcon,
+  Drawer,
+  useTheme,
+  useMediaQuery
 } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
@@ -41,13 +45,21 @@ const Navbar = () => {
   const navItems = [
     { name: 'Home', path: '/home' },
     { name: 'Jobs', path: '/jobs' },
-    { name: 'Job Tracker', path: '/job-tracker' },
-    { name: 'Job Alerts', path: '/job-alerts' },
+    { name: 'Tracker', path: '/job-tracker' },
+    { name: 'Alerts', path: '/job-alerts' },
     { name: 'Check Resume', path: '/check-resume' }
   ];
 
   const isActive = (path: string) => {
     return location.pathname === path;
+  };
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleMobileMenuToggle = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
   };
 
   return (
@@ -61,30 +73,42 @@ const Navbar = () => {
         </Box>
         
         {/* Middle section - Navigation */}
-        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-          {navItems.map((item) => (
-            <Button
-              key={item.name}
-              component={Link}
-              to={item.path}
-              sx={{
-                color: isActive(item.path) ? '#FFCABE' : '#FE6A0E',
-                fontWeight: isActive(item.path) ? 600 : 500,
-                mx: 1,
-                textTransform: 'none',
-                fontSize: '1rem',
-                borderRadius: 0,
-                lineHeight: '2.5rem',
-                '&:hover': {
-                  backgroundColor: 'transparent',
-                  color: '#FF6B00'
-                }
-              }}
-            >
-              {item.name}
-            </Button>
-          ))}
-        </Box>
+        {!isMobile ? (
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            {navItems.map((item) => (
+              <Button
+                key={item.name}
+                component={Link}
+                to={item.path}
+                sx={{
+                  color: isActive(item.path) ? '#FFCABE' : '#FE6A0E',
+                  fontWeight: isActive(item.path) ? 600 : 500,
+                  mx: 1,
+                  textTransform: 'none',
+                  fontSize: '1rem',
+                  borderRadius: 0,
+                  lineHeight: '2.5rem',
+                  '&:hover': {
+                    backgroundColor: 'transparent',
+                    color: '#FF6B00'
+                  }
+                }}
+              >
+                {item.name}
+              </Button>
+            ))}
+          </Box>
+        ) : (
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleMobileMenuToggle}
+            sx={{ color: '#FE6A0E' }}
+          >
+            <MenuIcon />
+          </IconButton>
+        )}
 
         {/* Right section - Account */}
         <Box>
@@ -150,8 +174,43 @@ const Navbar = () => {
           </Menu>
         </Box>
       </Toolbar>
+
+      {/* Mobile Navigation Drawer */}
+      <Drawer
+        anchor="left"
+        open={mobileMenuOpen}
+        onClose={handleMobileMenuToggle}
+        sx={{
+          '& .MuiDrawer-paper': {
+            width: '250px',
+            backgroundColor: '#222222',
+            paddingTop: '20px'
+          }
+        }}
+      >
+        <Box sx={{ width: '100%' }}>
+          {navItems.map((item) => (
+            <MenuItem
+              key={item.name}
+              component={Link}
+              to={item.path}
+              onClick={handleMobileMenuToggle}
+              sx={{
+                color: isActive(item.path) ? '#FFCABE' : '#FE6A0E',
+                fontWeight: isActive(item.path) ? 600 : 500,
+                py: 2,
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 107, 0, 0.1)'
+                }
+              }}
+            >
+              {item.name}
+            </MenuItem>
+          ))}
+        </Box>
+      </Drawer>
     </AppBar>
   );
 };
 
-export default Navbar; 
+export default Navbar;
