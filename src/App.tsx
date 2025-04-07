@@ -15,6 +15,7 @@ import JobAlerts from './pages/JobAlerts';
 import Users from './pages/Users';
 import Reports from './pages/Reports';
 import Settings from './pages/Settings';
+import Profile from './pages/Profile';
 import CheckResume from './pages/CheckResume';
 import Navbar from './components/Navbar';
 import { OnboardingProvider } from './context/OnboardingContext';
@@ -69,6 +70,7 @@ const AppContent = () => {
         <Route path="/users" element={<Users />} />
         <Route path="/reports" element={<Reports />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/profile" element={<Profile />} />
         
         {/* Redirect root to home */}
         <Route path="/" element={<Navigate to="/home" replace />} />
