@@ -262,7 +262,9 @@ const Home = () => {
           {/* Application Tracker */}
           <Paper sx={{ p: 3, borderRadius: 2 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-              <Box sx={{ mr: 1, color: '#FF6B00' }}>📝</Box>
+              <Box sx={{ mr: 1, color: '#FF6B00' }}>
+                <img src={Images.icons.applicationTracker} alt="Application Tracker Icon" />
+              </Box>
               <Typography variant="h6">Application Tracker</Typography>
             </Box>
             

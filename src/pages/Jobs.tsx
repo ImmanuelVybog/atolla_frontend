@@ -238,6 +238,17 @@ const Jobs = () => {
   return (
     <Box sx={{ p: 3 }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 3 }}>
+        <Box 
+          component="img" 
+          src={Images.titleIcons.jobs} 
+          alt="Jobs Icon"
+          sx={{ 
+            width: 28, 
+            height: 28,
+            display: 'flex',
+            alignItems: 'center'
+          }}
+        />
         <Typography variant="h5" component="h1">Jobs</Typography>
         <Typography 
           variant="body2" 
@@ -265,7 +276,10 @@ const Jobs = () => {
                 <Paper 
                   elevation={0}
                   sx={{
-                    p: 3,
+                    pt: 8,
+                    pb: 3,
+                    pl: 3,
+                    pr: 3,
                     border: '1px solid #eee',
                     borderRadius: 4,
                     '&:hover': { boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.08)' },
@@ -276,7 +290,19 @@ const Jobs = () => {
                     bgcolor: '#fff'
                   }}
                 >
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
+                  <Box sx={{ 
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    mb: 3,
+                    position: 'absolute',
+                    top: -24,
+                    backgroundColor: '#FFFFFF',
+                    borderRadius: '14px',
+                    padding: '10px',
+                    border: '1px solid #eeeeee',
+                    width: '90%',
+                    alignItems: 'center',
+                    }}>
                     <Box sx={{ display: 'flex', gap: 2 }}>
                       {getCompanyLogo(job.company) ? (
                         <Box
@@ -306,28 +332,26 @@ const Jobs = () => {
                         </Box>
                       )}
                       <Box>
-                        <Typography variant="h6" sx={{ fontSize: '1.1rem', fontWeight: 600, mb: 0.5 }}>{job.title}</Typography>
+                        <Typography variant="h6" sx={{ fontSize: '1.1rem', fontWeight: 600 }}>{job.title}</Typography>
                         <Typography variant="body2" color="text.secondary">{job.company}</Typography>
                       </Box>
                     </Box>
-                    <IconButton 
-                      sx={{ 
-                        position: 'absolute',
-                        top: 16,
-                        right: 16
-                      }}
-                    >
+                    <IconButton>
                       <BookmarkBorderIcon />
                     </IconButton>
                   </Box>
 
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mb: 3 }}>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mb: 1 }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <Box component="span" sx={{ color: '#FF6B00' }}>📅</Box>
+                      <Box component="span" sx={{ color: '#FF6B00' }}>
+                        <img src={Images.icons.experience} alt="Experience Icon" />
+                      </Box>
                       <Typography variant="body2" color="text.secondary">{job.experience}</Typography>
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <Box component="span" sx={{ color: '#FF6B00' }}>📍</Box>
+                      <Box component="span" sx={{ color: '#FF6B00' }}>
+                        <img src={Images.icons.location} alt="Location Icon" />
+                      </Box>
                       <Typography variant="body2" color="text.secondary">{job.location}</Typography>
                     </Box>
                   </Box>
@@ -356,7 +380,7 @@ const Jobs = () => {
                           backgroundColor: '#FFE2DB',
                           color: '#FE6A0E',
                           border: '1px solid #fd9881',
-                          borderRadius: '16px',
+                          borderRadius: '50px',
                           height: '28px'
                         }}
                       />

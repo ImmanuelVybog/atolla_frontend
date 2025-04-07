@@ -86,16 +86,11 @@ export const StyledChip = styled(Chip)<{ selected?: boolean }>(({ selected }) =>
   border: selected ? 'none' : `1px solid #ddd`,
   borderRight: 'none',
   '&:first-of-type': {
-    borderTopLeftRadius: '30px',
-    borderBottomLeftRadius: '30px',
+    borderRadius: '30px',
   },
   '&:last-of-type': {
-    borderTopRightRadius: '30px',
-    borderBottomRightRadius: '30px',
+    borderRadius: '30px',
     borderRight: `1px solid #ddd`,
-  },
-  '&:hover': {
-    backgroundColor: selected ? colors.primary.dark : '#f5f5f5',
   },
   '& .MuiChip-deleteIcon': {
     color: selected ? colors.common.white : 'rgba(45, 55, 72, 0.26)',

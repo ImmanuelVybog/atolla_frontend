@@ -844,7 +844,7 @@ const Settings = () => {
         <Typography variant="h6" gutterBottom>Need Help?</Typography>
         <Typography variant="body2" color="text.secondary" paragraph>
           If you have any questions or need assistance with your settings, our support team is here to help.
-        </Typography>
+      </Typography>
         <Button 
           variant="outlined"
           sx={{ 

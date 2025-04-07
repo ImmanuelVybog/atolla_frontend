@@ -10,7 +10,7 @@ export const colors = {
     contrastText: '#FFFFFF',
   },
   background: {
-    default: '#f5f5f5',
+    default: '#ffffff',
     paper: '#ffffff',
     gradient: 'linear-gradient(135deg, #fff5f2 0%, #fff 100%)',
   },

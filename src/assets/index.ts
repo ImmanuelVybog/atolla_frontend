@@ -41,6 +41,7 @@ import checkResumeTitleIcon from './Images/Check Resume Title Icon.svg';
 import jobTrackerTitleIcon from './Images/Job Tracker Title Icon.svg';
 import settingsTitleIcon from './Images/Settings Title Icon.svg';
 import myProfileTitleIcon from './Images/My Profile Title Icon.svg';
+import jobsTitleIcon from './Images/Jobs Title Icon.svg';
 
 // UI Elements
 import atollaLogo from './Images/Atolla Logo.png';
@@ -99,6 +100,7 @@ export const Images = {
     jobTracker: jobTrackerTitleIcon,
     settings: settingsTitleIcon,
     myProfile: myProfileTitleIcon,
+    jobs: jobsTitleIcon,
   },
   ui: {
     atollaIcon: vyLabsAtollaIcon,
