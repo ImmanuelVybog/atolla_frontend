@@ -355,7 +355,7 @@ const Home = () => {
 
             <Button
               endIcon={<ArrowForwardIcon />}
-              sx={{ mt: 2 }}
+              sx={{ bgcolor: '#F8FAFC', color: '#020817', border: '1px solid #E2E8F0', pl: 8, pr: 8, mt: 2, width: '30%' }}
             >
               View All Applications
             </Button>

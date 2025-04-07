@@ -268,6 +268,7 @@ const Jobs = () => {
         Job alerts based on your preferences. You can also set a custom job alert!
       </Typography>
 
+
       <Grid container spacing={3}>
         <Grid item xs={12} md={selectedJob ? 5 : 12}>
           <Grid container spacing={2}>

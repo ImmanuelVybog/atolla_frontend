@@ -744,60 +744,6 @@ const Settings = () => {
               />
             </RadioGroup>
 
-            <Typography variant="h6" gutterBottom>Accent Color</Typography>
-            <Typography variant="body2" color="text.secondary" paragraph>
-              Choose the primary color for the application
-            </Typography>
-            
-            <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>
-              <Box 
-                sx={{ 
-                  width: 40, 
-                  height: 40, 
-                  borderRadius: '50%', 
-                  bgcolor: '#FF6B00',
-                  cursor: 'pointer',
-                  border: '2px solid #FFFFFF',
-                  outline: '2px solid #FF6B00',
-                }} 
-              />
-              <Box 
-                sx={{ 
-                  width: 40, 
-                  height: 40, 
-                  borderRadius: '50%', 
-                  bgcolor: '#1976d2',
-                  cursor: 'pointer',
-                }} 
-              />
-              <Box 
-                sx={{ 
-                  width: 40, 
-                  height: 40, 
-                  borderRadius: '50%', 
-                  bgcolor: '#2e7d32',
-                  cursor: 'pointer',
-                }} 
-              />
-              <Box 
-                sx={{ 
-                  width: 40, 
-                  height: 40, 
-                  borderRadius: '50%', 
-                  bgcolor: '#7c3aed',
-                  cursor: 'pointer',
-                }} 
-              />
-              <Box 
-                sx={{ 
-                  width: 40, 
-                  height: 40, 
-                  borderRadius: '50%', 
-                  bgcolor: '#d32f2f',
-                  cursor: 'pointer',
-                }} 
-              />
-            </Box>
 
             <Typography variant="h6" gutterBottom>Font Size</Typography>
             <Typography variant="body2" color="text.secondary" paragraph>
