@@ -14,10 +14,25 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import { useState } from 'react';
 import { FilterSegmentContainer, FilterSegment } from '../components/styled/FormComponents';
+import Images from '../assets';
 
 const Home = () => {
   const userName = "Vish Ramesh"; // This should come from your auth context
   const [selectedFilter, setSelectedFilter] = useState('all');
+
+  // Mapping of company names to their logo images
+  const getCompanyLogo = (companyName: string) => {
+    const company = companyName.toLowerCase();
+    switch (company) {
+      case 'google': return Images.logos.google;
+      case 'microsoft': return Images.logos.microsoft;
+      case 'meta': return Images.logos.meta;
+      case 'amazon': return Images.logos.amazon;
+      case 'apple': return Images.logos.apple;
+      case 'netflix': return Images.logos.netflix;
+      default: return '';
+    }
+  };
 
   return (
     <Box sx={{ p: 3 }}>
@@ -166,19 +181,33 @@ const Home = () => {
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexDirection: 'column', gap: 2 }}>
                   <Box sx={{ display: 'flex', gap: 2, width: '100%', justifyContent: 'space-between' }}>
                     <Box sx={{ display: 'flex', gap: 2 }}>
-                      <Box
-                        sx={{
-                          width: 40,
-                          height: 40,
-                          bgcolor: '#eee',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          borderRadius: 1
-                        }}
-                      >
-                        {job.logo}
-                      </Box>
+                      {getCompanyLogo(job.company) ? (
+                        <Box
+                          component="img"
+                          src={getCompanyLogo(job.company)}
+                          alt={job.company}
+                          sx={{
+                            width: 40,
+                            height: 40,
+                            objectFit: 'contain',
+                            borderRadius: 1
+                          }}
+                        />
+                      ) : (
+                        <Box
+                          sx={{
+                            width: 40,
+                            height: 40,
+                            bgcolor: '#eee',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            borderRadius: 1
+                          }}
+                        >
+                          {job.logo}
+                        </Box>
+                      )}
                       <Box>
                         <Typography variant="h6">{job.title}</Typography>
                         <Typography variant="body2" color="text.secondary">
@@ -274,19 +303,33 @@ const Home = () => {
                 }}
               >
                 <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-                  <Box
-                    sx={{
-                      width: 40,
-                      height: 40,
-                      bgcolor: '#eee',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      borderRadius: 1
-                    }}
-                  >
-                    {app.company.charAt(0)}
-                  </Box>
+                  {getCompanyLogo(app.company) ? (
+                    <Box
+                      component="img"
+                      src={getCompanyLogo(app.company)}
+                      alt={app.company}
+                      sx={{
+                        width: 40,
+                        height: 40,
+                        objectFit: 'contain',
+                        borderRadius: 1
+                      }}
+                    />
+                  ) : (
+                    <Box
+                      sx={{
+                        width: 40,
+                        height: 40,
+                        bgcolor: '#eee',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        borderRadius: 1
+                      }}
+                    >
+                      {app.company.charAt(0)}
+                    </Box>
+                  )}
                   <Box>
                     <Typography variant="subtitle1">{app.position}</Typography>
                     <Typography variant="body2" color="text.secondary">

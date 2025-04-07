@@ -12,11 +12,6 @@ import {
   Chip,
   TextField,
   IconButton,
-  Rating,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemAvatar,
   LinearProgress,
   Card,
   CardContent
@@ -63,7 +58,7 @@ const Profile = () => {
   const [tabValue, setTabValue] = useState(0);
   const [editMode, setEditMode] = useState(false);
 
-  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   };
 

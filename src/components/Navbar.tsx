@@ -17,7 +17,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PersonIcon from '@mui/icons-material/Person';
-import atollaLogo from '../assets/Images/Atolla Logo.png';
+import Images from '../assets';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -56,7 +56,7 @@ const Navbar = () => {
         {/* Left section - Logo */}
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Link to="/home" style={{ textDecoration: 'none' }}>
-            <img src={atollaLogo} alt="Atolla Logo" style={{ height: 60 }} />
+            <img src={Images.logos.atolla} alt="Atolla Logo" style={{ height: 60 }} />
           </Link>
         </Box>
         

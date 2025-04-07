@@ -39,6 +39,7 @@ import ColorLensIcon from '@mui/icons-material/ColorLens';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import SaveIcon from '@mui/icons-material/Save';
 import DownloadIcon from '@mui/icons-material/Download';
+import Images from '../assets';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -120,7 +121,17 @@ const Settings = () => {
   return (
     <Box sx={{ p: 3, bgcolor: '#fff', minHeight: '100vh' }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-        <Box component="span" sx={{ display: 'flex', alignItems: 'center' }}>⚙️</Box>
+        <Box 
+          component="img" 
+          src={Images.titleIcons.settings} 
+          alt="Settings Icon"
+          sx={{ 
+            width: 28, 
+            height: 28,
+            display: 'flex',
+            alignItems: 'center'
+          }}
+        />
         <Typography variant="h5" component="h1">Settings</Typography>
       </Box>
       <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>

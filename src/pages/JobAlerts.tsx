@@ -1,5 +1,6 @@
 import { Box, Typography, Button } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import Images from '../assets';
 
 const JobAlerts = () => {
   const alerts = [
@@ -19,7 +20,17 @@ const JobAlerts = () => {
     <Box sx={{ bgcolor: '#fff', minHeight: '100vh' }}>
       <Box sx={{ p: 3 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-          <Box component="span" sx={{ display: 'flex', alignItems: 'center' }}>🔔</Box>
+          <Box 
+            component="img" 
+            src={Images.titleIcons.alert} 
+            alt="Job Alerts Icon"
+            sx={{ 
+              width: 28, 
+              height: 28,
+              display: 'flex',
+              alignItems: 'center'
+            }}
+          />
           <Typography variant="h5" component="h1">Job Alerts</Typography>
         </Box>
         <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
@@ -69,7 +80,7 @@ const JobAlerts = () => {
             <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
               <Box
                 component="img"
-                src="/company-logos/google.png"
+                src={Images.logos.google}
                 alt="Google"
                 sx={{
                   width: 32,

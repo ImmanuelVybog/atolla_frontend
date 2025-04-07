@@ -5,6 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { StyledTextField } from '../components/styled/FormComponents';
 import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea/dnd';
+import Images from '../assets';
 
 interface JobApplication {
   id: number;
@@ -162,7 +163,17 @@ const JobTracker = () => {
   return (
     <Box sx={{ p: 3, bgcolor: '#fff', minHeight: '100vh' }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-        <Box component="span" sx={{ display: 'flex', alignItems: 'center' }}>📋</Box>
+        <Box 
+          component="img" 
+          src={Images.titleIcons.jobTracker} 
+          alt="Job Tracker Icon"
+          sx={{ 
+            width: 28, 
+            height: 28,
+            display: 'flex',
+            alignItems: 'center'
+          }}
+        />
         <Typography variant="h5" component="h1">Job Tracker</Typography>
       </Box>
       <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
@@ -289,7 +300,20 @@ const JobTracker = () => {
                               <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
                                 <Box
                                   component="img"
-                                  src={`/company-logos/${application.company.toLowerCase()}.png`}
+                                  src={(() => {
+                                    const company = application.company.toLowerCase();
+                                    // Use the appropriate logo from our registry based on company name
+                                    switch(company) {
+                                      case 'google': return Images.logos.google;
+                                      case 'microsoft': return Images.logos.microsoft;
+                                      case 'amazon': return Images.logos.amazon;
+                                      case 'apple': return Images.logos.apple;
+                                      case 'meta': return Images.logos.meta;
+                                      case 'netflix': return Images.logos.netflix;
+                                      case 'tcs': return Images.logos.tcs;
+                                      default: return ''; // Fallback
+                                    }
+                                  })()}
                                   alt={application.company}
                                   sx={{
                                     width: 32,

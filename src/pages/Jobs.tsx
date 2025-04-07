@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Box, Typography, Paper, Grid, Button, IconButton } from '@mui/material';
 import { StyledChip } from '../components/styled/FormComponents';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import Images from '../assets';
 
 interface Job {
   id: number;
@@ -22,6 +23,20 @@ interface Job {
 interface JobDetailsProps {
   job: Job;
 }
+
+// Helper function for company logos
+const getCompanyLogo = (companyName: string) => {
+  const company = companyName.toLowerCase();
+  switch (company) {
+    case 'google': return Images.logos.google;
+    case 'microsoft': return Images.logos.microsoft;
+    case 'meta': return Images.logos.meta;
+    case 'amazon': return Images.logos.amazon;
+    case 'apple': return Images.logos.apple;
+    case 'netflix': return Images.logos.netflix;
+    default: return '';
+  }
+};
 
 const Jobs = () => {
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
@@ -118,20 +133,34 @@ const Jobs = () => {
     >
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 4 }}>
         <Box sx={{ display: 'flex', gap: 2 }}>
-          <Box
-            sx={{
-              width: 40,
-              height: 40,
-              bgcolor: '#eee',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 1,
-              fontSize: '1.2rem'
-            }}
-          >
-            {job.logo}
-          </Box>
+          {getCompanyLogo(job.company) ? (
+            <Box
+              component="img"
+              src={getCompanyLogo(job.company)}
+              alt={job.company}
+              sx={{
+                width: 40,
+                height: 40,
+                objectFit: 'contain',
+                borderRadius: 1
+              }}
+            />
+          ) : (
+            <Box
+              sx={{
+                width: 40,
+                height: 40,
+                bgcolor: '#eee',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 1,
+                fontSize: '1.2rem'
+              }}
+            >
+              {job.logo}
+            </Box>
+          )}
           <Box>
             <Typography variant="h5" sx={{ fontWeight: 600 }}>{job.title}</Typography>
             <Typography variant="body1" color="text.secondary">{job.company}</Typography>
@@ -249,17 +278,33 @@ const Jobs = () => {
                 >
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
                     <Box sx={{ display: 'flex', gap: 2 }}>
-                      <Box
-                        component="img"
-                        src={`/company-logos/${job.company.toLowerCase()}.png`}
-                        alt={job.company}
-                        sx={{
-                          width: 40,
-                          height: 40,
-                          objectFit: 'contain',
-                          borderRadius: 1
-                        }}
-                      />
+                      {getCompanyLogo(job.company) ? (
+                        <Box
+                          component="img"
+                          src={getCompanyLogo(job.company)}
+                          alt={job.company}
+                          sx={{
+                            width: 40,
+                            height: 40,
+                            objectFit: 'contain',
+                            borderRadius: 1
+                          }}
+                        />
+                      ) : (
+                        <Box
+                          sx={{
+                            width: 40,
+                            height: 40,
+                            bgcolor: '#eee',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            borderRadius: 1
+                          }}
+                        >
+                          {job.logo}
+                        </Box>
+                      )}
                       <Box>
                         <Typography variant="h6" sx={{ fontSize: '1.1rem', fontWeight: 600, mb: 0.5 }}>{job.title}</Typography>
                         <Typography variant="body2" color="text.secondary">{job.company}</Typography>

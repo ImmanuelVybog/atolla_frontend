@@ -7,6 +7,7 @@ import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import DeleteIcon from '@mui/icons-material/Delete';
 import LinearProgress from '@mui/material/LinearProgress';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
+import Images from '../assets';
 
 interface ResumeAnalysis {
   score: number;
@@ -85,7 +86,17 @@ const CheckResume = () => {
   return (
     <Box sx={{ p: 3, bgcolor: '#fff', minHeight: '100vh' }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-        <Box component="span" sx={{ display: 'flex', alignItems: 'center' }}>💼</Box>
+        <Box 
+          component="img" 
+          src={Images.titleIcons.checkResume} 
+          alt="Check Resume Icon"
+          sx={{ 
+            width: 28, 
+            height: 28,
+            display: 'flex',
+            alignItems: 'center'
+          }}
+        />
         <Typography variant="h5" component="h1">Check Resume</Typography>
       </Box>
       <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
