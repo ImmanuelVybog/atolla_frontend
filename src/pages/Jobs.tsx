@@ -119,6 +119,84 @@ const Jobs = () => {
         "Strong analytical and problem-solving skills",
         "Excellent communication skills"
       ]
+    },
+    {
+      id: 4,
+      title: "Software Engineer",
+      company: "Amazon",
+      logo: "A",
+      location: "Seattle, USA",
+      experience: "6 years experience",
+      type: "Full-time",
+      salary: "$130k - $160k",
+      description: "Software engineer proficient in building scalable and efficient systems.",
+      tags: ["JavaScript", "Node.js", "React", "AWS"],
+      responsibilities: [
+        "Develop and maintain web applications using React.js, Node.js, Express, and MongoDB.",
+        "Write clean, scalable, and efficient code following best practices.",
+        "Work closely with UI/UX designers to create user-friendly interfaces.",
+        "Implement RESTful APIs and integrate third-party services.",
+        "Troubleshoot and debug applications to ensure optimal performance."
+      ],
+      requirements: [
+        "3+ years of experience in Full Stack Development.",
+        "Proficiency in JavaScript, React.js, Node.js, Express.js, and MongoDB.",
+        "Experience with RESTful APIs & cloud services (AWS, Firebase, etc.).",
+        "Strong understanding of Git, CI/CD pipelines, and DevOps practices.",
+        "Good problem-solving skills and attention to detail."
+      ]
+    },
+    {
+      id: 5,
+      title: "Software Engineer",
+      company: "Apple",
+      logo: "A",
+      location: "Cupertino, USA",
+      experience: "6 years experience",
+      type: "Full-time",
+      salary: "$130k - $160k",
+      description: "Software engineer proficient in building scalable and efficient systems.",
+      tags: ["JavaScript", "Node.js", "React", "AWS"],
+      responsibilities: [
+        "Develop and maintain web applications using React.js, Node.js, Express, and MongoDB.",
+        "Write clean, scalable, and efficient code following best practices.",
+        "Work closely with UI/UX designers to create user-friendly interfaces.",
+        "Implement RESTful APIs and integrate third-party services.",
+        "Troubleshoot and debug applications to ensure optimal performance."
+      ],
+      requirements: [ 
+        "3+ years of experience in Full Stack Development.",
+        "Proficiency in JavaScript, React.js, Node.js, Express.js, and MongoDB.",
+        "Experience with RESTful APIs & cloud services (AWS, Firebase, etc.).",
+        "Strong understanding of Git, CI/CD pipelines, and DevOps practices.",
+        "Good problem-solving skills and attention to detail."
+      ]
+    },
+    {
+      id: 6,
+      title: "UI/UX Designer",
+      company: "Netflix",
+      logo: "N",
+      location: "Los Gatos, USA",
+      experience: "6 years experience",
+      type: "Full-time",
+      salary: "$130k - $160k",
+      description: "UI/UX designer proficient in creating user-friendly and intuitive interfaces.",
+      tags: ["UI", "UX", "Figma", "Design Systems"],
+      responsibilities: [
+        "Create user-centered designs by understanding business requirements",
+        "Create user flows, wireframes, prototypes and mockups",
+        "Develop UI mockups and prototypes that clearly illustrate how sites function",
+        "Identify and troubleshoot UX problems",
+        "Conduct layout adjustments based on user feedback"
+      ],
+      requirements: [
+        "6+ years of UI/UX design experience",
+        "Strong experience in Figma and other design tools",
+        "Excellent visual design skills",
+        "Knowledge of web accessibility standards",
+        "Experience with design systems"
+      ]
     }
   ];
 
@@ -237,7 +315,7 @@ const Jobs = () => {
 
   return (
     <Box sx={{ p: 3 }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 3 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
         <Box 
           component="img" 
           src={Images.titleIcons.jobs} 
@@ -264,7 +342,7 @@ const Jobs = () => {
           21 Jobs
         </Typography>
       </Box>
-      <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+      <Typography variant="body1" color="text.secondary" sx={{ mb: 4, pb: 3 }}>
         Job alerts based on your preferences. You can also set a custom job alert!
       </Typography>
 
