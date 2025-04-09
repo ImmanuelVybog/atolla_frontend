@@ -17,13 +17,13 @@ interface JobApplication {
   appliedDate: string;
 }
 
-type ApplicationStatus = 'applied' | 'interview' | 'shortlisted' | 'rejected';
+type ApplicationStatus = 'saved' | 'applied' | 'inreview' | 'interviewscheduled' | 'interviewcompleted' | 'offerreceived' | 'rejected' | 'withdrawn';
 
 interface ApplicationsByStatus extends Record<ApplicationStatus, JobApplication[]> {}
 
 const JobTracker = () => {
   const [applications, setApplications] = useState<ApplicationsByStatus>({
-    applied: [
+    saved: [
       {
         id: 1,
         company: "Google",
@@ -61,7 +61,7 @@ const JobTracker = () => {
         appliedDate: "Jan 4, 2025"
       }
     ],
-    interview: [
+    applied: [
       {
         id: 5,
         company: "Netflix",
@@ -81,7 +81,7 @@ const JobTracker = () => {
         appliedDate: "Jan 4, 2025"
       }
     ],
-    shortlisted: [
+    inreview: [
       {
         id: 7,
         company: "TCS",
@@ -92,6 +92,40 @@ const JobTracker = () => {
         appliedDate: "Jan 4, 2025"
       }
     ],
+    interviewscheduled: [
+      {
+        id: 8,
+        company: "Netflix",
+        logo: "N",
+        position: "React Developer",
+        experience: "6 years exp.",
+        salary: "$120k - $135k",
+        appliedDate: "Jan 4, 2025"
+      }
+    ],
+    interviewcompleted: [
+      {
+        id: 9,
+        company: "Google",
+        logo: "G",
+        position: "Full-stack Developer",
+        experience: "6 years exp.",
+        salary: "$120k - $135k",
+        appliedDate: "Jan 4, 2025"
+      }
+    ],
+    offerreceived: [
+      {
+        id: 10,
+        company: "Amazon",
+        logo: "A",
+        position: "Cybersecurity Engineer",
+        experience: "6 years exp.",
+        salary: "$120k - $135k",
+        appliedDate: "Jan 4, 2025"
+      }
+    ],
+    
     rejected: [
       {
         id: 8,
@@ -107,6 +141,17 @@ const JobTracker = () => {
         company: "Google",
         logo: "G",
         position: "Full-stack Developer",
+        experience: "6 years exp.",
+        salary: "$120k - $135k",
+        appliedDate: "Jan 4, 2025"
+      }
+    ],
+    withdrawn: [
+      {
+        id: 10,
+        company: "Amazon",
+        logo: "A",
+        position: "Cybersecurity Engineer",
         experience: "6 years exp.",
         salary: "$120k - $135k",
         appliedDate: "Jan 4, 2025"
@@ -154,14 +199,19 @@ const JobTracker = () => {
   };
 
   const statusConfig: Record<ApplicationStatus, { color: string; bgColor: string; title: string }> = {
+    saved: { color: '#FF6B00', bgColor: '#FFE2DB', title: 'Saved' },
     applied: { color: '#FF6B00', bgColor: '#FFE2DB', title: 'Applied' },
-    interview: { color: '#7C3AED', bgColor: '#EDE9FE', title: 'Interview In Process' },
-    shortlisted: { color: '#10B981', bgColor: '#D1FAE5', title: 'Shortlisted' },
-    rejected: { color: '#EF4444', bgColor: '#FEE2E2', title: 'Rejected' }
+    inreview: { color: '#7C3AED', bgColor: '#EDE9FE', title: 'Interview In Process' },
+    interviewscheduled: { color: '#10B981', bgColor: '#D1FAE5', title: 'Interview Scheduled' },
+    interviewcompleted: { color: '#10B981', bgColor: '#D1FAE5', title: 'Interview Completed' },
+    offerreceived: { color: '#10B981', bgColor: '#D1FAE5', title: 'Offer Received' },
+    rejected: { color: '#EF4444', bgColor: '#FEE2E2', title: 'Rejected' },
+    withdrawn: { color: '#EF4444', bgColor: '#FEE2E2', title: 'Withdrawn' }
   };
 
   return (
-    <Box sx={{ p: 3, bgcolor: '#fff', minHeight: '100vh' }}>
+    <Box sx={{ p: 3, bgcolor: '#fff', minHeight: '100vh', m: 'auto', maxWidth: '96rem' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mb: 1, width: '100%' }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
         <Box 
           component="img" 
@@ -180,7 +230,7 @@ const JobTracker = () => {
         Job alerts based on your preferences. You can also set a custom job alert!
       </Typography>
 
-      <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>
+      <Box sx={{ display: 'flex', gap: 2, mb: 4, width: '100%' }}>
         <Box sx={{ flex: 1, position: 'relative' }}>
           <SearchIcon sx={{ position: 'absolute', left: 12, top: 12, color: '#666' }} />
           <StyledTextField
@@ -208,14 +258,16 @@ const JobTracker = () => {
           Filters
         </Button>
       </Box>
+      </Box>
 
       <DragDropContext onDragEnd={onDragEnd}>
         <Box 
           sx={{ 
             display: 'flex',
-            gap: 3,
+            gap: 1.5,
             overflowX: 'auto',
             pb: 2,
+            justifyContent: 'flex-start',
             '&::-webkit-scrollbar': {
               height: '8px',
             },
@@ -236,8 +288,8 @@ const JobTracker = () => {
             <Box 
               key={status}
               sx={{ 
-                flex: '0 0 350px',
-                p: 2.5,
+                flex: '0 0 300px',
+                p: 1.5,
                 bgcolor: '#f5f5f5',
                 borderRadius: 3,
               }}
@@ -334,13 +386,13 @@ const JobTracker = () => {
 
                               <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', mb: 2 }}>
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                                  <Box component="span" sx={{ color: '#666' }}>⏱️</Box>
+                                  <Box component="img" src={Images.icons.experience} alt="Experience" sx={{ width: 16, height: 16 }} />
                                   <Typography variant="body2" color="text.secondary">
                                     {application.experience}
                                   </Typography>
                                 </Box>
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                                  <Box component="span" sx={{ color: '#666' }}>💰</Box>
+                                  <Box component="img" src={Images.icons.salary} alt="Salary" sx={{ width: 16, height: 16 }} />
                                   <Typography variant="body2" color="text.secondary">
                                     {application.salary}
                                   </Typography>
