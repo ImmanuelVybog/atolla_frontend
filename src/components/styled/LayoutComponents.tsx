@@ -8,6 +8,8 @@ import { spacing } from '../../theme';
 export const PageContainer = styled(Container)({
   paddingTop: spacing.large,
   paddingBottom: spacing.large,
+  margin: 'auto',
+  maxWidth: '96rem',
 });
 
 /**

@@ -252,7 +252,7 @@ const Home = () => {
 
             <Button
               endIcon={<ArrowForwardIcon />}
-              sx={{ bgcolor: '#F8FAFC', color: '#020817', border: '1px solid #E2E8F0', pl: 8, pr: 8, mt: 2, width: '30%' }}
+              sx={{ bgcolor: '#F8FAFC', color: '#020817', border: '1px solid #E2E8F0', pl: 8, pr: 8, mt: 2 }}
             >
               View More Jobs
             </Button>
@@ -268,7 +268,7 @@ const Home = () => {
               <Typography variant="h6">Application Tracker</Typography>
             </Box>
             
-            <Box sx={{ p: 3 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3, mb: 3, borderRadius: 2 }}>
             
             {/* Application Items */}
             {[
@@ -355,7 +355,7 @@ const Home = () => {
 
             <Button
               endIcon={<ArrowForwardIcon />}
-              sx={{ bgcolor: '#F8FAFC', color: '#020817', border: '1px solid #E2E8F0', pl: 8, pr: 8, mt: 2, width: '30%' }}
+              sx={{ bgcolor: '#F8FAFC', color: '#020817', border: '1px solid #E2E8F0', pl: 8, pr: 8, mt: 2 }}
             >
               View All Applications
             </Button>

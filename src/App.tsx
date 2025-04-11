@@ -17,6 +17,7 @@ import Reports from './pages/Reports';
 import Settings from './pages/Settings';
 import Profile from './pages/Profile';
 import CheckResume from './pages/CheckResume';
+import JobPreparation from './pages/JobPreparation';
 import Navbar from './components/Navbar';
 import { OnboardingProvider } from './context/OnboardingContext';
 import theme, { colors } from './theme';
@@ -48,33 +49,43 @@ const AppContent = () => {
       {shouldShowNavbar && <Navbar />}
       {shouldShowSearch && <GlobalSearch />}
       
-      <Routes>
-        {/* Auth Routes */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+      <Box 
+        sx={{ 
+          margin: 'auto',
+          maxWidth: '96rem',
+          width: '100%',
+          px: 2, // Add some padding on the sides
+        }}
+      >
+        <Routes>
+          {/* Auth Routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
 
-        {/* Onboarding Routes */}
-        <Route path="/onboarding/personal-details" element={<PersonalDetails />} />
-        <Route path="/onboarding/education" element={<Education />} />
-        <Route path="/onboarding/experience" element={<Experience />} />
-        <Route path="/onboarding/skills-expertise" element={<SkillsExpertise />} />
-        <Route path="/onboarding/work-samples" element={<WorkSamples />} />
-        <Route path="/onboarding/job-preferences" element={<JobPreferences />} />
+          {/* Onboarding Routes */}
+          <Route path="/onboarding/personal-details" element={<PersonalDetails />} />
+          <Route path="/onboarding/education" element={<Education />} />
+          <Route path="/onboarding/experience" element={<Experience />} />
+          <Route path="/onboarding/skills-expertise" element={<SkillsExpertise />} />
+          <Route path="/onboarding/work-samples" element={<WorkSamples />} />
+          <Route path="/onboarding/job-preferences" element={<JobPreferences />} />
 
-        {/* Main App Routes */}
-        <Route path="/home" element={<Home />} />
-        <Route path="/jobs" element={<Jobs />} />
-        <Route path="/job-tracker" element={<JobTracker />} />
-        <Route path="/job-alerts" element={<JobAlerts />} />
-        <Route path="/check-resume" element={<CheckResume />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/reports" element={<Reports />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/profile" element={<Profile />} />
-        
-        {/* Redirect root to home */}
-        <Route path="/" element={<Navigate to="/home" replace />} />
-      </Routes>
+          {/* Main App Routes */}
+          <Route path="/home" element={<Home />} />
+          <Route path="/jobs" element={<Jobs />} />
+          <Route path="/job-tracker" element={<JobTracker />} />
+          <Route path="/job-alerts" element={<JobAlerts />} />
+          <Route path="/check-resume" element={<CheckResume />} />
+          <Route path="/job-preparation" element={<JobPreparation />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/reports" element={<Reports />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/profile" element={<Profile />} />
+          
+          {/* Redirect root to home */}
+          <Route path="/" element={<Navigate to="/home" replace />} />
+        </Routes>
+      </Box>
     </Box>
   );
 };

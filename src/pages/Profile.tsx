@@ -13,6 +13,14 @@ import {
   Tabs,
   Tab,
   LinearProgress,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
   Container,
   Link,
 } from '@mui/material';
@@ -55,10 +63,136 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
+// Add interfaces for our data types
+interface Experience {
+  company: string;
+  role: string;
+  period: string;
+  location: string;
+  type: string;
+  description: string;
+}
+
+interface Education {
+  institution: string;
+  degree: string;
+  period: string;
+}
+
+interface Certification {
+  name: string;
+  issuer: string;
+  date: string;
+  expiryDate?: string;
+  credentialUrl?: string;
+}
+
+interface Project {
+  name: string;
+  description: string;
+  technologies: string[];
+  url?: string;
+  imageUrl?: string;
+}
+
+// Add JobPreferences interface
+interface JobPreferences {
+  jobTypes: string[];
+  locations: string[];
+  salaryRange: {
+    min: number;
+    max: number;
+  };
+  industries: string[];
+}
+
+interface InterviewQuestion {
+  id: string;
+  question: string;
+  answer: string;
+  category: string;
+  difficulty: string;
+  isBookmarked: boolean;
+}
+
 const Profile = () => {
   const [tabValue, setTabValue] = useState(0);
   const [editMode, setEditMode] = useState(false);
   const [editAbout, setEditAbout] = useState(false);
+
+  // New state for dialogs
+  const [openExperienceDialog, setOpenExperienceDialog] = useState(false);
+  const [openEducationDialog, setOpenEducationDialog] = useState(false);
+  const [openCertificationDialog, setOpenCertificationDialog] = useState(false);
+  const [openProjectDialog, setOpenProjectDialog] = useState(false);
+  const [openProfileDialog, setOpenProfileDialog] = useState(false);
+
+  // State for form data
+  const [newExperience, setNewExperience] = useState<Experience>({
+    company: '',
+    role: '',
+    period: '',
+    location: '',
+    type: '',
+    description: '',
+  });
+
+  const [newEducation, setNewEducation] = useState<Education>({
+    institution: '',
+    degree: '',
+    period: '',
+  });
+
+  const [newCertification, setNewCertification] = useState<Certification>({
+    name: '',
+    issuer: '',
+    date: '',
+    expiryDate: '',
+    credentialUrl: '',
+  });
+
+  const [newProject, setNewProject] = useState<Project>({
+    name: '',
+    description: '',
+    technologies: [],
+    url: '',
+    imageUrl: '',
+  });
+
+  // Add state for editing existing items
+  const [editingExperience, setEditingExperience] = useState<Experience | null>(null);
+  const [editingEducation, setEditingEducation] = useState<Education | null>(null);
+  const [editingCertification, setEditingCertification] = useState<Certification | null>(null);
+  const [editingProject, setEditingProject] = useState<Project | null>(null);
+  const [editingJobPreferences, setEditingJobPreferences] = useState(false);
+  const [jobPreferences, setJobPreferences] = useState<JobPreferences>({
+    jobTypes: ['Full-time', 'Remote'],
+    locations: ['San Francisco, CA', 'New York, NY', 'Remote'],
+    salaryRange: {
+      min: 120000,
+      max: 150000
+    },
+    industries: ['Technology', 'Finance', 'Healthcare']
+  });
+
+  const interviewQuestions: InterviewQuestion[] = [
+    {
+      id: '1',
+      question: 'What are your greatest strengths and how do they align with this role?',
+      answer: 'Focus on relevant skills and provide specific examples of how you have used them successfully.',
+      category: 'Behavioral',
+      difficulty: 'Medium',
+      isBookmarked: false
+    },
+    {
+      id: '2',
+      question: 'Explain the concept of RESTful APIs and their principles.',
+      answer: 'REST is an architectural style for designing networked applications.',
+      category: 'Technical',
+      difficulty: 'Hard',
+      isBookmarked: false
+    }
+  ];
 
   const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
@@ -70,6 +204,146 @@ const Profile = () => {
 
   const toggleEditAbout = () => {
     setEditAbout(!editAbout);
+  };
+
+  // Handlers for dialogs
+  const handleOpenExperienceDialog = () => setOpenExperienceDialog(true);
+  const handleCloseExperienceDialog = () => setOpenExperienceDialog(false);
+
+  const handleOpenEducationDialog = () => setOpenEducationDialog(true);
+  const handleCloseEducationDialog = () => setOpenEducationDialog(false);
+
+  const handleOpenCertificationDialog = () => setOpenCertificationDialog(true);
+  const handleCloseCertificationDialog = () => setOpenCertificationDialog(false);
+
+  const handleOpenProjectDialog = () => setOpenProjectDialog(true);
+  const handleCloseProjectDialog = () => setOpenProjectDialog(false);
+
+  const handleOpenProfileDialog = () => setOpenProfileDialog(true);
+  const handleCloseProfileDialog = () => setOpenProfileDialog(false);
+
+  // Handlers for form submissions
+  const handleAddExperience = () => {
+    // Add validation here
+    user.experience.push(newExperience);
+    setOpenExperienceDialog(false);
+    setNewExperience({
+      company: '',
+      role: '',
+      period: '',
+      location: '',
+      type: '',
+      description: '',
+    });
+  };
+
+  const handleAddEducation = () => {
+    user.education.push(newEducation);
+    setOpenEducationDialog(false);
+    setNewEducation({
+      institution: '',
+      degree: '',
+      period: '',
+    });
+  };
+
+  const handleAddCertification = () => {
+    // Implement certification adding logic
+    setOpenCertificationDialog(false);
+  };
+
+  const handleAddProject = () => {
+    // Implement project adding logic
+    setOpenProjectDialog(false);
+  };
+
+  const handleSaveProfile = () => {
+    // Implement profile saving logic
+    setOpenProfileDialog(false);
+    setEditMode(false);
+  };
+
+  const handleEditProfile = () => {
+    setOpenProfileDialog(true);
+  };
+
+  // Add handlers for editing existing items
+  const handleEditExperience = (experience: Experience) => {
+    setEditingExperience(experience);
+    setNewExperience(experience);
+    setOpenExperienceDialog(true);
+  };
+
+  const handleEditEducation = (education: Education) => {
+    setEditingEducation(education);
+    setNewEducation(education);
+    setOpenEducationDialog(true);
+  };
+
+  const handleEditCertification = (certification: Certification) => {
+    setEditingCertification(certification);
+    setNewCertification(certification);
+    setOpenCertificationDialog(true);
+  };
+
+  const handleEditProject = (project: Project) => {
+    setEditingProject(project);
+    setNewProject(project);
+    setOpenProjectDialog(true);
+  };
+
+  const handleEditJobPreferences = () => {
+    setEditingJobPreferences(true);
+  };
+
+  // Update save handlers to handle both new and edit cases
+  const handleSaveExperience = () => {
+    if (editingExperience) {
+      // Update existing experience
+      const index = user.experience.findIndex(exp => exp === editingExperience);
+      if (index !== -1) {
+        user.experience[index] = newExperience;
+      }
+      setEditingExperience(null);
+    } else {
+      // Add new experience
+      user.experience.push(newExperience);
+    }
+    setOpenExperienceDialog(false);
+    setNewExperience({
+      company: '',
+      role: '',
+      period: '',
+      location: '',
+      type: '',
+      description: '',
+    });
+  };
+
+  const handleSaveEducation = () => {
+    if (editingEducation) {
+      const index = user.education.findIndex(edu => edu === editingEducation);
+      if (index !== -1) {
+        user.education[index] = newEducation;
+      }
+      setEditingEducation(null);
+    } else {
+      user.education.push(newEducation);
+    }
+    setOpenEducationDialog(false);
+    setNewEducation({
+      institution: '',
+      degree: '',
+      period: '',
+    });
+  };
+
+  const handleSaveJobPreferences = () => {
+    setJobPreferences({
+      ...jobPreferences,
+      // Add any updates from form data
+    });
+    setEditingJobPreferences(false);
   };
 
   // Mock user data
@@ -130,30 +404,48 @@ const Profile = () => {
   const profileCompletion = 80; // Percentage of profile completed
 
   return (
-    <Box sx={{ bgcolor: '#F8F9FB', minHeight: '100vh', pt: 2, pb: 6 }}>
-      <Container maxWidth="lg">
-        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-          <PersonIcon sx={{ mr: 1 }} />
+    <Box sx={{ minHeight: '100vh', p: 3 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+            <PersonIcon sx={{ mr: 1 }} />
           <Typography variant="h5" component="h1">My Profile</Typography>
+          </Box>
+          
+          {/* Edit Profile Button */}
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 3 }}>
+          <Button
+                  startIcon={<EditIcon />}
+                  fullWidth
+                  variant="contained"
+                  onClick={handleEditProfile}
+                  sx={{
+                    bgcolor: '#FF6B00',
+                    borderRadius: 2,
+                    textTransform: 'none',
+                    '&:hover': { bgcolor: '#e65c00' },
+                    py: 1
+                  }}
+                >
+                  Edit Profile
+                </Button>
+                </Box>
         </Box>
 
-        <Grid container spacing={3}>
+      <Grid container spacing={3}>
           {/* Left Sidebar with Profile Info */}
           <Grid item xs={12} md={4} lg={3}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
               {/* Profile Card */}
               <Paper 
-                sx={{ 
+                sx={{
                   borderRadius: 2, 
                   overflow: 'hidden', 
-                  bgcolor: '#FFF8F5', 
                   border: '1px solid #FFE2DB',
                   pb: 2 
                 }}
               >
                 <Box 
-                  sx={{ 
-                    bgcolor: '#FF6B00', 
+                sx={{
                     height: 16, 
                     width: '100%', 
                     mb: 2 
@@ -192,7 +484,7 @@ const Profile = () => {
                   </Typography>
                   <Typography variant="body2" align="center" color="text.secondary" gutterBottom>
                     {user.title}
-                  </Typography>
+                </Typography>
                   <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 1 }}>
                     <LocationOnIcon sx={{ fontSize: '0.9rem', color: 'text.secondary', mr: 0.5 }} />
                     <Typography variant="body2" color="text.secondary">
@@ -200,104 +492,90 @@ const Profile = () => {
                     </Typography>
                   </Box>
                 </Box>
-              </Paper>
-
-              {/* Contact Information */}
-              <Paper sx={{ p: 2, borderRadius: 2 }}>
-                <Typography variant="subtitle1" sx={{ mb: 2, fontWeight: 600 }}>
-                  Contact Information
-                </Typography>
-                <Box sx={{ mb: 2 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                    <EmailIcon sx={{ fontSize: '1rem', color: 'text.secondary', mr: 1 }} />
-                    <Typography variant="body2">{user.email}</Typography>
+              
+                <Box sx={{ p: 3 }}>
+                  <Typography variant="subtitle1" sx={{ mb: 2, fontWeight: 600 }}>
+                    Contact Information
+                      </Typography>
+                  <Box sx={{ mb: 2 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                      <EmailIcon sx={{ fontSize: '1rem', color: 'text.secondary', mr: 1 }} />
+                      <Typography variant="body2">{user.email}</Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                      <PhoneIcon sx={{ fontSize: '1rem', color: 'text.secondary', mr: 1 }} />
+                      <Typography variant="body2">{user.phone}</Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                      <LanguageIcon sx={{ fontSize: '1rem', color: 'text.secondary', mr: 1 }} />
+                      <Link href={user.website} target="_blank" variant="body2" sx={{ color: '#FF6B00' }}>
+                        {user.website.replace('https://', '')}
+                      </Link>
+                    </Box>
                   </Box>
-                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                    <PhoneIcon sx={{ fontSize: '1rem', color: 'text.secondary', mr: 1 }} />
-                    <Typography variant="body2">{user.phone}</Typography>
+                  <Box sx={{ display: 'flex', gap: 1, pt: 2, pb: 2 }}>
+                    <Box sx={{ p: 1, border: '1px solid #eee', borderRadius: 1, width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <LinkedInIcon />
+                    </Box>
+                    <Box sx={{ p: 1, border: '1px solid #eee', borderRadius: 1, width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <GitHubIcon />
+                    </Box>
+                    <Box sx={{ p: 1, border: '1px solid #eee', borderRadius: 1, width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <LanguageIcon />
+                    </Box>
                   </Box>
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <LanguageIcon sx={{ fontSize: '1rem', color: 'text.secondary', mr: 1 }} />
-                    <Link href={user.website} target="_blank" variant="body2" sx={{ color: '#FF6B00' }}>
-                      {user.website.replace('https://', '')}
-                    </Link>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+                    <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                      Profile Completion
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {profileCompletion}%
+                    </Typography>
                   </Box>
-                </Box>
-              </Paper>
-
-              {/* Social Profiles */}
-              <Paper sx={{ p: 2, borderRadius: 2 }}>
-                <Typography variant="subtitle1" sx={{ mb: 2, fontWeight: 600 }}>
-                  Social Profiles
-                </Typography>
-                <Box sx={{ display: 'flex', gap: 1 }}>
-                  <Box sx={{ p: 1, border: '1px solid #eee', borderRadius: 1, width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <LinkedInIcon />
-                  </Box>
-                  <Box sx={{ p: 1, border: '1px solid #eee', borderRadius: 1, width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <GitHubIcon />
-                  </Box>
-                  <Box sx={{ p: 1, border: '1px solid #eee', borderRadius: 1, width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <LanguageIcon />
-                  </Box>
-                </Box>
-              </Paper>
-
-              {/* Profile Completion */}
-              <Paper sx={{ p: 2, borderRadius: 2 }}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                  <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-                    Profile Completion
+                  <LinearProgress
+                    variant="determinate"
+                    value={profileCompletion}
+                    sx={{
+                      height: 8,
+                      borderRadius: 4,
+                      mb: 2,
+                      backgroundColor: 'rgba(255, 107, 0, 0.1)',
+                      '& .MuiLinearProgress-bar': {
+                        backgroundColor: '#FF6B00',
+                        borderRadius: 4
+                      }
+                    }}
+                  />
+                  <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
+                  <Typography variant="body2" sx={{ mb: 2 }}>
+                    To complete your profile:
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {profileCompletion}%
-                  </Typography>
+                  <Box component="ul" sx={{ pl: 2, m: 0 }}>
+                    <Typography component="li" variant="body2" sx={{ mb: 1 }}>
+                      Add a profile picture
+                    </Typography>
+                    <Typography component="li" variant="body2">
+                      Complete skills assessment
+                    </Typography>
+                  </Box>
+                  </Box>
+                  <Button
+                    startIcon={<DownloadIcon />}
+                    fullWidth
+                    variant="outlined"
+                    sx={{ mb: 1, borderRadius: 2, textTransform: 'none' }}
+                  >
+                    Download Resume
+                  </Button>
+                  <Button
+                    startIcon={<UploadIcon />}
+                    fullWidth
+                    variant="outlined"
+                    sx={{ borderRadius: 2, textTransform: 'none' }}
+                  >
+                    Upload New Resume
+                  </Button>
                 </Box>
-                <LinearProgress 
-                  variant="determinate" 
-                  value={profileCompletion} 
-                  sx={{
-                    height: 8,
-                    borderRadius: 4,
-                    mb: 2,
-                    backgroundColor: 'rgba(255, 107, 0, 0.1)',
-                    '& .MuiLinearProgress-bar': {
-                      backgroundColor: '#FF6B00',
-                      borderRadius: 4
-                    }
-                  }}
-                />
-                <Typography variant="body2" sx={{ mb: 2 }}>
-                  To complete your profile:
-                </Typography>
-                <Box component="ul" sx={{ pl: 2, m: 0 }}>
-                  <Typography component="li" variant="body2" sx={{ mb: 1 }}>
-                    Add a profile picture
-                  </Typography>
-                  <Typography component="li" variant="body2">
-                    Complete skills assessment
-                  </Typography>
-                </Box>
-              </Paper>
-
-              {/* Resume Actions */}
-              <Paper sx={{ p: 2, borderRadius: 2 }}>
-                <Button
-                  startIcon={<DownloadIcon />}
-                  fullWidth
-                  variant="outlined"
-                  sx={{ mb: 1, borderRadius: 2, textTransform: 'none' }}
-                >
-                  Download Resume
-                </Button>
-                <Button
-                  startIcon={<UploadIcon />}
-                  fullWidth
-                  variant="outlined"
-                  sx={{ borderRadius: 2, textTransform: 'none' }}
-                >
-                  Upload New Resume
-                </Button>
               </Paper>
 
               {/* Skills Section */}
@@ -333,26 +611,10 @@ const Profile = () => {
                       }}
                     />
                   ))}
-                </Box>
+              </Box>
               </Paper>
-
-              {/* Edit Profile Button */}
-              <Button
-                startIcon={<EditIcon />}
-                fullWidth
-                variant="contained"
-                sx={{ 
-                  bgcolor: '#FF6B00', 
-                  borderRadius: 2, 
-                  textTransform: 'none',
-                  '&:hover': { bgcolor: '#e65c00' },
-                  py: 1
-                }}
-              >
-                Edit Profile
-              </Button>
             </Box>
-          </Grid>
+        </Grid>
 
           {/* Main Content */}
           <Grid item xs={12} md={8} lg={9}>
@@ -399,57 +661,58 @@ const Profile = () => {
 
             {/* Experience, Education, Job Preferences Tabs */}
             <Paper sx={{ borderRadius: 2 }}>
-              <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs 
-                  value={tabValue} 
-                  onChange={handleTabChange}
-                  variant="scrollable"
-                  scrollButtons="auto"
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+              <Tabs 
+                value={tabValue} 
+                onChange={handleTabChange}
+                variant="scrollable"
+                scrollButtons="auto"
                   aria-label="profile tabs"
-                  sx={{
-                    '& .MuiTab-root': {
-                      textTransform: 'none',
-                      fontWeight: 500,
+                sx={{
+                  '& .MuiTab-root': {
+                    textTransform: 'none',
+                    fontWeight: 500,
                       px: 3,
-                    },
-                    '& .Mui-selected': {
-                      color: '#FF6B00',
-                    },
-                    '& .MuiTabs-indicator': {
-                      backgroundColor: '#FF6B00',
-                    }
-                  }}
-                >
+                  },
+                  '& .Mui-selected': {
+                    color: '#FF6B00',
+                  },
+                  '& .MuiTabs-indicator': {
+                    backgroundColor: '#FF6B00',
+                  }
+                }}
+              >
                   <Tab label="Experience" id="tab-0" aria-controls="tabpanel-0" />
                   <Tab label="Education" id="tab-1" aria-controls="tabpanel-1" />
                   <Tab label="Certifications" id="tab-2" aria-controls="tabpanel-2" />
                   <Tab label="Portfolio" id="tab-3" aria-controls="tabpanel-3" />
                   <Tab label="Job Preferences" id="tab-4" aria-controls="tabpanel-4" />
-                </Tabs>
-              </Box>
-              
+              </Tabs>
+            </Box>
+
               {/* Experience Tab Panel */}
               <TabPanel value={tabValue} index={0}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pl: 2, pr: 2 }}>
                   <Typography variant="h6" sx={{ fontWeight: 600 }}>Work Experience</Typography>
-                  <Button 
-                    startIcon={<AddIcon />} 
-                    sx={{ 
-                      color: '#FF6B00',
-                      '&:hover': {
-                        backgroundColor: 'rgba(255, 107, 0, 0.04)',
-                      },
-                      textTransform: 'none'
-                    }}
-                  >
-                    Add Experience
-                  </Button>
+                    <Button 
+                      startIcon={<AddIcon />} 
+                      onClick={handleOpenExperienceDialog}
+                      sx={{ 
+                        color: '#FF6B00',
+                        '&:hover': {
+                          backgroundColor: 'rgba(255, 107, 0, 0.04)',
+                        },
+                        textTransform: 'none'
+                      }}
+                    >
+                      Add Experience
+                    </Button>
                 </Box>
-
-                {user.experience.map((exp, index) => (
+                
+                  {user.experience.map((exp, index) => (
                   <Box key={index} sx={{ mb: 3, p: 3 }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                      <Box>
+                        <Box>
                         <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>{exp.role}</Typography>
                         <Typography variant="body2" color="text.secondary">{exp.company}</Typography>
                         <Box sx={{ display: 'flex', gap: 2, mt: 0.5 }}>
@@ -461,134 +724,239 @@ const Profile = () => {
                           <Typography variant="body2" color="text.secondary">{exp.type}</Typography>
                         </Box>
                       </Box>
-                      <IconButton size="small">
+                      <IconButton size="small" onClick={() => handleEditExperience(exp)}>
                         <EditIcon fontSize="small" />
                       </IconButton>
                     </Box>
                     <Typography variant="body2" sx={{ mt: 1 }}>{exp.description}</Typography>
                     {index < user.experience.length - 1 && <Divider sx={{ mt: 2 }} />}
-                  </Box>
-                ))}
+                    </Box>
+                  ))}
               </TabPanel>
 
               {/* Education Tab Panel */}
               <TabPanel value={tabValue} index={1}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pl: 2, pr: 2 }}>
                   <Typography variant="h6" sx={{ fontWeight: 600 }}>Education</Typography>
-                  <Button 
-                    startIcon={<AddIcon />} 
-                    sx={{ 
-                      color: '#FF6B00',
-                      '&:hover': {
-                        backgroundColor: 'rgba(255, 107, 0, 0.04)',
-                      },
-                      textTransform: 'none'
-                    }}
-                  >
-                    Add Education
-                  </Button>
+                    <Button 
+                      startIcon={<AddIcon />} 
+                      onClick={handleOpenEducationDialog}
+                      sx={{ 
+                        color: '#FF6B00',
+                        '&:hover': {
+                          backgroundColor: 'rgba(255, 107, 0, 0.04)',
+                        },
+                        textTransform: 'none'
+                      }}
+                    >
+                      Add Education
+                    </Button>
                 </Box>
-
-                {user.education.map((edu, index) => (
+                
+                  {user.education.map((edu, index) => (
                   <Box key={index}>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                      <Box>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', p:3 }}>
+                        <Box>
                         <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>{edu.degree}</Typography>
                         <Typography variant="body2" color="text.secondary">{edu.institution}</Typography>
                         <Typography variant="body2" color="text.secondary">{edu.period}</Typography>
                       </Box>
-                      <IconButton size="small">
+                      <IconButton size="small" onClick={() => handleEditEducation(edu)}>
                         <EditIcon fontSize="small" />
                       </IconButton>
                     </Box>
                     {index < user.education.length - 1 && <Divider sx={{ mt: 2, mb: 2 }} />}
-                  </Box>
-                ))}
+                    </Box>
+                  ))}
               </TabPanel>
 
               {/* Certifications Tab Panel */}
               <TabPanel value={tabValue} index={2}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pl: 2, pr: 2 }}>
                   <Typography variant="h6" sx={{ fontWeight: 600 }}>Certifications</Typography>
-                  <Button 
-                    startIcon={<AddIcon />} 
-                    sx={{ 
-                      color: '#FF6B00',
-                      '&:hover': {
-                        backgroundColor: 'rgba(255, 107, 0, 0.04)',
-                      },
-                      textTransform: 'none'
-                    }}
-                  >
+                    <Button 
+                      startIcon={<AddIcon />} 
+                      onClick={handleOpenCertificationDialog}
+                      sx={{ 
+                        color: '#FF6B00',
+                        '&:hover': {
+                          backgroundColor: 'rgba(255, 107, 0, 0.04)',
+                        },
+                        textTransform: 'none'
+                      }}
+                    >
                     Add Certification
-                  </Button>
+                    </Button>
                 </Box>
-                <Typography variant="body2" color="text.secondary">
+                          <Typography variant="body2" color="text.secondary" sx={{ p: 3 }}>
                   No certifications added yet. Add your professional certifications to showcase your expertise.
-                </Typography>
+                          </Typography>
               </TabPanel>
 
               {/* Portfolio Tab Panel */}
               <TabPanel value={tabValue} index={3}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pl: 2, pr: 2 }}>
                   <Typography variant="h6" sx={{ fontWeight: 600 }}>Portfolio</Typography>
-                  <Button 
-                    startIcon={<AddIcon />} 
-                    sx={{ 
-                      color: '#FF6B00',
-                      '&:hover': {
-                        backgroundColor: 'rgba(255, 107, 0, 0.04)',
-                      },
-                      textTransform: 'none'
-                    }}
-                  >
-                    Add Project
-                  </Button>
+                    <Button 
+                      startIcon={<AddIcon />} 
+                      onClick={handleOpenProjectDialog}
+                      sx={{ 
+                        color: '#FF6B00',
+                        '&:hover': {
+                          backgroundColor: 'rgba(255, 107, 0, 0.04)',
+                        },
+                        textTransform: 'none'
+                      }}
+                    >
+                      Add Project
+                    </Button>
                 </Box>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="text.secondary" sx={{ p: 3 }}>
                   No portfolio items added yet. Showcase your work by adding projects, case studies, or samples.
                 </Typography>
               </TabPanel>
 
               {/* Job Preferences Tab Panel */}
               <TabPanel value={tabValue} index={4}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pl: 2, pr: 2 }}>
                   <Typography variant="h6" sx={{ fontWeight: 600 }}>Job Preferences</Typography>
-                  <IconButton size="small">
+                  <IconButton size="small" onClick={handleEditJobPreferences}>
                     <EditIcon fontSize="small" />
                   </IconButton>
                 </Box>
                 
-                <Box sx={{ mb: 3 }}>
-                  <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>Job Types</Typography>
-                  <Box sx={{ display: 'flex', gap: 1 }}>
-                    <Chip label="Full-time" size="small" variant="outlined" />
-                    <Chip label="Remote" size="small" variant="outlined" />
+                {editingJobPreferences ? (
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, p: 3 }}>
+                    <Box sx={{ p: 3 }}>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>Job Types</Typography>
+                      <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                        {['Full-time', 'Part-time', 'Contract', 'Remote'].map((type) => (
+                          <Chip
+                            key={type}
+                            label={type}
+                            onClick={() => {
+                              const newTypes = jobPreferences.jobTypes.includes(type)
+                                ? jobPreferences.jobTypes.filter(t => t !== type)
+                                : [...jobPreferences.jobTypes, type];
+                              setJobPreferences({ ...jobPreferences, jobTypes: newTypes });
+                            }}
+                            color={jobPreferences.jobTypes.includes(type) ? "primary" : "default"}
+                            sx={{ 
+                              bgcolor: jobPreferences.jobTypes.includes(type) ? '#FFE2DB' : 'transparent',
+                              color: jobPreferences.jobTypes.includes(type) ? '#FF6B00' : 'inherit',
+                              '&:hover': {
+                                bgcolor: jobPreferences.jobTypes.includes(type) ? '#FFD4C4' : '#f5f5f5'
+                              }
+                            }}
+                          />
+                        ))}
+                      </Box>
+                    </Box>
+
+                    <Box sx={{ p: 3 }}>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>Preferred Locations</Typography>
+                      <TextField
+                        fullWidth
+                        placeholder="Add locations (comma-separated)"
+                        value={jobPreferences.locations.join(', ')}
+                        onChange={(e) => {
+                          const locations = e.target.value.split(',').map(loc => loc.trim()).filter(Boolean);
+                          setJobPreferences({ ...jobPreferences, locations });
+                        }}
+                      />
+                    </Box>
+
+                    <Box sx={{ p: 3 }}>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>Salary Range</Typography>
+                      <Box sx={{ display: 'flex', gap: 2 }}>
+                        <TextField
+                          label="Minimum"
+                          type="number"
+                          value={jobPreferences.salaryRange.min}
+                          onChange={(e) => {
+                            setJobPreferences({
+                              ...jobPreferences,
+                              salaryRange: { ...jobPreferences.salaryRange, min: Number(e.target.value) }
+                            });
+                          }}
+                        />
+                        <TextField
+                          label="Maximum"
+                          type="number"
+                          value={jobPreferences.salaryRange.max}
+                          onChange={(e) => {
+                            setJobPreferences({
+                              ...jobPreferences,
+                              salaryRange: { ...jobPreferences.salaryRange, max: Number(e.target.value) }
+                            });
+                          }}
+                        />
+                      </Box>
+                    </Box>
+
+                    <Box sx={{ p: 3 }}>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>Industries</Typography>
+                      <TextField
+                        fullWidth
+                        placeholder="Add industries (comma-separated)"
+                        value={jobPreferences.industries.join(', ')}
+                        onChange={(e) => {
+                          const industries = e.target.value.split(',').map(ind => ind.trim()).filter(Boolean);
+                          setJobPreferences({ ...jobPreferences, industries });
+                        }}
+                      />
+                    </Box>
+
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2, mt: 2 }}>
+                      <Button onClick={() => setEditingJobPreferences(false)}>Cancel</Button>
+                      <Button
+                        variant="contained"
+                        onClick={handleSaveJobPreferences}
+                        sx={{ bgcolor: '#FF6B00', '&:hover': { bgcolor: '#e65c00' } }}
+                      >
+                        Save Changes
+                      </Button>
+                    </Box>
                   </Box>
-                </Box>
-                
-                <Box sx={{ mb: 3 }}>
-                  <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>Preferred Locations</Typography>
-                  <Box sx={{ display: 'flex', gap: 1 }}>
-                    <Chip label="San Francisco, CA" size="small" variant="outlined" />
-                    <Chip label="New York, NY" size="small" variant="outlined" />
-                    <Chip label="Remote" size="small" variant="outlined" />
-                  </Box>
-                </Box>
-                
-                <Box sx={{ mb: 3 }}>
-                  <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>Salary Expectations</Typography>
-                  <Typography variant="body2">$120,000 - $150,000 per year</Typography>
-                </Box>
-                
-                <Box>
-                  <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>Industries</Typography>
-                  <Box sx={{ display: 'flex', gap: 1 }}>
-                    <Chip label="Technology" size="small" variant="outlined" />
-                    <Chip label="Finance" size="small" variant="outlined" />
-                    <Chip label="Healthcare" size="small" variant="outlined" />
-                  </Box>
-                </Box>
+                ) : (
+                  <>
+                    <Box sx={{ p: 3 }}>
+                      <Box sx={{ mb: 3 }}>
+                        <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>Job Types</Typography>
+                        <Box sx={{ display: 'flex', gap: 1 }}>
+                          {jobPreferences.jobTypes.map((type) => (
+                            <Chip key={type} label={type} size="small" variant="outlined" />
+                          ))}
+                        </Box>
+                      </Box>
+                      
+                      <Box sx={{ mb: 3 }}>
+                        <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>Preferred Locations</Typography>
+                        <Box sx={{ display: 'flex', gap: 1 }}>
+                          {jobPreferences.locations.map((location) => (
+                            <Chip key={location} label={location} size="small" variant="outlined" />
+                          ))}
+                        </Box>
+                      </Box>
+                      
+                      <Box sx={{ mb: 3 }}>
+                        <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>Salary Expectations</Typography>
+                        <Typography variant="body2">
+                          ${jobPreferences.salaryRange.min.toLocaleString()} - ${jobPreferences.salaryRange.max.toLocaleString()} per year
+                        </Typography>
+                      </Box>
+                      
+                      <Box sx={{ mb: 3 }}>
+                        <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>Industries</Typography>
+                        <Box sx={{ display: 'flex', gap: 1 }}>
+                          {jobPreferences.industries.map((industry) => (
+                            <Chip key={industry} label={industry} size="small" variant="outlined" />
+                          ))}
+                        </Box>
+                      </Box>
+                    </Box>
+                  </>
+                )}
               </TabPanel>
             </Paper>
 
@@ -607,13 +975,260 @@ const Profile = () => {
                 <Typography component="li" variant="body2">
                   Add detailed descriptions to your work experiences
                 </Typography>
-              </Box>
-            </Paper>
-          </Grid>
+            </Box>
+          </Paper>
         </Grid>
-      </Container>
+      </Grid>
+
+      {/* Add Experience Dialog */}
+      <Dialog open={openExperienceDialog} onClose={handleCloseExperienceDialog} maxWidth="sm" fullWidth>
+        <DialogTitle>Add Experience</DialogTitle>
+        <DialogContent>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 2 }}>
+            <TextField
+              label="Company"
+              fullWidth
+              value={newExperience.company}
+              onChange={(e) => setNewExperience({ ...newExperience, company: e.target.value })}
+            />
+            <TextField
+              label="Role"
+              fullWidth
+              value={newExperience.role}
+              onChange={(e) => setNewExperience({ ...newExperience, role: e.target.value })}
+            />
+            <TextField
+              label="Period"
+              fullWidth
+              value={newExperience.period}
+              onChange={(e) => setNewExperience({ ...newExperience, period: e.target.value })}
+            />
+            <TextField
+              label="Location"
+              fullWidth
+              value={newExperience.location}
+              onChange={(e) => setNewExperience({ ...newExperience, location: e.target.value })}
+            />
+            <FormControl fullWidth>
+              <InputLabel>Type</InputLabel>
+              <Select
+                value={newExperience.type}
+                label="Type"
+                onChange={(e) => setNewExperience({ ...newExperience, type: e.target.value })}
+              >
+                <MenuItem value="Full-time">Full-time</MenuItem>
+                <MenuItem value="Part-time">Part-time</MenuItem>
+                <MenuItem value="Contract">Contract</MenuItem>
+                <MenuItem value="Internship">Internship</MenuItem>
+              </Select>
+            </FormControl>
+            <TextField
+              label="Description"
+              fullWidth
+              multiline
+              rows={4}
+              value={newExperience.description}
+              onChange={(e) => setNewExperience({ ...newExperience, description: e.target.value })}
+            />
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseExperienceDialog}>Cancel</Button>
+          <Button 
+            onClick={handleSaveExperience} 
+            variant="contained" 
+            sx={{ bgcolor: '#FF6B00', '&:hover': { bgcolor: '#e65c00' } }}
+          >
+            {editingExperience ? 'Save Changes' : 'Add Experience'}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Add Education Dialog */}
+      <Dialog open={openEducationDialog} onClose={handleCloseEducationDialog} maxWidth="sm" fullWidth>
+        <DialogTitle>Add Education</DialogTitle>
+        <DialogContent>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 2 }}>
+            <TextField
+              label="Institution"
+              fullWidth
+              value={newEducation.institution}
+              onChange={(e) => setNewEducation({ ...newEducation, institution: e.target.value })}
+            />
+            <TextField
+              label="Degree"
+              fullWidth
+              value={newEducation.degree}
+              onChange={(e) => setNewEducation({ ...newEducation, degree: e.target.value })}
+            />
+            <TextField
+              label="Period"
+              fullWidth
+              value={newEducation.period}
+              onChange={(e) => setNewEducation({ ...newEducation, period: e.target.value })}
+            />
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseEducationDialog}>Cancel</Button>
+          <Button onClick={handleSaveEducation} variant="contained" sx={{ bgcolor: '#FF6B00', '&:hover': { bgcolor: '#e65c00' } }}>
+            Add Education
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Add Certification Dialog */}
+      <Dialog open={openCertificationDialog} onClose={handleCloseCertificationDialog} maxWidth="sm" fullWidth>
+        <DialogTitle>Add Certification</DialogTitle>
+        <DialogContent>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 2 }}>
+            <TextField
+              label="Certification Name"
+              fullWidth
+              value={newCertification.name}
+              onChange={(e) => setNewCertification({ ...newCertification, name: e.target.value })}
+            />
+            <TextField
+              label="Issuing Organization"
+              fullWidth
+              value={newCertification.issuer}
+              onChange={(e) => setNewCertification({ ...newCertification, issuer: e.target.value })}
+            />
+            <TextField
+              label="Issue Date"
+              fullWidth
+              type="date"
+              value={newCertification.date}
+              onChange={(e) => setNewCertification({ ...newCertification, date: e.target.value })}
+              InputLabelProps={{ shrink: true }}
+            />
+            <TextField
+              label="Expiry Date (Optional)"
+              fullWidth
+              type="date"
+              value={newCertification.expiryDate}
+              onChange={(e) => setNewCertification({ ...newCertification, expiryDate: e.target.value })}
+              InputLabelProps={{ shrink: true }}
+            />
+            <TextField
+              label="Credential URL (Optional)"
+              fullWidth
+              value={newCertification.credentialUrl}
+              onChange={(e) => setNewCertification({ ...newCertification, credentialUrl: e.target.value })}
+            />
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseCertificationDialog}>Cancel</Button>
+          <Button onClick={handleAddCertification} variant="contained" sx={{ bgcolor: '#FF6B00', '&:hover': { bgcolor: '#e65c00' } }}>
+            Add Certification
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Add Project Dialog */}
+      <Dialog open={openProjectDialog} onClose={handleCloseProjectDialog} maxWidth="sm" fullWidth>
+        <DialogTitle>Add Project</DialogTitle>
+        <DialogContent>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 2 }}>
+            <TextField
+              label="Project Name"
+              fullWidth
+              value={newProject.name}
+              onChange={(e) => setNewProject({ ...newProject, name: e.target.value })}
+            />
+            <TextField
+              label="Description"
+              fullWidth
+              multiline
+              rows={4}
+              value={newProject.description}
+              onChange={(e) => setNewProject({ ...newProject, description: e.target.value })}
+            />
+            <TextField
+              label="Technologies (comma-separated)"
+              fullWidth
+              value={newProject.technologies.join(', ')}
+              onChange={(e) => setNewProject({ ...newProject, technologies: e.target.value.split(',').map(tech => tech.trim()) })}
+            />
+            <TextField
+              label="Project URL (Optional)"
+              fullWidth
+              value={newProject.url}
+              onChange={(e) => setNewProject({ ...newProject, url: e.target.value })}
+            />
+            <TextField
+              label="Image URL (Optional)"
+              fullWidth
+              value={newProject.imageUrl}
+              onChange={(e) => setNewProject({ ...newProject, imageUrl: e.target.value })}
+            />
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseProjectDialog}>Cancel</Button>
+          <Button onClick={handleAddProject} variant="contained" sx={{ bgcolor: '#FF6B00', '&:hover': { bgcolor: '#e65c00' } }}>
+            Add Project
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Edit Profile Dialog */}
+      <Dialog open={openProfileDialog} onClose={handleCloseProfileDialog} maxWidth="sm" fullWidth>
+        <DialogTitle>Edit Profile</DialogTitle>
+        <DialogContent>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 2 }}>
+            <TextField
+              label="Full Name"
+              fullWidth
+              defaultValue={user.name}
+            />
+            <TextField
+              label="Title"
+              fullWidth
+              defaultValue={user.title}
+            />
+            <TextField
+              label="Location"
+              fullWidth
+              defaultValue={user.location}
+            />
+            <TextField
+              label="Email"
+              fullWidth
+              defaultValue={user.email}
+            />
+            <TextField
+              label="Phone"
+              fullWidth
+              defaultValue={user.phone}
+            />
+            <TextField
+              label="Website"
+              fullWidth
+              defaultValue={user.website}
+            />
+            <TextField
+              label="LinkedIn URL"
+              fullWidth
+              defaultValue={user.socialLinks.linkedin}
+            />
+            <TextField
+              label="GitHub URL"
+              fullWidth
+              defaultValue={user.socialLinks.github}
+            />
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseProfileDialog}>Cancel</Button>
+          <Button onClick={handleSaveProfile} variant="contained" sx={{ bgcolor: '#FF6B00', '&:hover': { bgcolor: '#e65c00' } }}>
+            Save Changes
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
 
-export default Profile;
+export default Profile; 

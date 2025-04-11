@@ -206,7 +206,7 @@ const Jobs = () => {
       sx={{
         p: 3,
         border: '1px solid #eee',
-        borderRadius: 2
+        borderRadius: 2,
       }}
     >
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 4 }}>
@@ -349,7 +349,7 @@ const Jobs = () => {
 
       <Grid container spacing={3}>
         <Grid item xs={12} md={selectedJob ? 5 : 12}>
-          <Grid container spacing={2}>
+          <Grid container spacing={2} sx={{ rowGap: 4 }}>
             {jobListings.map((job) => (
               <Grid item xs={12} md={selectedJob ? 12 : 6} lg={selectedJob ? 12 : 4} key={job.id}>
                 <Paper 
@@ -366,7 +366,7 @@ const Jobs = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     position: 'relative',
-                    bgcolor: '#fff'
+                    bgcolor: '#fff',
                   }}
                 >
                   <Box sx={{ 
