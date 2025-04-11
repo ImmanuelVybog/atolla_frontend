@@ -33,6 +33,7 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import ArticleIcon from '@mui/icons-material/Article';
 import QuizIcon from '@mui/icons-material/Quiz';
 import TimelineIcon from '@mui/icons-material/Timeline';
+import Images from '../assets';
 
 interface LearningPath {
   id: string;
@@ -41,7 +42,6 @@ interface LearningPath {
   duration: string;
   progress: number;
   topics: string[];
-  image: string;
 }
 
 interface InterviewQuestion {
@@ -76,7 +76,6 @@ const JobPreparation = () => {
       duration: '12 weeks',
       progress: 65,
       topics: ['JavaScript', 'React', 'Node.js', 'System Design', 'Data Structures'],
-      image: '/path-images/software-dev.jpg'
     },
     {
       id: '2',
@@ -85,7 +84,6 @@ const JobPreparation = () => {
       duration: '10 weeks',
       progress: 30,
       topics: ['Python', 'Statistics', 'Machine Learning', 'Data Visualization', 'SQL'],
-      image: '/path-images/data-science.jpg'
     },
     {
       id: '3',
@@ -94,7 +92,6 @@ const JobPreparation = () => {
       duration: '8 weeks',
       progress: 0,
       topics: ['User Research', 'Wireframing', 'Prototyping', 'Visual Design', 'Figma'],
-      image: '/path-images/ux-design.jpg'
     },
     {
       id: '4',
@@ -103,7 +100,6 @@ const JobPreparation = () => {
       duration: '10 weeks',
       progress: 0,
       topics: ['Product Strategy', 'User Stories', 'Agile', 'Analytics', 'Roadmapping'],
-      image: '/path-images/product-management.jpg'
     }
   ];
 
@@ -151,16 +147,14 @@ const JobPreparation = () => {
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', py: 4 }}>
+    <Box sx={{ minHeight: '100vh', pt: 6, pb: 4 }}>
       {/* Hero Section */}
       <Box sx={{ 
         bgcolor: '#FF6B00', 
         color: 'white', 
-        py: 6, 
         mb: 4,
-        borderRadius: 2,
-        position: 'relative',
-        overflow: 'hidden'
+        borderRadius: 4,
+        position: 'relative'
       }}>
         <Box sx={{ 
           position: 'absolute', 
@@ -174,36 +168,69 @@ const JobPreparation = () => {
           backgroundPosition: 'right center',
           backgroundSize: 'cover'
         }} />
-        <Box sx={{ maxWidth: 1200, mx: 'auto', px: 3, position: 'relative', zIndex: 1 }}>
-          <Typography variant="h3" sx={{ mb: 2, fontWeight: 700 }}>
-            Prepare for Your Dream Job
-          </Typography>
-          <Typography variant="h6" sx={{ mb: 4, fontWeight: 400 }}>
-            Master the skills, ace the interviews, and launch your career
-          </Typography>
-          <TextField
-            fullWidth
-            variant="outlined"
-            placeholder="Search for skills, interview questions, or resources..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            sx={{
-              maxWidth: 600,
-              bgcolor: 'white',
-              borderRadius: 1,
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderColor: 'transparent',
+        <Box 
+          sx={{ 
+            maxWidth: 1200, 
+            mx: 'auto', 
+            px: 3, 
+            position: 'relative', 
+            zIndex: 1,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between'
+          }}
+        >
+          <Box sx={{ maxWidth: '50%' }}>
+            <Typography variant="h1" sx={{ mb: 1, fontWeight: 700, fontSize: '4rem', letterSpacing: '-0.05rem' }}>
+              Prepare for Your Dream Job
+            </Typography>
+            <Typography variant="h6" sx={{ mb: 4, fontWeight: 400 }}>
+              Master the skills, ace the interviews, and launch your career
+            </Typography>
+            <TextField
+              fullWidth
+              variant="outlined"
+              placeholder="Search for skills, interview questions, or resources..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              sx={{
+                maxWidth: 600,
+                bgcolor: 'white',
+                borderRadius: 10,
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: 'transparent',
+                  },
+                  '&:hover fieldset': {
+                    borderColor: 'transparent',
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: 'transparent',
+                  },
                 },
-                '&:hover fieldset': {
-                  borderColor: 'transparent',
-                },
-                '&.Mui-focused fieldset': {
-                  borderColor: 'transparent',
-                },
-              },
+              }}
+            />
+          </Box>
+          <Box 
+            sx={{ 
+              position: 'relative',
+              width: '45%',
+              height: '400px',
+              display: { xs: 'none', md: 'block' }
             }}
-          />
+          >
+            <img 
+              src={Images.hero.professional}
+              alt="Professional ready for career growth" 
+              style={{
+                position: 'absolute',
+                bottom: 0,
+                maxHeight: '450px',
+                objectFit: 'contain',
+                filter: 'drop-shadow(0px 4px 20px rgba(0, 0, 0, 0.15))'
+              }}
+            />
+          </Box>
         </Box>
       </Box>
 
@@ -249,12 +276,6 @@ const JobPreparation = () => {
                   borderRadius: 2,
                   boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
                 }}>
-                  <CardMedia
-                    component="img"
-                    height="140"
-                    image={path.image}
-                    alt={path.title}
-                  />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography variant="h6" sx={{ mb: 1, fontWeight: 600 }}>
                       {path.title}
@@ -307,7 +328,7 @@ const JobPreparation = () => {
                           },
                         }}
                       >
-                        Continue
+                        Learn
                       </Button>
                     </Box>
                   </CardContent>

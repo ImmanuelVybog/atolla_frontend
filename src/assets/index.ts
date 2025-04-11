@@ -54,6 +54,9 @@ import noiseTexture from './Images/Noise & Texture.svg';
 import loginGoogle from './Images/Login Google.png';
 import loginLinkedIn from './Images/Login LinkedIn.png';
 
+// Hero Images
+import heroImage from './Images/smiling-young-male-professional.png';
+
 // Export all images organized by category
 export const Images = {
   logos: {
@@ -111,6 +114,9 @@ export const Images = {
   login: {
     google: loginGoogle,
     linkedIn: loginLinkedIn,
+  },
+  hero: {
+    professional: heroImage
   }
 };
 
