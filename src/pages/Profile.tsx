@@ -21,7 +21,6 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  Container,
   Link,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
@@ -106,18 +105,8 @@ interface JobPreferences {
   industries: string[];
 }
 
-interface InterviewQuestion {
-  id: string;
-  question: string;
-  answer: string;
-  category: string;
-  difficulty: string;
-  isBookmarked: boolean;
-}
-
 const Profile = () => {
   const [tabValue, setTabValue] = useState(0);
-  const [editMode, setEditMode] = useState(false);
   const [editAbout, setEditAbout] = useState(false);
 
   // New state for dialogs
@@ -162,8 +151,6 @@ const Profile = () => {
   // Add state for editing existing items
   const [editingExperience, setEditingExperience] = useState<Experience | null>(null);
   const [editingEducation, setEditingEducation] = useState<Education | null>(null);
-  const [editingCertification, setEditingCertification] = useState<Certification | null>(null);
-  const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [editingJobPreferences, setEditingJobPreferences] = useState(false);
   const [jobPreferences, setJobPreferences] = useState<JobPreferences>({
     jobTypes: ['Full-time', 'Remote'],
@@ -175,31 +162,8 @@ const Profile = () => {
     industries: ['Technology', 'Finance', 'Healthcare']
   });
 
-  const interviewQuestions: InterviewQuestion[] = [
-    {
-      id: '1',
-      question: 'What are your greatest strengths and how do they align with this role?',
-      answer: 'Focus on relevant skills and provide specific examples of how you have used them successfully.',
-      category: 'Behavioral',
-      difficulty: 'Medium',
-      isBookmarked: false
-    },
-    {
-      id: '2',
-      question: 'Explain the concept of RESTful APIs and their principles.',
-      answer: 'REST is an architectural style for designing networked applications.',
-      category: 'Technical',
-      difficulty: 'Hard',
-      isBookmarked: false
-    }
-  ];
-
   const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
-  };
-
-  const toggleEditMode = () => {
-    setEditMode(!editMode);
   };
 
   const toggleEditAbout = () => {
@@ -219,33 +183,7 @@ const Profile = () => {
   const handleOpenProjectDialog = () => setOpenProjectDialog(true);
   const handleCloseProjectDialog = () => setOpenProjectDialog(false);
 
-  const handleOpenProfileDialog = () => setOpenProfileDialog(true);
   const handleCloseProfileDialog = () => setOpenProfileDialog(false);
-
-  // Handlers for form submissions
-  const handleAddExperience = () => {
-    // Add validation here
-    user.experience.push(newExperience);
-    setOpenExperienceDialog(false);
-    setNewExperience({
-      company: '',
-      role: '',
-      period: '',
-      location: '',
-      type: '',
-      description: '',
-    });
-  };
-
-  const handleAddEducation = () => {
-    user.education.push(newEducation);
-    setOpenEducationDialog(false);
-    setNewEducation({
-      institution: '',
-      degree: '',
-      period: '',
-    });
-  };
 
   const handleAddCertification = () => {
     // Implement certification adding logic
@@ -260,7 +198,6 @@ const Profile = () => {
   const handleSaveProfile = () => {
     // Implement profile saving logic
     setOpenProfileDialog(false);
-    setEditMode(false);
   };
 
   const handleEditProfile = () => {
@@ -278,18 +215,6 @@ const Profile = () => {
     setEditingEducation(education);
     setNewEducation(education);
     setOpenEducationDialog(true);
-  };
-
-  const handleEditCertification = (certification: Certification) => {
-    setEditingCertification(certification);
-    setNewCertification(certification);
-    setOpenCertificationDialog(true);
-  };
-
-  const handleEditProject = (project: Project) => {
-    setEditingProject(project);
-    setNewProject(project);
-    setOpenProjectDialog(true);
   };
 
   const handleEditJobPreferences = () => {
@@ -441,17 +366,12 @@ const Profile = () => {
                   borderRadius: 2, 
                   overflow: 'hidden', 
                   border: '1px solid #FFE2DB',
-                  pb: 2 
+                  pb: 2,
+                  boxShadow: 'none'
                 }}
               >
-                <Box 
-                sx={{
-                    height: 16, 
-                    width: '100%', 
-                    mb: 2 
-                  }}
-                />
-                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', px: 3 }}>
+                
+                <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', p: 2, background: 'linear-gradient(to right, #FFF5EF, #FEE5DB)' }}>
                   <Box sx={{ position: 'relative' }}>
                     <Avatar
                       sx={{
@@ -479,17 +399,19 @@ const Profile = () => {
                       <EditIcon fontSize="small" />
                     </IconButton>
                   </Box>
-                  <Typography variant="h6" align="center" sx={{ fontWeight: 600 }}>
-                    {user.name}
-                  </Typography>
-                  <Typography variant="body2" align="center" color="text.secondary" gutterBottom>
-                    {user.title}
-                </Typography>
-                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 1 }}>
-                    <LocationOnIcon sx={{ fontSize: '0.9rem', color: 'text.secondary', mr: 0.5 }} />
-                    <Typography variant="body2" color="text.secondary">
-                      {user.location}
+                  <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', px: 3 }}>
+                    <Typography variant="h3" align="center" sx={{ fontWeight: 800, letterSpacing: '-0.05rem' }}>
+                      {user.name}
                     </Typography>
+                    <Typography variant="body2" align="center" color="text.secondary" gutterBottom>
+                      {user.title}
+                                    </Typography>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 1 }}>
+                      <LocationOnIcon sx={{ fontSize: '0.9rem', color: 'text.secondary', mr: 0.5 }} />
+                      <Typography variant="body2" color="text.secondary">
+                        {user.location}
+                      </Typography>
+                    </Box>
                   </Box>
                 </Box>
               
@@ -546,7 +468,7 @@ const Profile = () => {
                       }
                     }}
                   />
-                  <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-start', mb: 4 }}>
                   <Typography variant="body2" sx={{ mb: 2 }}>
                     To complete your profile:
                   </Typography>
@@ -563,7 +485,7 @@ const Profile = () => {
                     startIcon={<DownloadIcon />}
                     fullWidth
                     variant="outlined"
-                    sx={{ mb: 1, borderRadius: 2, textTransform: 'none' }}
+                    sx={{ mb: 1, borderRadius: 2, textTransform: 'none', bgcolor: '#F8FAFC', color: '#020817', border: '1px solid #E2E8F0', fontWeight: 400, '&:hover': { bgcolor: '#e65c00' } }}
                   >
                     Download Resume
                   </Button>
@@ -571,7 +493,7 @@ const Profile = () => {
                     startIcon={<UploadIcon />}
                     fullWidth
                     variant="outlined"
-                    sx={{ borderRadius: 2, textTransform: 'none' }}
+                    sx={{ borderRadius: 2, textTransform: 'none', bgcolor: '#F8FAFC', color: '#020817', border: '1px solid #E2E8F0', fontWeight: 400, '&:hover': { bgcolor: '#e65c00' } }}
                   >
                     Upload New Resume
                   </Button>
@@ -579,7 +501,7 @@ const Profile = () => {
               </Paper>
 
               {/* Skills Section */}
-              <Paper sx={{ p: 2, borderRadius: 2 }}>
+              <Paper sx={{ p: 2, borderRadius: 2, boxShadow: 'none', border: '1px solid #E2E8F0' }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
                   <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
                     Skills
@@ -619,7 +541,7 @@ const Profile = () => {
           {/* Main Content */}
           <Grid item xs={12} md={8} lg={9}>
             {/* About Me Section */}
-            <Paper sx={{ p: 3, borderRadius: 2, mb: 3 }}>
+            <Paper sx={{ p: 3, borderRadius: 2, mb: 3, boxShadow: 'none', border: '1px solid #E2E8F0' }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
                 <Typography variant="h6" sx={{ fontWeight: 600 }}>About Me</Typography>
                 <IconButton onClick={toggleEditAbout} size="small">
@@ -660,7 +582,7 @@ const Profile = () => {
             </Paper>
 
             {/* Experience, Education, Job Preferences Tabs */}
-            <Paper sx={{ borderRadius: 2 }}>
+            <Paper sx={{ borderRadius: 2, boxShadow: 'none', border: '1px solid #E2E8F0' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
               <Tabs 
                 value={tabValue} 
@@ -961,7 +883,7 @@ const Profile = () => {
             </Paper>
 
             {/* Profile Suggestions */}
-            <Paper sx={{ p: 3, borderRadius: 2, mt: 3 }}>
+            <Paper sx={{ p: 3, borderRadius: 2, mt: 3, boxShadow: 'none', border: '1px solid #E2E8F0' }}>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                 <Typography variant="h6" sx={{ fontWeight: 600 }}>Profile Suggestions</Typography>
               </Box>
