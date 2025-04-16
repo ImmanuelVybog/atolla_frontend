@@ -353,7 +353,7 @@ const Profile = () => {
                 >
                   Edit Profile
                 </Button>
-                </Box>
+          </Box>
         </Box>
 
       <Grid container spacing={3}>

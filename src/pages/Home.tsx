@@ -15,10 +15,13 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import { useState } from 'react';
 import { FilterSegmentContainer, FilterSegment } from '../components/styled/FormComponents';
 import Images from '../assets';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const navigate = useNavigate();
   const userName = "Vish Ramesh"; // This should come from your auth context
   const [selectedFilter, setSelectedFilter] = useState('all');
+  const [searchQuery, setSearchQuery] = useState({ jobTitle: '', location: '' });
 
   // Mapping of company names to their logo images
   const getCompanyLogo = (companyName: string) => {
@@ -32,6 +35,74 @@ const Home = () => {
       case 'netflix': return Images.logos.netflix;
       default: return '';
     }
+  };
+
+  // Handle job search
+  const handleSearch = () => {
+    // Navigate to Jobs page with search params
+    navigate('/jobs', { 
+      state: { 
+        search: searchQuery.jobTitle,
+        location: searchQuery.location 
+      } 
+    });
+  };
+
+  // Handle recent search chip click
+  const handleRecentSearchClick = (search: string) => {
+    setSearchQuery({ ...searchQuery, jobTitle: search });
+    // Could auto-submit the search
+    navigate('/jobs', { state: { search } });
+  };
+
+  // Handle view job details
+  const handleViewJobDetails = (jobId: string) => {
+    navigate(`/jobs/${jobId}`);
+  };
+
+  // Handle job application
+  const handleApplyJob = (jobId: string) => {
+    navigate(`/jobs/${jobId}/apply`);
+  };
+
+  // Handle "View More Jobs" button
+  const handleViewMoreJobs = () => {
+    navigate('/jobs');
+  };
+
+  // Handle view all applications
+  const handleViewAllApplications = () => {
+    navigate('/job-tracker');
+  };
+
+  // Handle create new alert
+  const handleCreateNewAlert = () => {
+    navigate('/job-alerts/create');
+  };
+
+  // Handle view job alert
+  const handleViewJobAlert = (alertId: string) => {
+    navigate(`/job-alerts/${alertId}`);
+  };
+
+  // Handle view interview details
+  const handleViewInterviewDetails = (interviewId: string) => {
+    navigate(`/job-tracker/interviews/${interviewId}`);
+  };
+
+  // Handle interview preparation
+  const handlePrepareForInterview = (interviewId: string) => {
+    navigate(`/job-preparation?interview=${interviewId}`);
+  };
+
+  // Handle view all interviews
+  const handleViewAllInterviews = () => {
+    navigate('/job-tracker?tab=interviews');
+  };
+
+  // Handle complete profile
+  const handleCompleteProfile = () => {
+    navigate('/profile');
   };
 
   return (
@@ -67,12 +138,16 @@ const Home = () => {
                   label="Job Title or Keywords"
                   fullWidth
                   variant="outlined"
+                  value={searchQuery.jobTitle}
+                  onChange={(e) => setSearchQuery({ ...searchQuery, jobTitle: e.target.value })}
                 />
                 <TextField
                   placeholder="e.g. San Francisco or Remote"
                   label="Location"
                   fullWidth
                   variant="outlined"
+                  value={searchQuery.location}
+                  onChange={(e) => setSearchQuery({ ...searchQuery, location: e.target.value })}
                 />
                 <Button
                   variant="contained"
@@ -81,6 +156,7 @@ const Home = () => {
                     '&:hover': { bgcolor: '#e65c00' },
                     minWidth: '120px'
                   }}
+                  onClick={handleSearch}
                 >
                   Search
                 </Button>
@@ -88,11 +164,36 @@ const Home = () => {
               <Box sx={{ mt: 2 }}>
                 <Typography variant="body2" sx={{ mb: 1 }}>Recent Searches:</Typography>
                 <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-                  <Chip sx={{ backgroundColor: '#F1F5F9', color: '#000000', border: 'none' }} label="Frontend Developer" variant="outlined" />
-                  <Chip sx={{ backgroundColor: '#F1F5F9', color: '#000000', border: 'none' }} label="Remote" variant="outlined" />
-                  <Chip sx={{ backgroundColor: '#F1F5F9', color: '#000000', border: 'none' }} label="UX Designer" variant="outlined" />
-                  <Chip sx={{ backgroundColor: '#F1F5F9', color: '#000000', border: 'none' }} label="Full Stack" variant="outlined" />
-                  <Chip sx={{ backgroundColor: '#F1F5F9', color: '#000000', border: 'none' }} label="Product Manager" variant="outlined" />
+                  <Chip 
+                    sx={{ backgroundColor: '#F1F5F9', color: '#000000', border: 'none', cursor: 'pointer' }} 
+                    label="Frontend Developer" 
+                    variant="outlined" 
+                    onClick={() => handleRecentSearchClick('Frontend Developer')}
+                  />
+                  <Chip 
+                    sx={{ backgroundColor: '#F1F5F9', color: '#000000', border: 'none', cursor: 'pointer' }} 
+                    label="Remote" 
+                    variant="outlined" 
+                    onClick={() => handleRecentSearchClick('Remote')}
+                  />
+                  <Chip 
+                    sx={{ backgroundColor: '#F1F5F9', color: '#000000', border: 'none', cursor: 'pointer' }} 
+                    label="UX Designer" 
+                    variant="outlined" 
+                    onClick={() => handleRecentSearchClick('UX Designer')}
+                  />
+                  <Chip 
+                    sx={{ backgroundColor: '#F1F5F9', color: '#000000', border: 'none', cursor: 'pointer' }} 
+                    label="Full Stack" 
+                    variant="outlined" 
+                    onClick={() => handleRecentSearchClick('Full Stack')}
+                  />
+                  <Chip 
+                    sx={{ backgroundColor: '#F1F5F9', color: '#000000', border: 'none', cursor: 'pointer' }} 
+                    label="Product Manager" 
+                    variant="outlined" 
+                    onClick={() => handleRecentSearchClick('Product Manager')}
+                  />
                 </Box>
               </Box>
             </Box>
@@ -137,6 +238,7 @@ const Home = () => {
             {/* Job Cards */}
             {[
               {
+                id: 'job-1',
                 company: 'Google',
                 logo: 'G',
                 title: 'Full-stack Developer',
@@ -147,6 +249,7 @@ const Home = () => {
                 tags: ['JavaScript', 'Node.js', 'React', 'AWS']
               },
               {
+                id: 'job-2',
                 company: 'Microsoft',
                 logo: 'M',
                 title: 'Senior UI/UX Designer',
@@ -157,6 +260,7 @@ const Home = () => {
                 tags: ['UI', 'UX', 'Figma', 'Design Systems']
               },
               {
+                id: 'job-3',
                 company: 'Meta',
                 logo: 'M',
                 title: 'Data Analyst',
@@ -235,11 +339,19 @@ const Home = () => {
                         ))}
                         </Box>
                         <Box sx={{ display: 'flex', gap: 1 }}>
-                          <Button sx={{ pt: 0.5, pb: 0.5, pl: 2, pr: 2 }} variant="outlined" size="small">View Details</Button>
+                          <Button 
+                            sx={{ pt: 0.5, pb: 0.5, pl: 2, pr: 2 }} 
+                            variant="outlined" 
+                            size="small"
+                            onClick={() => handleViewJobDetails(job.id)}
+                          >
+                            View Details
+                          </Button>
                           <Button
-                          variant="contained"
-                          size="small"
-                          sx={{ pt: 0.5, pb: 0.5, pl: 2, pr: 2, bgcolor: '#FF6B00', '&:hover': { bgcolor: '#e65c00' } }}
+                            variant="contained"
+                            size="small"
+                            sx={{ pt: 0.5, pb: 0.5, pl: 2, pr: 2, bgcolor: '#FF6B00', '&:hover': { bgcolor: '#e65c00' } }}
+                            onClick={() => handleApplyJob(job.id)}
                           >
                             Apply Now
                           </Button>
@@ -253,6 +365,7 @@ const Home = () => {
             <Button
               endIcon={<ArrowForwardIcon />}
               sx={{ bgcolor: '#F8FAFC', color: '#020817', border: '1px solid #E2E8F0', pl: 8, pr: 8, mt: 2 }}
+              onClick={handleViewMoreJobs}
             >
               View More Jobs
             </Button>
@@ -273,6 +386,7 @@ const Home = () => {
             {/* Application Items */}
             {[
               {
+                id: 'app-1',
                 company: 'Google',
                 position: 'Senior Frontend Developer',
                 location: 'San Francisco',
@@ -280,6 +394,7 @@ const Home = () => {
                 statusColor: '#4CAF50'
               },
               {
+                id: 'app-2',
                 company: 'Apple',
                 position: 'UX Designer',
                 location: 'Cupertino',
@@ -287,6 +402,7 @@ const Home = () => {
                 statusColor: '#2196F3'
               },
               {
+                id: 'app-3',
                 company: 'Amazon',
                 position: 'Backend Engineer',
                 location: 'Remote',
@@ -303,8 +419,10 @@ const Home = () => {
                   p: 2,
                   mb: 2,
                   border: '1px solid #eee',
-                  borderRadius: 2
+                  borderRadius: 2,
+                  cursor: 'pointer'
                 }}
+                onClick={() => navigate(`/job-tracker/application/${app.id}`)}
               >
                 <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
                   {getCompanyLogo(app.company) ? (
@@ -356,6 +474,7 @@ const Home = () => {
             <Button
               endIcon={<ArrowForwardIcon />}
               sx={{ bgcolor: '#F8FAFC', color: '#020817', border: '1px solid #E2E8F0', pl: 8, pr: 8, mt: 2 }}
+              onClick={handleViewAllApplications}
             >
               View All Applications
             </Button>
@@ -378,9 +497,9 @@ const Home = () => {
             <Box sx={{ p: 3 }}>
 
             {[
-              { title: 'Frontend Developer', count: 7 },
-              { title: 'React Engineer', count: 4 },
-              { title: 'Remote Jobs', count: 10 }
+              { id: 'alert-1', title: 'Frontend Developer', count: 7 },
+              { id: 'alert-2', title: 'React Engineer', count: 4 },
+              { id: 'alert-3', title: 'Remote Jobs', count: 10 }
             ].map((alert, index) => (
               <Box
                 key={index}
@@ -400,7 +519,12 @@ const Home = () => {
                     {alert.count} new matches
                   </Typography>
                 </Box>
-                <Button size="small">View</Button>
+                <Button 
+                  size="small"
+                  onClick={() => handleViewJobAlert(alert.id)}
+                >
+                  View
+                </Button>
               </Box>
             ))}
 
@@ -409,6 +533,7 @@ const Home = () => {
               fullWidth
               sx={{ mt: 2, bgcolor: '#FF6B00', '&:hover': { bgcolor: '#e65c00' } }}
               startIcon={<NotificationsIcon />}
+              onClick={handleCreateNewAlert}
             >
               Create New Alert
             </Button>
@@ -429,6 +554,7 @@ const Home = () => {
 
             {[
               {
+                id: 'interview-1',
                 company: 'Google',
                 type: 'Technical Interview',
                 date: 'Apr 26, 2023',
@@ -436,6 +562,7 @@ const Home = () => {
                 isVirtual: true
               },
               {
+                id: 'interview-2',
                 company: 'Microsoft',
                 type: 'HR Interview',
                 date: 'Apr 27, 2023',
@@ -467,11 +594,19 @@ const Home = () => {
                   {interview.date} • {interview.time}
                 </Typography>
                 <Box sx={{ display: 'flex', gap: 1, mt: 2, justifyContent: 'space-between', width: '100%' }}>
-                  <Button size="small" variant="outlined" sx={{ bgcolor: '#F8FAFC', color: '#020817', border: '1px solid #E2E8F0', width: '100%' }}>View Details</Button>
+                  <Button 
+                    size="small" 
+                    variant="outlined" 
+                    sx={{ bgcolor: '#F8FAFC', color: '#020817', border: '1px solid #E2E8F0', width: '100%' }}
+                    onClick={() => handleViewInterviewDetails(interview.id)}
+                  >
+                    View Details
+                  </Button>
                   <Button
                     size="small"
                     variant="contained"
                     sx={{ width: '100%', bgcolor: '#3361ea', '&:hover': { bgcolor: '#3367D6' } }}
+                    onClick={() => handlePrepareForInterview(interview.id)}
                   >
                     Prepare
                   </Button>
@@ -483,6 +618,7 @@ const Home = () => {
               endIcon={<ArrowForwardIcon />}
               fullWidth
               sx={{ bgcolor: '#3361EA', '&:hover': { bgcolor: '#3367D6' }, color: '#FFFFFF', mt: 2 }}
+              onClick={handleViewAllInterviews}
             >
               View All Interviews
             </Button>
@@ -546,6 +682,7 @@ const Home = () => {
                 bgcolor: '#00BFA5',
                 '&:hover': { bgcolor: '#00A693' }
               }}
+              onClick={handleCompleteProfile}
             >
               Complete Profile
             </Button>

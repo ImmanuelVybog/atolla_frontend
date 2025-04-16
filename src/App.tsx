@@ -18,6 +18,11 @@ import Settings from './pages/Settings';
 import Profile from './pages/Profile';
 import CheckResume from './pages/CheckResume';
 import JobPreparation from './pages/JobPreparation';
+import JobApply from './pages/JobApply';
+import JobAlertCreate from './pages/JobAlertCreate';
+import JobDetails from './pages/JobDetails';
+import InterviewDetails from './pages/InterviewDetails';
+import JobAlertDetail from './pages/JobAlertDetail';
 import Navbar from './components/Navbar';
 import { OnboardingProvider } from './context/OnboardingContext';
 import theme, { colors } from './theme';
@@ -73,8 +78,14 @@ const AppContent = () => {
           {/* Main App Routes */}
           <Route path="/home" element={<Home />} />
           <Route path="/jobs" element={<Jobs />} />
+          <Route path="/jobs/:jobId" element={<JobDetails />} />
+          <Route path="/jobs/apply/:jobId" element={<JobApply />} />
           <Route path="/job-tracker" element={<JobTracker />} />
+          <Route path="/job-tracker/interviews/:interviewId" element={<InterviewDetails />} />
           <Route path="/job-alerts" element={<JobAlerts />} />
+          <Route path="/job-alerts/create" element={<JobAlertCreate />} />
+          <Route path="/job-alerts/edit/:alertId" element={<JobAlertCreate />} />
+          <Route path="/job-alerts/:alertId" element={<JobAlertDetail />} />
           <Route path="/check-resume" element={<CheckResume />} />
           <Route path="/job-preparation" element={<JobPreparation />} />
           <Route path="/users" element={<Users />} />
