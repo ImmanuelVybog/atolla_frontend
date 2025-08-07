@@ -9,6 +9,7 @@ import SkillsExpertise from './pages/onboarding/SkillsExpertise';
 import WorkSamples from './pages/onboarding/WorkSamples';
 import JobPreferences from './pages/onboarding/JobPreferences';
 import Home from './pages/Home';
+import HomeNew from './pages/Home New';
 import Jobs from './pages/Jobs';
 import JobTracker from './pages/JobTracker';
 import JobAlerts from './pages/JobAlerts';
@@ -48,7 +49,7 @@ const AppContent = () => {
       }}
     >
       {shouldShowNavbar && <Navbar />}
-      {shouldShowSearch && <GlobalSearch />}
+      {/* {shouldShowSearch && <GlobalSearch />} */}
       
       <Box 
         sx={{ 
@@ -73,6 +74,7 @@ const AppContent = () => {
 
           {/* Main App Routes */}
           <Route path="/home" element={<Home />} />
+          <Route path="/home-new" element={<HomeNew />} />
           <Route path="/jobs" element={<Jobs />} />
           <Route path="/jobs/:jobId" element={<JobDetails />} />
           <Route path="/jobs/apply/:jobId" element={<JobApply />} />
