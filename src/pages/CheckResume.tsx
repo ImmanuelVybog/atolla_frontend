@@ -84,7 +84,7 @@ const CheckResume = () => {
   };
 
   return (
-    <Box sx={{ p: 3, bgcolor: '#fff', minHeight: '100vh' }}>
+    <Box sx={{ p: 3, minHeight: '100vh' }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
         <Box 
           component="img" 
@@ -123,7 +123,6 @@ const CheckResume = () => {
                 justifyContent: 'center',
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
-                backgroundColor: '#FFFFFF',
                 '&:hover': {
                   borderColor: '#FF6B00',
                   bgcolor: 'rgba(255, 107, 0, 0.04)'

@@ -1,4 +1,4 @@
-import { CssBaseline, ThemeProvider, Box } from '@mui/material';
+import { CssBaseline, ThemeProvider as MuiThemeProvider, Box } from '@mui/material';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
@@ -25,7 +25,7 @@ import InterviewDetails from './pages/InterviewDetails';
 import JobAlertDetail from './pages/JobAlertDetail';
 import Navbar from './components/Navbar';
 import { OnboardingProvider } from './context/OnboardingContext';
-import theme, { colors } from './theme';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 import GlobalSearch from './components/GlobalSearch';
 
 const AppContent = () => {
@@ -35,6 +35,8 @@ const AppContent = () => {
   const isHomePage = location.pathname === '/home';
   const shouldShowNavbar = !isAuthPage && !isOnboardingPage;
   const shouldShowSearch = !isAuthPage && !isOnboardingPage && !isHomePage;
+  
+  const { themePreferences } = useTheme();
 
   return (
     <Box
@@ -43,12 +45,6 @@ const AppContent = () => {
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
-        ...(isAuthPage && {
-          background: colors.background.gradient,
-        }),
-        ...(isOnboardingPage && {
-          background: colors.background.gradient,
-        }),
       }}
     >
       {shouldShowNavbar && <Navbar />}
@@ -101,17 +97,29 @@ const AppContent = () => {
   );
 };
 
-function App() {
+// This wrapper ensures that MuiThemeProvider gets the current theme from ThemeContext
+const AppWrapper = () => {
+  const { theme } = useTheme();
+  
   return (
-    <ThemeProvider theme={theme}>
+    <MuiThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
         <OnboardingProvider>
           <AppContent />
         </OnboardingProvider>
       </Router>
+    </MuiThemeProvider>
+  );
+};
+
+// Export the entire app with a single ThemeProvider
+const AppWithProviders = () => {
+  return (
+    <ThemeProvider>
+      <AppWrapper />
     </ThemeProvider>
   );
-}
+};
 
-export default App;
+export default AppWithProviders;

@@ -14,11 +14,21 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import { useState } from 'react';
 import { FilterSegmentContainer, FilterSegment } from '../components/styled/FormComponents';
+import { 
+  ThemedPageContainer, 
+  ThemedBorderedPaper, 
+  ThemedGradientHeader, 
+  ThemedIconContainer,
+  ThemedChip
+} from '../components/styled/PageComponents';
 import Images from '../assets';
 import { useNavigate } from 'react-router-dom';
+import { useTheme } from '../context/ThemeContext';
 
 const Home = () => {
   const navigate = useNavigate();
+  const { themePreferences } = useTheme();
+  const isDarkMode = themePreferences.mode === 'dark';
   const userName = "Vish Ramesh"; // This should come from your auth context
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [searchQuery, setSearchQuery] = useState({ jobTitle: '', location: '' });
@@ -106,12 +116,12 @@ const Home = () => {
   };
 
   return (
-    <Box sx={{ p: 3 }}>
+    <ThemedPageContainer sx={{ p: 3 }}>
       {/* Welcome Section */}
       <Typography variant="h4" sx={{ color: '#FF6B00', mb: 1 }}>
         Welcome back, {userName}!
       </Typography>
-      <Typography variant="body1" sx={{ color: '#666', mb: 4 }}>
+      <Typography variant="body1" sx={{ color: isDarkMode ? '#aaaaaa' : '#666', mb: 4 }}>
         Here's what's happening with your job search today.
       </Typography>
 
@@ -119,17 +129,18 @@ const Home = () => {
         {/* Left Column */}
         <Grid item xs={12} md={8}>
           {/* Quick Search Section */}
-          <Paper sx={{ borderRadius: 2, mb: 3, boxShadow: 'none', border: '1px solid #eee' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', p: 3, background: 'linear-gradient(to right, #FFF7ED, #FFEDD5)', borderRadius: '16px 16px 0 0' }}>
-            <SearchIcon sx={{ mr: 1, color: '#FF6B00', backgroundColor: '#feead7', borderRadius: '50%', p: 1, width: '40px', height: '40px' }} />
-              <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column', }}>
+          <ThemedBorderedPaper sx={{ mb: 3 }}>
+            <ThemedGradientHeader>
+              <ThemedIconContainer>
+                <SearchIcon />
+              </ThemedIconContainer>
+              <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
                 <Typography variant="h6">Quick Search</Typography>
                 <Typography variant="body2" color="text.secondary">
                 Find jobs matching your skills and preferences
-              </Typography>
+                </Typography>
               </Box>
-          </Box>
-
+            </ThemedGradientHeader>
           
             <Box sx={{ p: 3 }}>
               <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
@@ -197,43 +208,53 @@ const Home = () => {
                 </Box>
               </Box>
             </Box>
-          </Paper>
+          </ThemedBorderedPaper>
 
           {/* Recommended Jobs Section */}
-          <Paper sx={{ borderRadius: 2, mb: 3, boxShadow: 'none', border: '1px solid #eee' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 3, background: 'linear-gradient(to right, #FFF7ED, #FFEDD5)', borderRadius: '16px 16px 0 0' }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexDirection: 'row' }}>
-              <SearchIcon sx={{ mr: 1, color: '#FF6B00', backgroundColor: '#feead7', borderRadius: '50%', p: 1, width: '40px', height: '40px' }} />
-                <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column', }}>
+          <ThemedBorderedPaper sx={{ mb: 3 }}>
+            <ThemedGradientHeader>
+              <Box sx={{ display: 'flex', bgColor: 'red', width: '100%' }}>
+                <ThemedIconContainer>
+                  <SearchIcon />
+                </ThemedIconContainer>
+                <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
                   <Typography variant="h6">Recommended Jobs</Typography>
                   <Typography variant="body2" color="text.secondary">
                   Find jobs matching your skills and preferences
-                </Typography>
+                  </Typography>
                 </Box>
+              </Box>
+            <Box sx={(theme) => ({ 
+              bgcolor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 1)',
+              border: `1px solid ${theme.palette.mode === 'dark' ? '#333333' : '#eeeeee'}`, 
+              borderRadius: 10,
+              p: 1,
+              display: 'flex',
+              gap: 1,
+              alignItems: 'center',
+              })}> 
+              <FilterSegment
+                selected={selectedFilter === 'all'}
+                onClick={() => setSelectedFilter('all')}
+              >
+                All
+              </FilterSegment>
+              <FilterSegment
+                selected={selectedFilter === 'recent'}
+                onClick={() => setSelectedFilter('recent')}
+              >
+                Recent
+              </FilterSegment>
+              <FilterSegment
+                selected={selectedFilter === 'remote'}
+                onClick={() => setSelectedFilter('remote')}
+              >
+                Remote
+              </FilterSegment>
             </Box>
-              <FilterSegmentContainer>
-                <FilterSegment
-                  selected={selectedFilter === 'all'}
-                  onClick={() => setSelectedFilter('all')}
-                >
-                  All
-                </FilterSegment>
-                <FilterSegment
-                  selected={selectedFilter === 'recent'}
-                  onClick={() => setSelectedFilter('recent')}
-                >
-                  Recent
-                </FilterSegment>
-                <FilterSegment
-                  selected={selectedFilter === 'remote'}
-                  onClick={() => setSelectedFilter('remote')}
-                >
-                  Remote
-                </FilterSegment>
-              </FilterSegmentContainer>
-          </Box>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3, mb: 3, borderRadius: 2 }}>
-          
+            </ThemedGradientHeader>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3, mb: 3 }}>
+            
 
             {/* Job Cards */}
             {[
@@ -370,18 +391,18 @@ const Home = () => {
               View More Jobs
             </Button>
           </Box>
-          </Paper>
+          </ThemedBorderedPaper>
 
           {/* Application Tracker */}
-          <Paper sx={{ borderRadius: 2, mb: 3, boxShadow: 'none', border: '1px solid #eee' }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', p: 3, background: 'linear-gradient(to right, #FFF7ED, #FFEDD5)', borderRadius: '16px 16px 0 0' }}>
-              <Box sx={{ mr: 1, color: '#FF6B00', backgroundColor: '#feead7', borderRadius: '50%', p: 1, width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <ThemedBorderedPaper sx={{ mb: 3 }}>
+            <ThemedGradientHeader>
+              <ThemedIconContainer>
                 <img src={Images.icons.applicationTracker} alt="Application Tracker Icon" />
-              </Box>
+              </ThemedIconContainer>
               <Typography variant="h6">Application Tracker</Typography>
-            </Box>
+            </ThemedGradientHeader>
             
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3, mb: 3, borderRadius: 2 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3, mb: 3 }}>
             
             {/* Application Items */}
             {[
@@ -479,20 +500,20 @@ const Home = () => {
               View All Applications
             </Button>
           </Box>
-          </Paper>
+          </ThemedBorderedPaper>
         </Grid>
 
         {/* Right Column */}
         <Grid item xs={12} md={4}>
           {/* Job Alerts */}
-          <Paper sx={{ borderRadius: 2, mb: 3, boxShadow: 'none', border: '1px solid #eee' }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 3, background: 'linear-gradient(to right, #FFF7ED, #FFEDD5)', borderRadius: '16px 16px 0 0' }}>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <NotificationsIcon sx={{ mr: 1, color: '#FF6B00', backgroundColor: '#feead7', borderRadius: '50%', p: 1, width: '40px', height: '40px' }} />
-                <Typography variant="h6">Job Alerts</Typography>
-              </Box>
-              <Chip label="21 Jobs" size="small" sx={{ bgcolor: '#FF6B00', color: 'white' }} />
-            </Box>
+          <ThemedBorderedPaper>
+            <ThemedGradientHeader>
+              <ThemedIconContainer>
+                <NotificationsIcon />
+              </ThemedIconContainer>
+              <Typography variant="h6">Job Alerts</Typography>
+            </ThemedGradientHeader>
+            <Chip label="21 Jobs" size="small" sx={{ bgcolor: '#FF6B00', color: 'white' }} />
 
             <Box sx={{ p: 3 }}>
 
@@ -538,17 +559,34 @@ const Home = () => {
               Create New Alert
             </Button>
             </Box>
-          </Paper>
+          </ThemedBorderedPaper>
 
           {/* Upcoming Interviews */}
-          <Paper sx={{ borderRadius: 2, mb: 3, boxShadow: 'none', border: '1px solid #eee' }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 3, background: 'linear-gradient(to right, #F3F6FF, #E7EDFF)', borderRadius: '16px 16px 0 0' }}>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <CalendarTodayIcon sx={{ mr: 1, color: '#3361EA', backgroundColor: '#dee6fd', borderRadius: '50%', p: 1, width: '40px', height: '40px' }} />
-                <Typography variant="h6">Upcoming Interviews</Typography>
-              </Box>
-              <Chip label="2 This Week" size="small" sx={{ bgcolor: '#3361EA', color: 'white' }} />
+          <ThemedBorderedPaper sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <Box
+          sx={(theme) => ({ 
+            display: 'flex',
+            background: theme.palette.mode === 'dark' ? 'linear-gradient(to right,rgb(16, 42, 122),rgb(2, 28, 104))' : 'linear-gradient(to right, #F3F6FF, #E7EDFF)',
+            border: `1px solid ${theme.palette.mode === 'dark' ? '#333333' : '#eeeeee'}`, 
+            borderRadius: '16px 16px 0 0',
+            p: 3,
+            gap: 1,
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            })}
+          >
+          <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1 }}>
+                  <CalendarTodayIcon sx={{ color: '#3361EA', backgroundColor: 'rgba(51, 97, 234, 0.1)', p: 1, borderRadius: 10, width: 44, height: 44, fontSize: 30 }} />
+                  <Typography variant="h6">Upcoming Interviews</Typography>
+                </Box>
+                
+
+                <Box>
+                <Chip label="2 This Week" size="small" sx={{ bgcolor: '#3361EA', color: 'white' }} />
+                </Box>
             </Box>
+
+            
 
             <Box sx={{ p: 3 }}>
 
@@ -623,10 +661,10 @@ const Home = () => {
               View All Interviews
             </Button>
             </Box>
-          </Paper>
+          </ThemedBorderedPaper>
 
           {/* Profile Completion */}
-          <Paper sx={{ borderRadius: 2, boxShadow: 'none', border: '1px solid #eee' }}>
+          <ThemedBorderedPaper>
             <Box sx={{ display: 'flex', alignItems: 'center', p: 3, background: 'linear-gradient(to right, #ECFDF5, #D1FAE5)', borderRadius: '16px 16px 0 0' }}>
               <Typography variant="h6">Profile Completion</Typography>
             </Box>
@@ -687,10 +725,10 @@ const Home = () => {
               Complete Profile
             </Button>
             </Box>
-          </Paper>
+          </ThemedBorderedPaper>
         </Grid>
       </Grid>
-    </Box>
+    </ThemedPageContainer>
   );
 };
 

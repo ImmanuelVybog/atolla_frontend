@@ -40,6 +40,9 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import SaveIcon from '@mui/icons-material/Save';
 import DownloadIcon from '@mui/icons-material/Download';
 import Images from '../assets';
+import { useTheme } from '../context/ThemeContext';
+import { FontSizeOption } from '../theme';
+import { ThemedPageContainer } from '../components/styled/PageComponents';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -80,6 +83,9 @@ const Settings = () => {
   });
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [successSnackbar, setSuccessSnackbar] = useState(false);
+  
+  // Get theme context
+  const { themePreferences, setThemeMode, setFontSize } = useTheme();
 
   const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
@@ -118,8 +124,26 @@ const Settings = () => {
     setDeleteDialogOpen(false);
   };
 
+  // Handler for theme mode change
+  const handleThemeModeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    // Only set "light" or "dark" mode, handle "system" by detecting user preference
+    if (value === "system") {
+      // Check if user prefers dark mode
+      const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setThemeMode(prefersDarkMode ? 'dark' : 'light');
+    } else {
+      setThemeMode(value as 'light' | 'dark');
+    }
+  };
+
+  // Handler for font size change
+  const handleFontSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFontSize(event.target.value as FontSizeOption);
+  };
+
   return (
-    <Box sx={{ p: 3, bgcolor: '#fff', minHeight: '100vh' }}>
+    <ThemedPageContainer sx={{ p: 3 }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
         <Box 
           component="img" 
@@ -726,7 +750,12 @@ const Settings = () => {
               Choose how the application looks
             </Typography>
             
-            <RadioGroup defaultValue="light" row sx={{ mb: 4 }}>
+            <RadioGroup 
+              value={themePreferences.mode} 
+              onChange={handleThemeModeChange} 
+              row 
+              sx={{ mb: 4 }}
+            >
               <FormControlLabel 
                 value="light" 
                 control={<Radio sx={{ color: '#FF6B00', '&.Mui-checked': { color: '#FF6B00' } }} />} 
@@ -744,13 +773,17 @@ const Settings = () => {
               />
             </RadioGroup>
 
-
             <Typography variant="h6" gutterBottom>Font Size</Typography>
             <Typography variant="body2" color="text.secondary" paragraph>
               Adjust the text size throughout the application
             </Typography>
             
-            <RadioGroup defaultValue="medium" row sx={{ mb: 4 }}>
+            <RadioGroup 
+              value={themePreferences.fontSize} 
+              onChange={handleFontSizeChange} 
+              row 
+              sx={{ mb: 4 }}
+            >
               <FormControlLabel 
                 value="small" 
                 control={<Radio sx={{ color: '#FF6B00', '&.Mui-checked': { color: '#FF6B00' } }} />} 
@@ -848,7 +881,7 @@ const Settings = () => {
           Settings saved successfully
         </Alert>
       </Snackbar>
-    </Box>
+    </ThemedPageContainer>
   );
 };
 

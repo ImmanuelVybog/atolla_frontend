@@ -210,7 +210,7 @@ const JobTracker = () => {
   };
 
   return (
-    <Box sx={{ p: 3, bgcolor: '#fff', minHeight: '100vh', m: 'auto', maxWidth: '96rem' }}>
+    <Box sx={{ p: 3, minHeight: '100vh', m: 'auto', maxWidth: '96rem' }}>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mb: 1, width: '100%' }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
         <Box 

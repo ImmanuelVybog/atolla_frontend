@@ -12,8 +12,8 @@ import {
   Divider,
   ListItemIcon,
   Drawer,
-  useTheme,
-  useMediaQuery
+  useMediaQuery,
+  Tooltip
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
@@ -21,13 +21,24 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PersonIcon from '@mui/icons-material/Person';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 import Images from '../assets';
+import { useTheme } from '../context/ThemeContext';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  
+  // Get theme functions from our context
+  const { themePreferences, toggleThemeMode } = useTheme();
+  const isDarkMode = themePreferences.mode === 'dark';
+  
+  // Use MUI's useMediaQuery with our theme
+  const isMobile = useMediaQuery('(max-width:900px)');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -55,21 +66,28 @@ const Navbar = () => {
     return location.pathname === path;
   };
 
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
   const handleMobileMenuToggle = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: '#222222', boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.1)' }}>
+    <AppBar 
+      position="static" 
+      sx={{ 
+        backgroundColor: isDarkMode ? '#222222' : '#ffffff', 
+        boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.1)',
+        color: isDarkMode ? '#ffffff' : '#222222'
+      }}
+    >
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', py: 1.25 }}>
         {/* Left section - Logo */}
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Link to="/home" style={{ textDecoration: 'none' }}>
-            <img src={Images.logos.atolla} alt="Atolla Logo" style={{ height: 60 }} />
+            <img 
+              src={Images.logos.atolla} 
+              alt="Atolla Logo" 
+              style={{ height: 60 }} 
+            />
           </Link>
         </Box>
         
@@ -82,7 +100,7 @@ const Navbar = () => {
                 component={Link}
                 to={item.path}
                 sx={{
-                  color: isActive(item.path) ? '#FFCABE' : '#FE6A0E',
+                  color: isActive(item.path) ? '#FF6B00' : isDarkMode ? '#FE6A0E' : '#555555',
                   fontWeight: isActive(item.path) ? 600 : 500,
                   mx: 1,
                   textTransform: 'none',
@@ -101,18 +119,18 @@ const Navbar = () => {
           </Box>
         ) : (
           <IconButton
-            color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleMobileMenuToggle}
-            sx={{ color: '#FE6A0E' }}
+            sx={{ color: isDarkMode ? '#FE6A0E' : '#555555' }}
           >
             <MenuIcon />
           </IconButton>
         )}
 
-        {/* Right section - Account */}
-        <Box>
+        {/* Right section - Theme Toggle and Account */}
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          
           <IconButton
             onClick={handleClick}
             size="small"
@@ -184,7 +202,7 @@ const Navbar = () => {
         sx={{
           '& .MuiDrawer-paper': {
             width: '250px',
-            backgroundColor: '#222222',
+            backgroundColor: isDarkMode ? '#222222' : '#ffffff',
             paddingTop: '20px'
           }
         }}
@@ -197,7 +215,7 @@ const Navbar = () => {
               to={item.path}
               onClick={handleMobileMenuToggle}
               sx={{
-                color: isActive(item.path) ? '#FFCABE' : '#FE6A0E',
+                color: isActive(item.path) ? '#FF6B00' : isDarkMode ? '#FE6A0E' : '#555555',
                 fontWeight: isActive(item.path) ? 600 : 500,
                 py: 2,
                 '&:hover': {
@@ -208,6 +226,22 @@ const Navbar = () => {
               {item.name}
             </MenuItem>
           ))}
+          
+          {/* Theme toggle in mobile menu */}
+          <Box sx={{ px: 2, py: 2, display: 'flex', alignItems: 'center' }}>
+            <IconButton 
+              onClick={toggleThemeMode} 
+              sx={{ 
+                color: isDarkMode ? '#FE6A0E' : '#555555',
+                mr: 2
+              }}
+            >
+              {isDarkMode ? <Brightness7Icon /> : <Brightness4Icon />}
+            </IconButton>
+            <Typography sx={{ color: isDarkMode ? '#FE6A0E' : '#555555' }}>
+              {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+            </Typography>
+          </Box>
         </Box>
       </Drawer>
     </AppBar>

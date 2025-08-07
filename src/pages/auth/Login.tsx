@@ -10,13 +10,14 @@ import {
   Checkbox,
   Stack,
   useMediaQuery,
-  useTheme,
+  useTheme as useMuiTheme,
   Divider,
   Paper,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate, NavigateFunction } from 'react-router-dom';
+import { ThemedAuthContainer } from '../../components/styled/AuthComponents';
 
 // Import images directly
 import atollaLogo from '../../assets/Images/Atolla Logo.png';
@@ -377,7 +378,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
 };
 
 const Login = () => {
-  const theme = useTheme();
+  const theme = useMuiTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -426,109 +427,27 @@ const Login = () => {
   ];
 
   return (
-    <Box sx={{ 
-      width: '100%',
-      height: '100vh',
-      position: 'relative',
-      backgroundColor: '#FFFFFF',
-    }}>
-      {/* Background layers */}
-      <BackgroundTexture />
-      <DarkBackground />
-      
-      {/* Main content container */}
+    <ThemedAuthContainer>
       <Box sx={{ 
-        position: 'relative',
-        zIndex: 1,
         width: '100%',
-        height: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
+        height: '100vh',
+        position: 'relative',
       }}>
-        {/* Left side - Logo, Text and Company logos */}
-        <Box sx={{ 
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-around',
-        }}>
-          {/* Top section with logo and main text */}
-          <Box sx={{ 
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'flex-start',
-            height: '50vh',
-          }}>
-            {/* Logo */}
-            <Box>
-              <CompanyLogo src={atollaLogo} alt="Atolla" />
-            </Box>
-            
-            {/* Main text */}
-            <Box>
-              <Typography variant="h1" sx={{ 
-                fontWeight: 'bold',
-                fontSize: '5rem',
-                color: '#000000',
-              }}>
-                Your
-              </Typography>
-              
-              <Typography variant="h1" sx={{ 
-                fontWeight: 'bold',
-                fontSize: '5rem',
-                color: '#ffffff',
-                backgroundImage: `url(${textBG})`,
-                backgroundSize: 'contain',
-                backgroundRepeat: 'no-repeat',
-                p: 1,
-                transform: 'translateY(-10px)',
-              }}>
-                dream job
-              </Typography>
-              
-              <Typography variant="h1" sx={{ 
-                fontWeight: 'bold', 
-                fontSize: '5rem',
-                color: '#000000',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 1,
-              }}>
-                starts here 
-                <img src={fadeArrow} alt="fadeArrow" style={{ width: '60px' }} />
-              </Typography>
-            </Box>
-          </Box>
-          
-          {/* Bottom section with company logos in zigzag pattern */}
-          <Box sx={{ 
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 4,
-            height: '50vh',
-          }}>
-            {logoImages.map((logo, index) => (
-              <CompanyIcon 
-                key={logo.alt}
-                src={logo.src} 
-                alt={logo.alt} 
-                index={index}
-              />
-            ))}
-          </Box>
-        </Box>
+        {/* Background layers */}
+        <BackgroundTexture />
+        <DarkBackground />
         
-        {/* Right side with login form */}
+        {/* Main content container */}
         <Box sx={{ 
-          width: '50%',
+          position: 'relative',
+          zIndex: 1,
+          width: '100%',
           height: '100%',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
         }}>
+          {/* Login form content here */}
           <LoginForm 
             formData={formData} 
             setFormData={setFormData} 
@@ -539,54 +458,7 @@ const Login = () => {
           />
         </Box>
       </Box>
-      
-      {/* Mobile view - Only displayed on smaller screens */}
-      {isMobile && (
-        <Box 
-          sx={{ 
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            zIndex: 10,
-            display: 'flex',
-            flexDirection: 'column',
-            padding: 4,
-            backgroundColor: '#FFF',
-          }}
-        >
-          {/* Logo */}
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <CompanyLogo src={atollaLogo} alt="Atolla" />
-          </Box>
-          
-          {/* Main text */}
-          <Box sx={{ mb: 6, textAlign: 'center' }}>
-            <Typography variant="h1" sx={{ 
-              fontWeight: 'bold', 
-              fontSize: '3rem',
-              lineHeight: 1.2, 
-              mb: 1 
-            }}>
-              Your dream job starts here
-            </Typography>
-          </Box>
-          
-          {/* Login form */}
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <LoginForm 
-              formData={formData} 
-              setFormData={setFormData} 
-              showPassword={showPassword}
-              setShowPassword={setShowPassword}
-              handleSubmit={handleSubmit}
-              navigate={navigate}
-            />
-          </Box>
-        </Box>
-      )}
-    </Box>
+    </ThemedAuthContainer>
   );
 };
 

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Box, Typography, Paper, Grid, Button, IconButton } from '@mui/material';
+import { Box, Typography, Paper, Grid, Button, IconButton, useTheme as useMuiTheme } from '@mui/material';
 import { StyledChip } from '../components/styled/FormComponents';
+import { ThemedPageContainer, ThemedBorderedPaper } from '../components/styled/PageComponents';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Images from '../assets';
+import { useTheme } from '../context/ThemeContext';
 
 interface Job {
   id: number;
@@ -40,6 +42,9 @@ const getCompanyLogo = (companyName: string) => {
 
 const Jobs = () => {
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
+  const { themePreferences } = useTheme();
+  const theme = useMuiTheme();
+  const isDarkMode = themePreferences.mode === 'dark';
 
   const jobListings: Job[] = [
     {
@@ -201,14 +206,7 @@ const Jobs = () => {
   ];
 
   const JobDetails: React.FC<JobDetailsProps> = ({ job }) => (
-    <Paper 
-      elevation={0}
-      sx={{
-        p: 3,
-        border: '1px solid #eee',
-        borderRadius: 2,
-      }}
-    >
+    <ThemedBorderedPaper sx={{ p: 3 }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 4 }}>
         <Box sx={{ display: 'flex', gap: 2 }}>
           {getCompanyLogo(job.company) ? (
@@ -310,11 +308,11 @@ const Jobs = () => {
           </Typography>
         ))}
       </Box>
-    </Paper>
+    </ThemedBorderedPaper>
   );
 
   return (
-    <Box sx={{ p: 3 }}>
+    <ThemedPageContainer sx={{ p: 3 }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
         <Box 
           component="img" 
@@ -359,14 +357,14 @@ const Jobs = () => {
                     pb: 3,
                     pl: 3,
                     pr: 3,
-                    border: '1px solid #eee',
+                    border: `1px solid ${isDarkMode ? '#333' : '#eee'}`,
                     borderRadius: 4,
-                    '&:hover': { boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.08)' },
+                    '&:hover': { boxShadow: isDarkMode ? '0px 4px 20px rgba(255, 255, 255, 0.08)' : '0px 4px 20px rgba(0, 0, 0, 0.08)' },
                     height: '100%',
                     display: 'flex',
                     flexDirection: 'column',
                     position: 'relative',
-                    bgcolor: '#fff',
+                    bgcolor: theme.palette.background.paper,
                   }}
                 >
                   <Box sx={{ 
@@ -375,10 +373,10 @@ const Jobs = () => {
                     mb: 3,
                     position: 'absolute',
                     top: -24,
-                    backgroundColor: '#FFFFFF',
+                    backgroundColor: theme.palette.background.paper,
                     borderRadius: '14px',
                     padding: '10px',
-                    border: '1px solid #eeeeee',
+                    border: `1px solid ${isDarkMode ? '#333' : '#eee'}`,
                     width: '90%',
                     alignItems: 'center',
                     }}>
@@ -495,7 +493,7 @@ const Jobs = () => {
           </Grid>
         )}
       </Grid>
-    </Box>
+    </ThemedPageContainer>
   );
 };
 

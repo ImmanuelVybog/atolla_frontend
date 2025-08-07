@@ -283,7 +283,7 @@ const JobAlerts = () => {
   const showEmptyState = filteredAlerts.length === 0;
 
   return (
-    <Box sx={{ p: 3, bgcolor: '#fff', minHeight: '100vh', m: 'auto', maxWidth: '96rem' }}>
+    <Box sx={{ p: 3, minHeight: '100vh', m: 'auto', maxWidth: '96rem' }}>
       <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1, mb: 2, width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
         <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column', gap: 1, mb: 1 }}>
           <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1 }}>
