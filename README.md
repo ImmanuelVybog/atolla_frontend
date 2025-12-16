@@ -1,54 +1,30 @@
-# React + TypeScript + Vite
+## How to Run the Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+To run this application, follow these steps:
 
-Currently, two official plugins are available:
+1.  **Install Dependencies**:
+    Open your terminal, navigate to the project directory, and install the necessary dependencies using npm:
+    ```bash
+    npm install
+    ```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+2.  **Start the Development Server**:
+    Once dependencies are installed, start the development server:
+    ```bash
+    npm run dev
+    ```
+    The application will typically be available at `http://localhost:5173/`.
 
-## Expanding the ESLint configuration
+### Handling macOS Security Warnings (e.g., "rollup.darwin-x64.node")
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+If you are on macOS and encounter a security warning preventing the application from running (e.g., "Apple could not verify 'rollup.darwin-x64.node' is free of malware"), follow these steps to allow the blocked file:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+1.  **Dismiss the initial warning**: When the warning pops up, click "Cancel" or "OK" to dismiss it.
+2.  **Open System Settings**: Go to `System Settings` (or `System Preferences` on older macOS versions).
+3.  **Navigate to Privacy & Security**: Click on `Privacy & Security` in the sidebar.
+4.  **Scroll to Security Section**: Scroll down until you find the "Security" section.
+5.  **Allow the application**: You should see a message stating that a specific file (e.g., "rollup.darwin-x64.node") was blocked because it's from an "unidentified developer." Next to this message, click the `Allow Anyway` or `Open Anyway` button.
+6.  **Authenticate**: If prompted, enter your administrator password to confirm the action.
+7.  **Restart the Development Server**: After allowing the file, return to your terminal and run `npm run dev` again. The application should now start without the security warning for that specific file.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+This is a one-time process for each unsigned binary that macOS flags.
