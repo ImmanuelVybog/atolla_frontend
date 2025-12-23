@@ -56,55 +56,55 @@ export const getTypographyOptions = (fontSize: FontSizeOption): TypographyOption
   const multiplier = fontSizeMultipliers[fontSize];
   
   return {
-    fontFamily: '"DM Sans", "Inter", "Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Google Sans Flex", "Inter", "Roboto", "Helvetica", "Arial", sans-serif',
     h1: {
       fontSize: `${2.5 * multiplier}rem`,
       fontWeight: 700,
-      fontFamily: '"DM Sans", sans-serif',
+      fontFamily: '"Google Sans Flex", sans-serif',
     },
     h2: {
       fontSize: `${2 * multiplier}rem`,
       fontWeight: 600,
-      fontFamily: '"DM Sans", sans-serif',
+      fontFamily: '"Google Sans Flex", sans-serif',
     },
     h3: {
       fontSize: `${1.75 * multiplier}rem`,
       fontWeight: 600,
-      fontFamily: '"DM Sans", sans-serif',
+      fontFamily: '"Google Sans Flex", sans-serif',
     },
     h4: {
       fontSize: `${1.5 * multiplier}rem`,
       fontWeight: 600,
-      fontFamily: '"DM Sans", sans-serif',
+      fontFamily: '"Google Sans Flex", sans-serif',
     },
     body1: {
       fontSize: `${1 * multiplier}rem`,
       lineHeight: 1.5,
-      fontFamily: '"DM Sans", sans-serif',
+      fontFamily: '"Google Sans Flex", sans-serif',
     },
     body2: {
       fontSize: `${0.875 * multiplier}rem`,
       lineHeight: 1.5,
-      fontFamily: '"DM Sans", sans-serif',
+      fontFamily: '"Google Sans Flex", sans-serif',
     },
     button: {
-      fontFamily: '"DM Sans", sans-serif',
+      fontFamily: '"Google Sans Flex", sans-serif',
       fontWeight: 600,
     },
     subtitle1: {
-      fontFamily: '"DM Sans", sans-serif',
+      fontFamily: '"Google Sans Flex", sans-serif',
       fontSize: `${1 * multiplier}rem`,
     },
     subtitle2: {
-      fontFamily: '"DM Sans", sans-serif',
+      fontFamily: '"Google Sans Flex", sans-serif',
       fontSize: `${0.875 * multiplier}rem`,
     },
     caption: {
-      fontFamily: '"DM Sans", sans-serif',
+      fontFamily: '"Google Sans Flex", sans-serif',
       fontSize: `${0.75 * multiplier}rem`,
     },
     overline: {
-      fontFamily: '"DM Sans", sans-serif',
+      fontFamily: '"Google Sans Flex", sans-serif',
     },
   };
 };
@@ -145,7 +145,7 @@ export const createAppTheme = (mode: PaletteMode, fontSize: FontSizeOption): The
           root: {
             borderRadius: shape.buttonBorderRadius,
             padding: '10px 24px',
-            fontFamily: '"DM Sans", sans-serif',
+            fontFamily: '"Google Sans Flex", sans-serif',
             textTransform: 'none',
           },
           contained: {
@@ -161,10 +161,10 @@ export const createAppTheme = (mode: PaletteMode, fontSize: FontSizeOption): The
           root: {
             '& .MuiOutlinedInput-root': {
               borderRadius: 50,
-              fontFamily: '"DM Sans", sans-serif',
+              fontFamily: '"Google Sans Flex", sans-serif',
             },
             '& .MuiInputLabel-root': {
-              fontFamily: '"DM Sans", sans-serif',
+              fontFamily: '"Google Sans Flex", sans-serif',
             },
           },
         },
@@ -172,14 +172,14 @@ export const createAppTheme = (mode: PaletteMode, fontSize: FontSizeOption): The
       MuiTypography: {
         styleOverrides: {
           root: {
-            fontFamily: '"DM Sans", sans-serif',
+            fontFamily: '"Google Sans Flex", sans-serif',
           },
         },
       },
       MuiCssBaseline: {
         styleOverrides: {
           body: {
-            fontFamily: '"DM Sans", sans-serif',
+            fontFamily: '"Google Sans Flex", sans-serif',
             ...(mode === 'dark' && {
               scrollbarColor: '#6b6b6b #2b2b2b',
               '&::-webkit-scrollbar, & *::-webkit-scrollbar': {

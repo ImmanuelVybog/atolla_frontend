@@ -1,8 +1,8 @@
-/* Import DM Sans from Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+/* Import Google Sans Flex from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap');
 
 :root {
-  font-family: 'DM Sans', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Google Sans Flex', sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -22,20 +22,20 @@ a {
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: #ff905d;
 }
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Google Sans Flex', sans-serif;
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Google Sans Flex', sans-serif;
 }
 
 button {
@@ -52,9 +52,17 @@ button {
 button:hover {
   border-color: #FF5733;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+    -webkit-text-fill-color: #000000 !important;
 }
 
 @media (prefers-color-scheme: light) {
@@ -63,7 +71,7 @@ button:focus-visible {
     background-color: #ffffff;
   }
   a:hover {
-    color: #747bff;
+    color: #ff905d;
   }
   button {
     background-color: #f9f9f9;

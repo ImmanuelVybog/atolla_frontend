@@ -508,12 +508,25 @@ const Home = () => {
           {/* Job Alerts */}
           <ThemedBorderedPaper>
             <ThemedGradientHeader>
-              <ThemedIconContainer>
-                <NotificationsIcon />
-              </ThemedIconContainer>
-              <Typography variant="h6">Job Alerts</Typography>
+              <Box
+              sx={{ 
+                display: 'flex',
+                justifyContent: 'space-between',
+                width: '100%',
+                alignItems: 'center',
+                }}>
+                <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1 }}>
+                  <ThemedIconContainer>
+                    <NotificationsIcon />
+                  </ThemedIconContainer>
+                  <Typography variant="h6">Job Alerts</Typography>
+                </Box>
+                <Box>
+                  <Chip label="21 Jobs" size="small" sx={{ bgcolor: '#FF6B00', color: 'white' }} />
+                </Box>
+              </Box>
             </ThemedGradientHeader>
-            <Chip label="21 Jobs" size="small" sx={{ bgcolor: '#FF6B00', color: 'white' }} />
+            
 
             <Box sx={{ p: 3 }}>
 
