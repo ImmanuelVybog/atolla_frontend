@@ -1,0 +1,63 @@
+.pageTitle {
+  margin-bottom: 16px; /* 4 * 4px (assuming default MUI spacing of 4px) */
+  font-weight: bold;
+}
+
+.sectionTitle {
+  margin-bottom: 8px; /* 2 * 4px */
+  font-weight: bold;
+}
+
+.formSection {
+  display: grid;
+  gap: 12px; /* 3 * 4px */
+}
+
+.gridContainer {
+  display: grid;
+  gap: 12px; /* 3 * 4px */
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.phoneInput {
+  width: 100%;
+}
+
+.avatarContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* 2 * 4px */
+  margin-bottom: 12px; /* 3 * 4px */
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+}
+
+.uploadHelp {
+  color: var(--text-secondary-color); /* Placeholder for theme.palette.text.secondary */
+  margin-top: 4px; /* 1 * 4px */
+  font-size: 0.875rem;
+}
+
+.optionalLabel {
+  color: var(--text-secondary-color); /* Placeholder for theme.palette.text.secondary */
+}
+
+.uploadBox {
+  border: 2px dashed #ddd;
+  border-radius: 8px; /* 2 * 4px */
+  padding: 20px; /* 5 * 4px */
+  text-align: center;
+  cursor: pointer;
+}
+
+.uploadBox:hover {
+  border-color: var(--primary-main-color); /* Placeholder for theme.palette.primary.main */
+}
+
+.fileInfoText {
+  margin-top: 4px; /* 1 * 4px */
+  color: var(--text-secondary-color); /* Placeholder for theme.palette.text.secondary */
+}

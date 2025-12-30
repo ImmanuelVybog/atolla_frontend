@@ -1,0 +1,99 @@
+.StyledTextField-root .MuiOutlinedInput-root {
+  border-radius: 50px;
+  background-color: #FFFFFF;
+  height: 56px;
+}
+
+.StyledTextField-root .MuiOutlinedInput-root fieldset {
+  border-color: #E2E8F0;
+}
+
+.StyledTextField-root .MuiOutlinedInput-root:hover fieldset {
+  border-color: #CBD5E1;
+}
+
+.StyledTextField-root .MuiOutlinedInput-root.Mui-focused fieldset {
+  border-color: #FF5733;
+}
+
+.StyledTextField-root .MuiInputLabel-root {
+  display: none;
+}
+
+.StyledTextField-root .MuiOutlinedInput-input {
+  padding: 15px 20px;
+}
+
+.SocialButton-root {
+  border-radius: 50px;
+  padding: 12px 16px;
+  text-transform: none;
+  border: 1px solid #E2E8F0;
+  color: #1E293B;
+  background-color: #fff;
+  height: 56px;
+  font-weight: 500;
+}
+
+.SocialButton-root:hover {
+  background-color: #F8FAFC;
+  border-color: #CBD5E1;
+}
+
+.PrimaryButton-root {
+  border-radius: 50px;
+  text-transform: none;
+  padding: 12px 24px;
+  background-color: #FF5733;
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 16px;
+  height: 56px;
+  box-shadow: none;
+}
+
+.PrimaryButton-root:hover {
+  background-color: #E64A2E;
+  box-shadow: none;
+}
+
+.BackgroundTexture-root {
+  background-image: url('../../assets/Images/Noise & Texture.svg');
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 50%;
+  z-index: 0;
+}
+
+.DarkBackground-root {
+  position: absolute;
+  background-color: #222222;
+  top: 50%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+}
+
+.CompanyLogo-root {
+  width: auto;
+  height: 80px;
+}
+
+.CompanyIcon-root {
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+
+.CompanyIcon-root.even {
+  transform: translateY(-75px);
+}
+
+.CompanyIcon-root.odd {
+  transform: translateY(75px);
+}
