@@ -13,7 +13,7 @@
 }
 
 .StyledTextField-root .MuiOutlinedInput-root.Mui-focused fieldset {
-  border-color: #FF5733;
+  border-color: #FF6B00;
 }
 
 .StyledTextField-root .MuiInputLabel-root {
@@ -44,7 +44,7 @@
   border-radius: 50px;
   text-transform: none;
   padding: 12px 24px;
-  background-color: #FF5733;
+  background-color: #FF6B00;
   color: #FFFFFF;
   font-weight: 600;
   font-size: 16px;

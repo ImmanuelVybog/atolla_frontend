@@ -68,6 +68,7 @@ const isDarkMode = themePreferences.mode === 'dark';
 const [isPopupOpen, setIsPopupOpen] = useState(false);
 const [appliedJob, setAppliedJob] = useState(null);
 const [successDialogOpen, setSuccessDialogOpen] = useState(false);
+const [showAllFeaturedJobs, setShowAllFeaturedJobs] = useState(false);
 
 // Featured Jobs data structure (matching Jobs.js format)
 const featuredJobs = [
@@ -82,6 +83,7 @@ const featuredJobs = [
     salary: "$100k - $150k",
     description: "We are looking for a Product Designer to create user-centered designs for our platform. You will work with cross-functional teams to deliver high-quality solutions.",
     tags: ["Design", "UI/UX", "Figma", "Product Strategy"],
+    postDate: "2025-10-15",
     responsibilities: [
       "Create user flows, wireframes, and prototypes",
       "Collaborate with engineering teams to implement designs",
@@ -107,6 +109,7 @@ const featuredJobs = [
     salary: "$120k - $180k",
     description: "We are looking for a Fullstack Engineer to build and maintain scalable web applications using React and Node.js.",
     tags: ["JavaScript", "React", "Node.js", "AWS"],
+    postDate: "2025-10-12",
     responsibilities: [
       "Develop and maintain web applications",
       "Write clean, scalable, and efficient code",
@@ -132,6 +135,7 @@ const featuredJobs = [
     salary: "$130k - $200k",
     description: "We are looking for a Product Manager to lead the development of our core products. You will work with cross-functional teams to define product roadmaps.",
     tags: ["Product Management", "Roadmapping", "User Research", "Stakeholder Management"],
+    postDate: "2025-10-10",
     responsibilities: [
       "Define product roadmaps and priorities",
       "Work with engineering and design teams to deliver products",
@@ -157,6 +161,7 @@ const featuredJobs = [
     salary: "$110k - $170k",
     description: "We are looking for a Data Scientist to analyze large datasets and provide actionable insights to improve our platform.",
     tags: ["Data Science", "Python", "Machine Learning", "SQL"],
+    postDate: "2025-10-08",
     responsibilities: [
       "Analyze large datasets to identify trends and patterns",
       "Develop machine learning models to solve business problems",
@@ -182,6 +187,7 @@ const featuredJobs = [
     salary: "$120k - $180k",
     description: "We are looking for a Marketing Manager to develop and execute marketing strategies to drive user growth.",
     tags: ["Marketing", "Digital Marketing", "Content Marketing", "Social Media"],
+    postDate: "2025-10-06",
     responsibilities: [
       "Develop and execute marketing strategies",
       "Manage marketing campaigns across multiple channels",
@@ -207,6 +213,7 @@ const featuredJobs = [
     salary: "$130k - $200k",
     description: "We are looking for a Frontend Developer to build and maintain scalable web applications using React.",
     tags: ["JavaScript", "React", "CSS", "HTML"],
+    postDate: "2025-10-06",
     responsibilities: [
       "Develop and maintain web applications using React",
       "Write clean, scalable, and efficient code",
@@ -262,8 +269,7 @@ return (
         <Typography variant="body1" sx={{ mb: 4, maxWidth: 600, mx: 'auto' }}>
         Join thousands of professionals who found their dream career through Atolla. Discover opportunities that match your skills and aspirations.
         </Typography>
-        {/* Search bar */}
-        <JobSearchFilter />
+        
         {/* Action Buttons */}
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 6 }}>
         <Button
@@ -297,7 +303,7 @@ return (
         </Box>
     {/* Featured Jobs */}
         <Box sx={{ py: 8, px: 2, backgroundColor: muiTheme.palette.background.default }}>
-        <Container maxWidth="lg">
+        <Container sx={{ maxWidth: 'lg', display: 'flex', flexDirection: 'column', }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
         <Box>
         <Typography variant="h4" component="h2" sx={{ fontWeight: 'bold' }}>
@@ -311,188 +317,202 @@ return (
         View All Jobs
         </Button>
         </Box>
-        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 3, rowGap: 6 }}>
-        {featuredJobs.map((job) => (
-            <Paper
-            elevation={0}
-            sx={{
-                pt: 8,
-                pb: 3,
-                pl: 3,
-                pr: 3,
-                border: `1px solid ${isDarkMode ? '#333' : '#eee'}`,
-                borderRadius: 4,
-                '&:hover': { boxShadow: isDarkMode ? '0px 4px 20px rgba(255, 255, 255, 0.08)' : '0px 4px 20px rgba(0, 0, 0, 0.08)' },
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                position: 'relative',
-                bgcolor: muiTheme.palette.background.paper,
-            }}
-            key={job.id}
-            >
-            <Box
+          <Box display="flex" flexDirection="row" gap={3} rowGap={6} marginTop={4} >
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, rowGap: 6 }}>
+            {featuredJobs.map((job) => (
+                <Paper
+                elevation={0}
                 sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                mb: 3,
-                position: 'absolute',
-                top: -24,
-                backgroundColor: muiTheme.palette.background.paper,
-                borderRadius: '14px',
-                padding: '10px',
-                border: `1px solid ${isDarkMode ? '#333' : '#eee'}`,
-                width: '90%',
-                alignItems: 'center',
-                }}
-            >
-                <Box sx={{ display: 'flex', gap: 2 }}>
-                {getCompanyLogo(job.company) ? (
-                    <Box
-                    component="img"
-                    src={getCompanyLogo(job.company)}
-                    alt={job.company}
-                    sx={{
-                        width: 40,
-                        height: 40,
-                        objectFit: 'contain',
-                        borderRadius: 1,
-                    }}
-                    />
-                ) : (
-                    <Box
-                    sx={{
-                        width: 40,
-                        height: 40,
-                        bgcolor: '#eee',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        borderRadius: 1,
-                    }}
-                    >
-                    {job.logo}
-                    </Box>
-                )}
-                <Box>
-                    <Typography variant="h6" sx={{ fontSize: '1.1rem', fontWeight: 600 }}>
-                    {job.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                    {job.company}
-                    </Typography>
-                </Box>
-                </Box>
-                <IconButton>
-                </IconButton>
-            </Box>
-
-            <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1, mb: 1 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Box component="span" sx={{ color: '#FF6B00' }}>
-                    <img src={Images.icons.experience} alt="Experience Icon" />
-                </Box>
-                <Typography variant="body2" color="text.secondary" sx={{ color: isDarkMode ? '#fff' : '#454545', }}>
-                    {job.experience}
-                </Typography>
-                </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Box component="span" sx={{ color: '#FF6B00' }}>
-                    <img src={Images.icons.location} alt="Location Icon" />
-                </Box>
-                <Typography variant="body2" color="text.secondary">
-                    {job.location}
-                </Typography>
-                </Box>
-            </Box>
-
-            <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1, mb: 1 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <Box component="span" sx={{ color: '#FF6B00' }}>
-                      <img src={Images.icons.location} alt="Location Icon" />
-                  </Box>
-                  <Typography variant="body2" color="text.secondary" sx={{ color: isDarkMode ? '#fff' : '#000', fontSize: '1.3rem', fontWeight: 600 }}>
-                      {job.salary}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ color: isDarkMode ? '#fff' : '#0000008c', fontSize: '0.9rem' }}>
-                      per year
-                  </Typography>
-                  </Box>
-            </Box>
-
-            <Box
-                sx={{
+                    pt: 8,
+                    pb: 3,
+                    pl: 3,
+                    pr: 3,
+                    border: `1px solid ${isDarkMode ? '#333' : '#eee'}`,
+                    borderRadius: 4,
+                    '&:hover': { boxShadow: isDarkMode ? '0px 4px 20px rgba(255, 255, 255, 0.08)' : '0px 4px 20px rgba(0, 0, 0, 0.08)' },
+                    height: '100%',
                     display: 'flex',
-                    gap: 1,
-                    mb: 3,
-                    overflowX: 'hidden',
+                    flexDirection: 'column',
                     position: 'relative',
-                    '&::after': {
-                        content: '""',
-                        position: 'absolute',
-                        right: 0,
-                        top: 0,
-                        bottom: 0,
-                        width: '50px',
-                        background: 'linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1))',
-                        pointerEvents: 'none',
-                    },
+                    bgcolor: muiTheme.palette.background.paper,
                 }}
-            >
-                {job.tags.map((tag) => (
-                <StyledChip
-                    key={tag}
-                    label={tag}
-                    variant="outlined"
+                key={job.id}
+                >
+                <Box
                     sx={{
-                    backgroundColor: '#FFE2DB',
-                    color: '#FE6A0E',
-                    border: '1px solid #fd9881',
-                    borderRadius: '50px',
-                    height: '28px',
-                    whiteSpace: 'nowrap',
-                    flexShrink: 0,
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    mb: 3,
+                    position: 'absolute',
+                    top: -24,
+                    backgroundColor: muiTheme.palette.background.paper,
+                    borderRadius: '14px',
+                    padding: '10px',
+                    border: `1px solid ${isDarkMode ? '#333' : '#eee'}`,
+                    width: '90%',
+                    alignItems: 'center',
                     }}
-                />
-                ))}
-            </Box>
-
-            <Box sx={{ mt: 'auto', display: 'flex', justifyContent: 'space-between', gap: 2 }}>
-                <Button
-                onClick={() => navigate(`/jobs/${job.id}`)}
-                variant="outlined"
-                sx={{
-                    width: '48%',
-                    borderColor: '#FF6B00',
-                    color: '#FF6B00',
-                    '&:hover': { borderColor: '#e65c00', color: '#e65c00' },
-                    borderRadius: '100px',
-                    textTransform: 'none',
-                    py: 1,
-                }}
-                endIcon={<ArrowForwardIcon />}
                 >
-                View Job
-                </Button>
-                <Button
-                onClick={() => handleOpenPopup(job.title)}
-                variant="contained"
-                sx={{
-                    width: '48%',
-                    bgcolor: '#FF6B00',
-                    color: 'white',
-                    '&:hover': { bgcolor: '#e65c00' },
-                    borderRadius: '100px',
-                    textTransform: 'none',
-                    py: 1,
-                }}
+                    <Box sx={{ display: 'flex', gap: 2 }}>
+                    {getCompanyLogo(job.company) ? (
+                        <Box
+                        component="img"
+                        src={getCompanyLogo(job.company)}
+                        alt={job.company}
+                        sx={{
+                            width: 40,
+                            height: 40,
+                            objectFit: 'contain',
+                            borderRadius: 1,
+                        }}
+                        />
+                    ) : (
+                        <Box
+                        sx={{
+                            width: 40,
+                            height: 40,
+                            bgcolor: '#eee',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            borderRadius: 1,
+                        }}
+                        >
+                        {job.logo}
+                        </Box>
+                    )}
+                    <Box>
+                        <Typography variant="h6" sx={{ fontSize: '1.1rem', fontWeight: 600 }}>
+                        {job.title}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                        {job.company}
+                        </Typography>
+                    </Box>
+                    
+                    </Box>
+                    <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1, }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Typography variant="body2" color="text.secondary" sx={{ color: isDarkMode ? '#fff' : '#000', fontSize: '1.3rem', fontWeight: 600 }}>
+                          {job.salary}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary" sx={{ color: isDarkMode ? '#fff' : '#0000008c', fontSize: '0.9rem' }}>
+                          per year
+                      </Typography>
+                      </Box>
+                </Box>
+                </Box>
+                <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1, mb: 1 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Box component="span" sx={{ color: '#FF6B00' }}>
+                        <img src={Images.icons.experience} alt="Experience Icon" />
+                    </Box>
+                    <Typography variant="body2" color="text.secondary" sx={{ fontSize: '1rem', fontWeight: 500, color: isDarkMode ? '#fff' : '#454545', }}>
+                        {job.experience}
+                    </Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Box component="span" sx={{ color: '#FF6B00' }}>
+                        <img src={Images.icons.location} alt="Location Icon" />
+                    </Box>
+                    <Typography variant="body2" color="text.secondary" sx={{ fontSize: '1rem', fontWeight: 500, color: isDarkMode ? '#fff' : '#454545', }}>
+                        {job.location}
+                    </Typography>
+                    </Box>
+                </Box>
+                <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1, mb: 1 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 1, mb: 0.5 }}>
+                    <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.9rem', fontWeight: 400, lineHeight: 1.6, color: isDarkMode ? '#fff' : '#747474', }}>
+                        {job.description}
+                    </Typography>
+                    </Box>
+                </Box>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        gap: 1,
+                        mb: 3,
+                        overflowX: 'hidden',
+                        position: 'relative',
+                        '&::after': {
+                            content: '""',
+                            position: 'absolute',
+                            right: 0,
+                            top: 0,
+                            bottom: 0,
+                            width: '50px',
+                            background: 'linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1))',
+                            pointerEvents: 'none',
+                        },
+                    }}
                 >
-                Apply Now
-                </Button>
+                    {job.tags.map((tag) => (
+                    <StyledChip
+                        key={tag}
+                        label={tag}
+                        variant="outlined"
+                        sx={{
+                        backgroundColor: '#FFE2DB',
+                        color: '#FE6A0E',
+                        border: '1px solid #fd9881',
+                        borderRadius: '50px',
+                        height: '28px',
+                        whiteSpace: 'nowrap',
+                        flexShrink: 0,
+                        }}
+                    />
+                    ))}
+                </Box>
+                <Box sx={{ mt: 'auto', display: 'flex', justifyContent: 'space-between', gap: 2 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                      <Typography component="span" sx={{ fontVariationSettings: 'slnt -10', color: isDarkMode ? '#fff' : '#6767678c' }}>
+                        Posted on
+                      </Typography>
+                      <Typography component="span" sx={{ ml: 1, color: isDarkMode ? '#fff' : '#676767' }}>
+                        {job.postDate}
+                      </Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', width: '100%', gap: 1 }}>
+                      <Button
+                      onClick={() => navigate(`/jobs/${job.id}`)}
+                      variant="outlined"
+                      sx={{
+                          width: '100%',
+                          borderColor: '#FF6B00',
+                          color: '#FF6B00',
+                          '&:hover': { borderColor: '#e65c00', color: '#e65c00' },
+                          borderRadius: '100px',
+                          textTransform: 'none',
+                          py: 1,
+                      }}
+                      endIcon={<ArrowForwardIcon />}
+                      >
+                      View Job
+                      </Button>
+                      <Button
+                      onClick={() => handleOpenPopup(job.title)}
+                      variant="contained"
+                      sx={{
+                          width: '100%',
+                          bgcolor: '#FF6B00',
+                          color: 'white',
+                          '&:hover': { bgcolor: '#e65c00' },
+                          borderRadius: '100px',
+                          textTransform: 'none',
+                          py: 1,
+                      }}
+                      >
+                      Apply Now
+                      </Button>
+                    </Box>
+                </Box>
+                </Paper>
+            ))}
             </Box>
-            </Paper>
-        ))}
-        </Box>
+            <Box sx={{ width: '100%', position: 'sticky', top: 30, height: 'fit-content' }}>
+            <JobSearchFilter />
+            </Box>
+          </Box>
         </Container>
         </Box>
     {/* Explore by Category */}

@@ -181,7 +181,7 @@ const LoginForm = ({
               variant="text" 
               sx={{ 
                 textTransform: 'none',
-                color: '#FF5733',
+                color: '#FF6B00',
                 fontWeight: 500,
                 fontSize: '0.9rem',
                 p: 0,
@@ -258,7 +258,7 @@ const LoginForm = ({
                 p: 0, 
                 minWidth: 'auto', 
                 verticalAlign: 'baseline',
-                color: '#FF5733',
+                color: '#FF6B00',
                 '&:hover': {
                   background: 'transparent',
                   textDecoration: 'underline',

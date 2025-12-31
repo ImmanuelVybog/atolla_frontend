@@ -16,7 +16,7 @@ const JobSearchFilter = () => {
   };
 
   return (
-    <Box sx={{ p: 3, borderRadius: 2, mx: 'auto' }}>
+    <Box sx={{ p: 3, borderRadius: 2, mx: 'auto', background: 'white', boxShadow: '0px 0px 6px 1px rgb(136 136 136 / 3%)', border: '1px solid #ebebeb' }}>
 
 
       <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
@@ -25,7 +25,7 @@ const JobSearchFilter = () => {
           placeholder="Search everything"
           variant="outlined"
           size="small"
-          sx={{ '& .MuiOutlinedInput-root': { borderRadius: 1 }, mr: 1 }}
+          sx={{ '& .MuiOutlinedInput-root': { borderRadius: 1 } }}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -34,32 +34,13 @@ const JobSearchFilter = () => {
             ),
           }}
         />
-        <Button
-          variant="contained"
-          onClick={handleToggleFilters}
-          sx={{
-            bgcolor: '#FFEAE6',
-            color: '#FF5733',
-            textTransform: 'none',
-            px: 2,
-            py: 1,
-            borderRadius: 1,
-            '&:hover': { bgcolor: '#FFD7CC' },
-            display: 'flex',
-            alignItems: 'center',
-            gap: 0.5,
-          }}
-        >
-          <FilterListIcon />
-          Filters
-        </Button>
       </Box>
 
-      <Collapse in={showFilters}>
+
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 2, alignItems: 'center' }}>
-          <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}>
             <Box>
-              <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Typography variant="subtitle1" sx={{ fontWeight: '500', mb: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
                  Job Categories
               </Typography>
               <TextField
@@ -67,7 +48,7 @@ const JobSearchFilter = () => {
                 placeholder="Search job category..."
                 variant="outlined"
                 size="small"
-                sx={{ mb: 2, '& .MuiOutlinedInput-root': { borderRadius: 1 } }}
+                sx={{ mb: 0.3, '& .MuiOutlinedInput-root': { borderRadius: 1 } }}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -77,7 +58,7 @@ const JobSearchFilter = () => {
               />
             </Box>
             <Box>
-              <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Typography variant="subtitle1" sx={{ fontWeight: '500', mb: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
                 Countries
               </Typography>
               <TextField
@@ -85,7 +66,7 @@ const JobSearchFilter = () => {
                 placeholder="Search country..."
                 variant="outlined"
                 size="small"
-                sx={{ mb: 2, '& .MuiOutlinedInput-root': { borderRadius: 1 } }}
+                sx={{ mb: 0.3, '& .MuiOutlinedInput-root': { borderRadius: 1 } }}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -95,7 +76,7 @@ const JobSearchFilter = () => {
               />
             </Box>
             <Box>
-              <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Typography variant="subtitle1" sx={{ fontWeight: '500', mb: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
                  Salary Range
               </Typography>
               <TextField
@@ -103,17 +84,17 @@ const JobSearchFilter = () => {
                 placeholder="Search by salary range..."
                 variant="outlined"
                 size="small"
-              sx={{ mb: 2, '& .MuiOutlinedInput-root': { borderRadius: 1 } }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                  </InputAdornment>
-                ),
-              }}
-            />
+                sx={{ mb: 0.3, '& .MuiOutlinedInput-root': { borderRadius: 1 } }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                    </InputAdornment>
+                  ),
+                }}
+              />
             </Box>
             <Box>
-              <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Typography variant="subtitle1" sx={{ fontWeight: '500', mb: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
                  Skills
               </Typography>
               <TextField
@@ -121,7 +102,7 @@ const JobSearchFilter = () => {
                 placeholder="Search skills..."
                 variant="outlined"
                 size="small"
-                sx={{ mb: 2, '& .MuiOutlinedInput-root': { borderRadius: 1 } }}
+                sx={{ mb: 0.3, '& .MuiOutlinedInput-root': { borderRadius: 1 } }}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -135,11 +116,11 @@ const JobSearchFilter = () => {
           <Button
             variant="contained"
             sx={{
-              bgcolor: '#FF5733',
+              bgcolor: '#FF6B00',
               color: 'white',
               textTransform: 'none',
               py: 1.5,
-              borderRadius: 1,
+              borderRadius: 5,
               '&:hover': { bgcolor: '#e65c00' },
               maxWidth: 200,
             }}
@@ -147,7 +128,6 @@ const JobSearchFilter = () => {
             Apply filters
           </Button>
         </Box>
-      </Collapse>
     </Box>
   );
 };

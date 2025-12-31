@@ -207,7 +207,7 @@ const SignupForm = ({
                       minWidth: 'auto', 
                       fontWeight: 500,
                       fontSize: '0.9rem',
-                      color: '#FF5733',
+                      color: '#FF6B00',
                       verticalAlign: 'baseline',
                       '&:hover': {
                         background: 'transparent',
@@ -224,7 +224,7 @@ const SignupForm = ({
                       minWidth: 'auto', 
                       fontWeight: 500,
                       fontSize: '0.9rem',
-                      color: '#FF5733',
+                      color: '#FF6B00',
                       verticalAlign: 'baseline',
                       '&:hover': {
                         background: 'transparent',
@@ -321,7 +321,7 @@ const SignupForm = ({
                 p: 0, 
                 minWidth: 'auto', 
                 verticalAlign: 'baseline',
-                color: '#FF5733',
+                color: '#FF6B00',
                 '&:hover': {
                   background: 'transparent',
                   textDecoration: 'underline',

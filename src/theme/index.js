@@ -4,7 +4,7 @@ import { createTheme } from '@mui/material';
 // Color palette
 export const getColors = (mode) => ({
   primary: {
-    main: '#FF5733',
+    main: '#FF6B00',
     light: '#FFE5E0',
     dark: '#ff4019',
     contrastText: '#FFFFFF',

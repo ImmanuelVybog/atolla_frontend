@@ -24,8 +24,8 @@ const StyledTextField = styled(TextField)({
 const ActionButton = styled(Button)(({ $primary }) => ({
   borderRadius: '30px',
   padding: $primary ? '0.6rem 1.5rem' : '0.6rem 1rem',
-  backgroundColor: $primary ? '#FF5733' : 'transparent',
-  color: $primary ? 'white' : '#FF5733',
+  backgroundColor: $primary ? '#FF6B00' : 'transparent',
+  color: $primary ? 'white' : '#FF6B00',
   textTransform: 'none',
   '&:hover': {
     backgroundColor: $primary ? '#ff4019' : 'rgba(255, 87, 51, 0.08)',
@@ -327,7 +327,7 @@ const Education = () => {
 
               <Button
                 startIcon={<AddIcon />}
-                sx={{ mt: 3, color: '#FF5733' }}
+                sx={{ mt: 3, color: '#FF6B00' }}
                 onClick={handleAddEducation}
               >
                 Add Education

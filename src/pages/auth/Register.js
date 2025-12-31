@@ -144,11 +144,11 @@ const Register = () => {
                 label={
                   <Typography variant="body2">
                     I agree to the{' '}
-                    <Link href="#" sx={{ color: '#FF5733' }}>
+                    <Link href="#" sx={{ color: '#FF6B00' }}>
                       Terms of Service
                     </Link>{' '}
                     and{' '}
-                    <Link href="#" sx={{ color: '#FF5733' }}>
+                    <Link href="#" sx={{ color: '#FF6B00' }}>
                       Privacy Policy
                     </Link>
                   </Typography>
@@ -160,7 +160,7 @@ const Register = () => {
                 variant="contained"
                 fullWidth
                 sx={{
-                  bgcolor: '#FF5733',
+                  bgcolor: '#FF6B00',
                   color: '#fff',
                   py: 1.5,
                   borderRadius: '30px',
@@ -178,7 +178,7 @@ const Register = () => {
               <Link
                 href="/login"
                 sx={{
-                  color: '#FF5733',
+                  color: '#FF6B00',
                   textDecoration: 'none',
                   '&:hover': { textDecoration: 'underline' },
                 }}
